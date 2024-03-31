@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace App\Person\Domain\Entity;
 
+use App\Billing\Domain\Entity\Contract;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Person\Infrastructure\Repository\MusicianRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Музыкант, перкуссионист, участник коллектива
- */
 #[ORM\Entity(repositoryClass: MusicianRepository::class)]
 #[ORM\Table(
 	name: 'musician',
-	options: ['comment' => 'Участник коллектива']
+	options: ['comment' => 'Музыкант, перкуссионист, участник коллектива']
 )]
+#[ORM\UniqueConstraint(name: 'musician__phone__ux', columns: ['phone'])]
+#[ORM\UniqueConstraint(name: 'musician__email__ux', columns: ['email'])]
+#[ORM\UniqueConstraint(name: 'musician__telegram__ux', columns: ['telegram'])]
 #[ORM\Index(name: 'musician__status__ix', columns: ['status'])]
 #[ORM\Index(name: 'musician__degree__ix', columns: ['degree'])]
 #[ORM\HasLifecycleCallbacks]
@@ -114,17 +117,21 @@ class Musician
 	)]
 	private ?string $VK;
 
+	#[ORM\OneToMany(mappedBy: 'musician', targetEntity: Contract::class)]
+	private Collection $contracts;
+
 	private function __construct(
 		string $id,
 		string $lastName,
 		string $firstName,
 		string $patronymic,
 	) {
-
 		$this->id = $id;
 		$this->lastName = $lastName;
 		$this->firstName = $firstName;
 		$this->patronymic = $patronymic;
+
+		$this->contracts = new ArrayCollection();
 	}
 
 	public static function create(
@@ -193,5 +200,12 @@ class Musician
 	public function getVK(): ?string
 	{
 		return $this->VK;
+	}
+
+	public function addContract(Contract $contract): void
+	{
+		if (!$this->contracts->contains($contract)) {
+			$this->contracts->add($contract);
+		}
 	}
 }

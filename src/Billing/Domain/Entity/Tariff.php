@@ -12,10 +12,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
 
-
-/**
- * Тариф
- */
 #[ORM\Entity]
 #[ORM\Table(
 	name: 'tariff',
