@@ -15,7 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
  * Музыкант, перкуссионист, участник коллектива
  */
 #[ORM\Entity(repositoryClass: MusicianRepository::class)]
-#[ORM\Table(options: ['comment' => 'Участник коллектива'])]
+#[ORM\Table(
+	name: 'musician',
+	options: ['comment' => 'Участник коллектива']
+)]
+#[ORM\Index(name: 'musician__status__ix', columns: ['status'])]
+#[ORM\Index(name: 'musician__degree__ix', columns: ['degree'])]
 #[ORM\HasLifecycleCallbacks]
 class Musician
 {
@@ -148,5 +153,45 @@ class Musician
 		$musician->VK = $VK;
 
 		return $musician;
+	}
+
+	public function getStatus(): PersonStatusEnum
+	{
+		return $this->status;
+	}
+
+	public function getDegree(): PersonDegreeEnum
+	{
+		return $this->degree;
+	}
+
+	public function getPhone(): string
+	{
+		return $this->phone;
+	}
+
+	public function getEmail(): string
+	{
+		return $this->email;
+	}
+
+	public function getTelegram(): string
+	{
+		return $this->telegram;
+	}
+
+	public function getInstagram(): ?string
+	{
+		return $this->instagram;
+	}
+
+	public function getFacebook(): ?string
+	{
+		return $this->facebook;
+	}
+
+	public function getVK(): ?string
+	{
+		return $this->VK;
 	}
 }
