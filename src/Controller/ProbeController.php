@@ -26,13 +26,15 @@ class ProbeController extends AbstractController
 
 	public function readyness(): Response
 	{
-		$result = self::RESULT_APP;
+		$startTime = microtime(true);
+				$result = self::RESULT_APP;
 		try {
 			$queryBuilder = $this->entityManager->getConnection()->createQueryBuilder();
 			$queryBuilder->select('1');
-			$answer = $queryBuilder->executeQuery()->fetchFirstColumn();
+			$answer = (bool)$queryBuilder->executeQuery()->fetchFirstColumn() ? 'ok' : 'fail';
+			$finishTime = microtime(true);
 
-			$result['db'] = ['status' => 'ok', 'result' => $answer];
+			$result['db'] = ['status' => $answer, 'duration' => $finishTime - $startTime];
 		} catch (\Throwable $exception) {
 			$result['db'] = ['status' => 'fail', 'error' => $exception->getMessage()];
 		}
