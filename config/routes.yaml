@@ -1,0 +1,13 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+probe_liveness:
+    path: /probe/liveness
+    controller: App\Controller\ProbeController::liveness
+
+probe_readyness:
+    path: /probe/readyness
+    controller: App\Controller\ProbeController::readyness
