@@ -1,13 +1,13 @@
 controllers:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/System/Presentation/Http/Rest/V1/Controller/
+        namespace: App\System\Presentation\Http\Rest\V1\Controller
     type: attribute
 
 probe_liveness:
     path: /probe/liveness
-    controller: App\Controller\ProbeController::liveness
+    controller: App\System\Presentation\Http\Rest\V1\Controller\ProbeController::liveness
 
 probe_readyness:
     path: /probe/readyness
-    controller: App\Controller\ProbeController::readyness
+    controller: App\System\Presentation\Http\Rest\V1\Controller\ProbeController::readyness
