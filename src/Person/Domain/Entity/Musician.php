@@ -8,13 +8,13 @@ use App\Billing\Domain\Entity\Contract;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
-use App\Person\Infrastructure\Repository\MusicianRepository;
+use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MusicianRepository::class)]
+#[ORM\Entity(repositoryClass: MusicianRepositoryInterface::class)]
 #[ORM\Table(
 	name: 'musician',
 	options: ['comment' => 'Музыкант, перкуссионист, участник коллектива']
@@ -22,6 +22,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\UniqueConstraint(name: 'musician__phone__ux', columns: ['phone'])]
 #[ORM\UniqueConstraint(name: 'musician__email__ux', columns: ['email'])]
 #[ORM\UniqueConstraint(name: 'musician__telegram__ux', columns: ['telegram'])]
+#[ORM\UniqueConstraint(name: 'musician__instagram__ux', columns: ['instagram'])]
+#[ORM\UniqueConstraint(name: 'musician__facebook__ux', columns: ['facebook'])]
+#[ORM\UniqueConstraint(name: 'musician__vk__ux', columns: ['vk'])]
 #[ORM\Index(name: 'musician__status__ix', columns: ['status'])]
 #[ORM\Index(name: 'musician__degree__ix', columns: ['degree'])]
 #[ORM\HasLifecycleCallbacks]

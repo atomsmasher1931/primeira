@@ -7,12 +7,13 @@ namespace App\Billing\Domain\Entity;
 use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Enum\TariffTypeEnum;
+use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use DateTimeImmutable;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: TariffRepositoryInterface::class)]
 #[ORM\Table(
 	name: 'tariff',
 	options: ['comment' => 'Тариф']

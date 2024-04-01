@@ -8,12 +8,12 @@ use App\Core\Identity\EntityIdGeneratorInterface;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
+use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Polyfill\Uuid\Uuid;
 
 /**
  * Контроллер работы с музыкантами
@@ -21,10 +21,9 @@ use Symfony\Polyfill\Uuid\Uuid;
 #[Route(path: '/api/v1/person')]
 class PersonController extends AbstractController
 {
-	private const RESULT_APP = ['result' => 'success'];
-
 	public function __construct(
 		private readonly EntityManagerInterface $entityManager,
+		private readonly MusicianRepositoryInterface $musicianRepository,
 		private readonly EntityIdGeneratorInterface $idGenerator
 	) {
 	}
@@ -52,12 +51,13 @@ class PersonController extends AbstractController
 	#[Route(path: '/{id}', methods: ['GET'])]
 	public function getById(string $id): Response
 	{
-		$musician = $this->entityManager->find(Musician::class, $id);
+		$musician = $this->musicianRepository->find($id);
 
 		return $this->json(
 			[
-				'startedAt' => $musician->firstName,
-				'finishedAt' => $musician->lastName
+				'id' => $musician->id,
+				'name' => "{$musician->lastName} {$musician->firstName} {$musician->patronymic}",
+				'phone' => $musician->getPhone(),
 			]
 		);
 	}

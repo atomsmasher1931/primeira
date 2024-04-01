@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace App\Billing\Domain\Entity;
 
 use App\Billing\Domain\Enum\ContractStatusEnum;
+use App\Billing\Domain\Repository\ContractRepositoryInterface;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
 use App\Person\Domain\Entity\Musician;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use DateTimeImmutable;
-use Symfony\Polyfill\Uuid\Uuid;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ContractRepositoryInterface::class)]
 #[ORM\Table(
 	name: 'contract',
 	options: ['comment' => 'Договор между музыкантом и школой']
 )]
 #[ORM\UniqueConstraint(name: 'contract__number__ux', columns: ['number'])]
 #[ORM\Index(name: 'contract__status__ix', columns: ['status'])]
+#[ORM\Index(name: 'contract__tariff_id__ix', columns: ['tariff_id'])]
+#[ORM\Index(name: 'contract__musician_id__ix', columns: ['musician_id'])]
 #[ORM\HasLifecycleCallbacks]
 class Contract
 {
