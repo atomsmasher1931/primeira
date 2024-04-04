@@ -7,13 +7,12 @@ namespace App\Billing\Domain\Entity;
 use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Enum\TariffTypeEnum;
-use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TariffRepositoryInterface::class)]
+#[ORM\Entity]
 #[ORM\Table(
 	name: 'tariff',
 	options: ['comment' => 'Тариф']
@@ -47,12 +46,12 @@ class Tariff
 	public readonly TariffTypeEnum $type;
 
 	#[ORM\Column(
-		type: Types::DECIMAL,
+		type: Types::INTEGER,
 		precision: 8,
 		scale: 2,
-		options: ['comment' => 'Номинал тарифа, сколько денег возьмём']
+		options: ['comment' => 'Номинал тарифа, сколько денег возьмём в копейках']
 	)]
-	public readonly float $value;
+	public readonly int $value;
 
 	#[ORM\Column(
 		type: Types::DATETIMETZ_IMMUTABLE,
@@ -77,7 +76,7 @@ class Tariff
 		string $id,
 		MusicianDegreeTariffEnum $musicianDegree,
 		TariffTypeEnum $type,
-		float $value,
+		int $value,
 		DateTimeImmutable $startDate,
 		DateTimeImmutable $finishDate,
 		TariffStatusEnum $status,
@@ -95,7 +94,7 @@ class Tariff
 		string $id,
 		MusicianDegreeTariffEnum $musicianDegree,
 		TariffTypeEnum $type,
-		float $value,
+		int $value,
 		DateTimeImmutable $startDate,
 		DateTimeImmutable $finishDate,
 		TariffStatusEnum $status,
@@ -126,5 +125,18 @@ class Tariff
 	public function getStatus(): TariffStatusEnum
 	{
 		return $this->status;
+	}
+
+	public function toArray(): array
+	{
+		return [
+			'id' => $this->id,
+			'musicianDegree' => $this->musicianDegreeTariff,
+			'type' => $this->type,
+			'value' => $this->value,
+			'startDate' => $this->startDate->format('d.m.Y H:i:s'),
+			'finishDate' => $this->finishDate->format('d.m.Y H:i:s'),
+			'status' => $this->status,
+		];
 	}
 }

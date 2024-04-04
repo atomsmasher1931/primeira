@@ -9,3 +9,9 @@ person:
         path: ../src/Person/Presentation/Http/Rest/V1/Controller/
         namespace: App\Person\Presentation\Http\Rest\V1\Controller
     type: attribute
+
+billing:
+    resource:
+        path: ../src/Billing/Presentation/Http/Rest/V1/Controller/
+        namespace: App\Billing\Presentation\Http\Rest\V1\Controller
+    type: attribute

@@ -8,12 +8,14 @@ use App\Core\Identity\EntityIdGeneratorInterface;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
+use App\Person\Domain\Exception\MusicianNotFoundException;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Throwable;
 
 /**
  * Контроллер работы с музыкантами
@@ -21,10 +23,12 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route(path: '/api/v1/person')]
 class PersonController extends AbstractController
 {
+	private array $errorResponseContent = ['error' => 'Непредвиденная ошибка'];
+
 	public function __construct(
 		private readonly EntityManagerInterface $entityManager,
-		private readonly MusicianRepositoryInterface $musicianRepository,
-		private readonly EntityIdGeneratorInterface $idGenerator
+		private readonly EntityIdGeneratorInterface $idGenerator,
+		private readonly MusicianRepositoryInterface $repository,
 	) {
 	}
 
@@ -48,17 +52,48 @@ class PersonController extends AbstractController
 		return $this->json(['musician' => $musician->id]);
 	}
 
-	#[Route(path: '/{id}', methods: ['GET'])]
+	#[Route(path: '/{id}', requirements: ['id' => '[0-9a-f\-]{36}'], methods: ['GET'])]
 	public function getById(string $id): Response
 	{
-		$musician = $this->musicianRepository->find($id);
+		try {
+			$musician = $this->repository->getById($id);
+			$responseContent = $musician->toArray();
+			$httpCode = Response::HTTP_OK;
 
-		return $this->json(
-			[
-				'id' => $musician->id,
-				'name' => "{$musician->lastName} {$musician->firstName} {$musician->patronymic}",
-				'phone' => $musician->getPhone(),
-			]
-		);
+		} catch (MusicianNotFoundException $exception) {
+			$this->errorResponseContent['error'] = $exception->getMessage();
+			$responseContent = $this->errorResponseContent;
+			$httpCode = Response::HTTP_NOT_FOUND;
+
+		} catch (Throwable $exception) {
+			$this->errorResponseContent['error'] = $exception->getMessage();
+			$responseContent = $this->errorResponseContent;
+			$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+		}
+
+		return $this->json($responseContent, $httpCode);
+	}
+
+	#[Route(path: '/phone/{phone}', requirements: ['phone' => '\d{11,20}'], methods: ['GET'])]
+	public function getByPhone(string $phone)
+	{
+		try {
+			$musician = $this->repository->getByPhone($phone);
+			$responseContent = $musician->toArray();
+			$httpCode = Response::HTTP_OK;
+
+
+		} catch (MusicianNotFoundException $exception) {
+			$this->errorResponseContent['error'] = $exception->getMessage();
+			$responseContent = $this->errorResponseContent;
+			$httpCode = Response::HTTP_NOT_FOUND;
+
+		} catch (Throwable $exception) {
+			$this->errorResponseContent['error'] = $exception->getMessage();
+			$responseContent = $this->errorResponseContent;
+			$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+		}
+
+		return $this->json($responseContent, $httpCode);
 	}
 }

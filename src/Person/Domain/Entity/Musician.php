@@ -8,13 +8,12 @@ use App\Billing\Domain\Entity\Contract;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
-use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MusicianRepositoryInterface::class)]
+#[ORM\Entity]
 #[ORM\Table(
 	name: 'musician',
 	options: ['comment' => 'Музыкант, перкуссионист, участник коллектива']
@@ -165,6 +164,12 @@ class Musician
 		return $musician;
 	}
 
+
+	public function getName()
+	{
+		return "{$this->lastName} {$this->firstName} {$this->patronymic}";
+	}
+
 	public function getStatus(): PersonStatusEnum
 	{
 		return $this->status;
@@ -210,5 +215,25 @@ class Musician
 		if (!$this->contracts->contains($contract)) {
 			$this->contracts->add($contract);
 		}
+	}
+
+	public function toArray(): array
+	{
+		return [
+			'id' => $this->id,
+			'name' => $this->getName(),
+			'status' => $this->status,
+			'degree' => $this->degree,
+			'phone' => $this->phone,
+			'email' => $this->email,
+			'telegram' => $this->telegram,
+			'instagram' => $this->instagram,
+			'facebook' => $this->facebook,
+			'VK' => $this->VK,
+			'contracts' => array_map(
+				static fn(Contract $contract) => $contract->toArray(),
+				$this->contracts->toArray()
+			),
+		];
 	}
 }
