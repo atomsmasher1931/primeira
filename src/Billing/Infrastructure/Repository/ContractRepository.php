@@ -72,12 +72,20 @@ class ContractRepository extends ServiceEntityRepository implements ContractRepo
 	 */
 	public function getByMusicianId(string $musicianId): array
 	{
-		$contracts = $this->findBy(['musician' => $musicianId]);
+		$contracts = $this->findByMusicianId($musicianId);
 		if ($contracts === []) {
 			throw new ContractNotFoundException();
 		}
 
 		return $contracts;
+	}
+
+	/**
+	 * @return Contract[]
+	 */
+	public function findByMusicianId(string $musicianId): array
+	{
+		return $this->findBy(['musician' => $musicianId]);
 	}
 
 	public function countByYear($year)

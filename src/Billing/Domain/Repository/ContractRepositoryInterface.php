@@ -24,4 +24,9 @@ interface ContractRepositoryInterface
 	 * @throws ContractNotFoundException
 	 */
 	public function getActiveByMusicianId(string $musicianId): Contract;
+
+	/**
+	 * @return Contract[]
+	 */
+	public function findByMusicianId(string $musicianId): array;
 }

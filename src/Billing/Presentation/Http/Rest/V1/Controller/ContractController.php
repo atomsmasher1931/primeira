@@ -9,8 +9,6 @@ use App\Billing\Domain\Repository\ContractRepositoryInterface;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use App\Core\Exception\NotFoundException;
 use App\Core\Identity\EntityIdGeneratorInterface;
-use App\Person\Domain\Enum\PersonDegreeEnum;
-use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Person\Domain\Exception\MusicianNotFoundException;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -47,7 +45,7 @@ class ContractController extends AbstractController
 		try {
 			$contract = Contract::create(
 				$this->idGenerator->generate(),
-				Contract::generateNumber((int)$startDate->format('Y'), 1, 1),
+				Contract::generateNumber((int)$startDate->format('Y'), 1, 2),
 				$startDate,
 				$finishDate,
 				$this->tariffRepository->getById($request->request->get('tariff')),
@@ -96,7 +94,7 @@ class ContractController extends AbstractController
 	}
 
 	#[Route(path: '/musician/{musicianId}', requirements: ['musicianId' => '[0-9a-f\-]{36}'], methods: ['GET'])]
-	public function getByMusician(Request $request, string $musicianId)
+	public function getByMusician(Request $request, string $musicianId): Response
 	{
 		$onlyActive = (bool)$request->query->get('active');
 
@@ -116,11 +114,11 @@ class ContractController extends AbstractController
 			$httpCode = Response::HTTP_NOT_FOUND;
 
 		}
-		//catch (Throwable $exception) {
-		//	$this->errorResponseContent['error'] = $exception->getMessage();
-		//	$responseContent = $this->errorResponseContent;
-		//	$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-		//}
+		catch (Throwable $exception) {
+			$this->errorResponseContent['error'] = $exception->getMessage();
+			$responseContent = $this->errorResponseContent;
+			$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+		}
 
 		return $this->json($responseContent, $httpCode);
 	}

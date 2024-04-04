@@ -210,6 +210,16 @@ class Musician
 		return $this->VK;
 	}
 
+	/**
+	 * @param Contract[] $contract
+	 */
+	public function addContracts(array $contracts): void
+	{
+		foreach ($contracts as $contract) {
+			$this->addContract($contract);
+		}
+	}
+
 	public function addContract(Contract $contract): void
 	{
 		if (!$this->contracts->contains($contract)) {

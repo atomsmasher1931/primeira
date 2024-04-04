@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Controller;
 
+use App\Billing\Domain\Repository\ContractRepositoryInterface;
 use App\Core\Identity\EntityIdGeneratorInterface;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
@@ -29,6 +30,7 @@ class PersonController extends AbstractController
 		private readonly EntityManagerInterface $entityManager,
 		private readonly EntityIdGeneratorInterface $idGenerator,
 		private readonly MusicianRepositoryInterface $repository,
+		private readonly ContractRepositoryInterface $contractRepository,
 	) {
 	}
 
@@ -57,6 +59,7 @@ class PersonController extends AbstractController
 	{
 		try {
 			$musician = $this->repository->getById($id);
+			$musician->addContracts($this->contractRepository->findByMusicianId($id));
 			$responseContent = $musician->toArray();
 			$httpCode = Response::HTTP_OK;
 
@@ -75,10 +78,11 @@ class PersonController extends AbstractController
 	}
 
 	#[Route(path: '/phone/{phone}', requirements: ['phone' => '\d{11,20}'], methods: ['GET'])]
-	public function getByPhone(string $phone)
+	public function getByPhone(string $phone): Response
 	{
 		try {
 			$musician = $this->repository->getByPhone($phone);
+			$musician->addContracts($this->contractRepository->findByMusicianId($musician->id));
 			$responseContent = $musician->toArray();
 			$httpCode = Response::HTTP_OK;
 
