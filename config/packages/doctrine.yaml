@@ -1,6 +1,8 @@
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        #Этот костыль не работает, надо другой
+#        schema_filter: ~^(?!doctrine_)~
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -16,11 +18,17 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
+            App\Person\Domain:
                 type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
+                dir: '%kernel.project_dir%/src/Person/Domain/Entity'
+                prefix: 'App\Person\Domain\Entity'
+                alias: App
+            App\Billing\Domain:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Billing/Domain/Entity'
+                prefix: 'App\Billing\Domain\Entity'
                 alias: App
         controller_resolver:
             auto_mapping: false
