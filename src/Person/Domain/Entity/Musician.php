@@ -152,8 +152,9 @@ class Musician
 	): self {
 		$musician = new Musician($id, $lastName, $firstName, $patronymic);
 
-		$musician->status = $status;
-		$musician->degree = $degree;
+		$musician->changeStatus($status);
+		$musician->changeDegree($degree);
+
 		$musician->phone = $phone;
 		$musician->email = $email;
 		$musician->telegram = $telegram;
@@ -164,8 +165,17 @@ class Musician
 		return $musician;
 	}
 
+	public function changeStatus(PersonStatusEnum $newStatus): void
+	{
+		$this->status = $newStatus;
+	}
 
-	public function getName()
+	public function changeDegree(PersonDegreeEnum $newDegree): void
+	{
+		$this->degree = $newDegree;
+	}
+
+	public function getName(): string
 	{
 		return "{$this->lastName} {$this->firstName} {$this->patronymic}";
 	}
@@ -225,6 +235,14 @@ class Musician
 		if (!$this->contracts->contains($contract)) {
 			$this->contracts->add($contract);
 		}
+	}
+
+	/**
+	 * @return Contract[]
+	 */
+	public function getContracts(): array
+	{
+		return $this->contracts->toArray();
 	}
 
 	public function toArray(): array

@@ -27,3 +27,7 @@ services:
     App\Core\Doctrine\Subscriber\MigrationEventSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    App\Person\Infrastructure\EventListener\KernelViewEventListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.view }
