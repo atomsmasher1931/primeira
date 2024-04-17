@@ -8,7 +8,7 @@ use App\Billing\Domain\Entity\Contract;
 use App\Billing\Domain\Repository\ContractRepositoryInterface;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use App\Core\Exception\NotFoundException;
-use App\Core\Identity\EntityIdGeneratorInterface;
+use App\Core\UuidGenerator\EntityIdGeneratorInterface;
 use App\Person\Domain\Exception\MusicianNotFoundException;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;

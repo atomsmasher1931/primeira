@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\Common;
 
-class ErrorResponse
+class ErrorResponse implements ErrorResponseInterface
 {
-	use ResultTrait;
+	use ErrorResponseTrait;
 
 	public function __construct(string $message)
 	{
-		$this->setSuccess(false);
-		$this->setMessage($message);
+		$this->setUnsuccess();
+		$this->message =  $message;
 	}
 }

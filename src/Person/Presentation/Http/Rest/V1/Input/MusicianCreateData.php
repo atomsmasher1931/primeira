@@ -24,11 +24,11 @@ class MusicianCreateData
 		#[Assert\Type('string')]
 		public string $patronymic,
 		#[Assert\NotBlank()]
-		#[Assert\Choice(callback: [PersonStatusEnum::class, 'cases'])]
-		public PersonStatusEnum $status,
+		#[Assert\Choice(callback: [PersonStatusEnum::class, 'values'])]
+		public int $status,
 		#[Assert\NotBlank()]
-		#[Assert\Choice(callback: [PersonDegreeEnum::class, 'cases'])]
-		public PersonDegreeEnum $degree,
+		#[Assert\Choice(callback: [PersonDegreeEnum::class, 'values'])]
+		public int $degree,
 		#[Assert\NotBlank()]
 		#[Assert\Email]
 		public string $email,

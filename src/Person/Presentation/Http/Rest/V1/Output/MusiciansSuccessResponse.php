@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Output;
 
-use App\Person\Presentation\Http\Rest\Common\ResultTrait;
+use App\Person\Presentation\Http\Rest\Common\ErrorResponseTrait;
 
 class MusiciansSuccessResponse
 {
-	use ResultTrait;
+	use ErrorResponseTrait;
 
 	/**
 	 * @param MusicianDto[] $musicians

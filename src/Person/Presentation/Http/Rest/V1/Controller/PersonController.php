@@ -9,6 +9,8 @@ use App\Person\Application\UseCase\CreateMusicianUseCase;
 use App\Person\Application\UseCase\GetMusicianByIdUseCase;
 use App\Person\Application\UseCase\GetMusicianByPhoneUseCase;
 use App\Person\Domain\Entity\Musician;
+use App\Person\Domain\Enum\PersonDegreeEnum;
+use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Person\Domain\Exception\MusicianNotFoundException;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use App\Person\Presentation\Http\Rest\V1\Input\MusicianCreateData;
@@ -40,8 +42,8 @@ class PersonController extends AbstractController
 			$musicianCreateData->lastName,
 			$musicianCreateData->firstName,
 			$musicianCreateData->patronymic,
-			$musicianCreateData->status,
-			$musicianCreateData->degree,
+			PersonStatusEnum::tryFrom($musicianCreateData->status),
+			PersonDegreeEnum::tryFrom($musicianCreateData->degree),
 			$musicianCreateData->phone,
 			$musicianCreateData->email,
 			$musicianCreateData->telegram,
@@ -55,50 +57,11 @@ class PersonController extends AbstractController
 	public function getById(string $id): Musician
 	{
 		return $this->getMusicianByIdUseCase->get($id);
-
-		try {
-			$musician = $this->repository->getById($id);
-			$musician->addContracts($this->contractRepository->findByMusicianId($id));
-			$responseContent = $musician->toArray();
-			$httpCode = Response::HTTP_OK;
-
-		} catch (MusicianNotFoundException $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_NOT_FOUND;
-
-		} catch (Throwable $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-		}
-
-		return $this->json($responseContent, $httpCode);
 	}
 
-	#[Route(path: '/phone/{phone}', requirements: ['phone' => '\d{11,20}'], methods: ['GET'])]
+	#[Route(path: '/phone/{phone}', methods: ['GET'])]
 	public function getByPhone(string $phone): Musician
 	{
 		return $this->getMusicianByPhoneUseCase->get($phone);
-
-		try {
-			$musician = $this->repository->getByPhone($phone);
-			$musician->addContracts($this->contractRepository->findByMusicianId($musician->id));
-			$responseContent = $musician->toArray();
-			$httpCode = Response::HTTP_OK;
-
-
-		} catch (MusicianNotFoundException $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_NOT_FOUND;
-
-		} catch (Throwable $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-		}
-
-		return $this->json($responseContent, $httpCode);
 	}
 }

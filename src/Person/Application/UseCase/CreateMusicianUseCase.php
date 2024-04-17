@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Person\Application\UseCase;
 
-use App\Core\Identity\EntityIdGeneratorInterface;
-use App\Core\Identity\UnitOfWorkInterface;
+use App\Core\UnitOfWork\UnitOfWorkException;
+use App\Core\UuidGenerator\EntityIdGeneratorInterface;
+use App\Core\UnitOfWork\UnitOfWorkInterface;
+use App\Core\UuidGenerator\UuidGeneratorException;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
-use App\Person\Presentation\Http\Rest\V1\Factory\MusicianDtoFactory;
-use App\Person\Presentation\Http\Rest\V1\Output\MusicianDto;
+use App\Person\Domain\Exception\MusicianCreateException;
+use Throwable;
 
 class CreateMusicianUseCase
 {
@@ -20,6 +22,9 @@ class CreateMusicianUseCase
 	) {
 	}
 
+	/**
+	 * @throws MusicianCreateException
+	 */
 	public function create(
 		string $lastName,
 		string $firstName,
@@ -33,23 +38,34 @@ class CreateMusicianUseCase
 		?string $facebook = null,
 		?string $VK = null,
 	): Musician {
-		$musician = Musician::create(
-			$this->idGenerator->generate(),
-			$lastName,
-			$firstName,
-			$patronymic,
-			$status,
-			$degree,
-			$phone,
-			$email,
-			$telegram,
-			$instagram,
-			$facebook,
-			$VK,
-		);
+		try {
+			$musician = Musician::create(
+				$this->idGenerator->generate(),
+				$lastName,
+				$firstName,
+				$patronymic,
+				$status,
+				$degree,
+				$phone,
+				$email,
+				$telegram,
+				$instagram,
+				$facebook,
+				$VK,
+			);
 
-		$this->unitOfWork->persist($musician);
-		$this->unitOfWork->flush();
+			$this->unitOfWork->persist($musician);
+			$this->unitOfWork->flush();
+
+		} catch (UnitOfWorkException $exception) {
+			throw new MusicianCreateException($exception, 'Ошибка при сохранении музыканта.');
+
+		} catch (UuidGeneratorException $exception) {
+			throw new MusicianCreateException($exception, 'Ошибка генерации ID музыканта.');
+
+		} catch (Throwable $exception) {
+			throw new MusicianCreateException($exception, 'Ошибка при создании музыканта.');
+		}
 
 		return $musician;
 	}
