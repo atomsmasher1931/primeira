@@ -6,7 +6,6 @@ namespace App\Person\Presentation\Http\Rest\V1\Factory;
 
 use App\Billing\Domain\Entity\Contract;
 use App\Person\Presentation\Http\Rest\V1\Output\ContractDto;
-use App\Person\Presentation\Http\Rest\V1\Output\TariffDto;
 
 class ContractDtoFactory
 {

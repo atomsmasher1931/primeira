@@ -14,11 +14,11 @@ use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Person\Domain\Exception\MusicianCreateException;
 use Throwable;
 
-class CreateMusicianUseCase
+readonly final class CreateMusicianUseCase
 {
 	public function __construct(
-		private readonly EntityIdGeneratorInterface $idGenerator,
-		private readonly UnitOfWorkInterface $unitOfWork,
+		private EntityIdGeneratorInterface $idGenerator,
+		private UnitOfWorkInterface $unitOfWork,
 	) {
 	}
 

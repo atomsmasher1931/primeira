@@ -9,11 +9,11 @@ use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Exception\MusicianNotFoundException;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 
-class GetMusicianByPhoneUseCase
+readonly final class GetMusicianByPhoneUseCase
 {
 	public function __construct(
-		private readonly MusicianRepositoryInterface $musicianRepository,
-		private readonly ContractRepositoryInterface $contractRepository,
+		private MusicianRepositoryInterface $musicianRepository,
+		private ContractRepositoryInterface $contractRepository,
 	) {
 	}
 
@@ -23,7 +23,7 @@ class GetMusicianByPhoneUseCase
 	public function get(string $phone): Musician
 	{
 		$musician = $this->musicianRepository->getByPhone($phone);
-		$musician->addContracts($this->contractRepository->findByMusicianId($musician->id));
+		$musician->addContracts($this->contractRepository->findByMusicianId($musician->getId()));
 
 		return $musician;
 	}

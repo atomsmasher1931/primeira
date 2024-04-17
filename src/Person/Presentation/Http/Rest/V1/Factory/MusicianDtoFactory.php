@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Factory;
 
+use App\Person\Application\Dto\PatchMusicianDto;
+use App\Person\Application\Dto\UpdateMusicianDto;
 use App\Person\Domain\Entity\Musician;
+use App\Person\Domain\Enum\PersonDegreeEnum;
+use App\Person\Domain\Enum\PersonStatusEnum;
+use App\Person\Presentation\Http\Rest\V1\Input\MusicianPatchData;
+use App\Person\Presentation\Http\Rest\V1\Input\MusicianPutData;
 use App\Person\Presentation\Http\Rest\V1\Output\MusicianDto;
 
 class MusicianDtoFactory
@@ -16,10 +22,10 @@ class MusicianDtoFactory
 	public function createFromMusician(Musician $musician): MusicianDto
 	{
 		return new MusicianDto(
-			$musician->id,
-			$musician->lastName,
-			$musician->firstName,
-			$musician->patronymic,
+			$musician->getId(),
+			$musician->getLastName(),
+			$musician->getFirstName(),
+			$musician->getPatronymic(),
 			$musician->getStatus(),
 			$musician->getDegree(),
 			$musician->getPhone(),
@@ -45,5 +51,39 @@ class MusicianDtoFactory
 		}
 
 		return $musiciansDto;
+	}
+
+	public function createForPatch(MusicianPatchData $musicianPatchData): PatchMusicianDto
+	{
+		return new PatchMusicianDto(
+			$musicianPatchData->lastName,
+			$musicianPatchData->firstName,
+			$musicianPatchData->patronymic,
+			$musicianPatchData->status !== null ? PersonStatusEnum::tryFrom($musicianPatchData->status) : null,
+			$musicianPatchData->degree !== null ? PersonDegreeEnum::tryFrom($musicianPatchData->degree) : null,
+			$musicianPatchData->email,
+			$musicianPatchData->phone,
+			$musicianPatchData->telegram,
+			$musicianPatchData->instagram,
+			$musicianPatchData->facebook,
+			$musicianPatchData->VK,
+		);
+	}
+
+	public function createForPut(MusicianPutData $musicianPutData): UpdateMusicianDto
+	{
+		return new UpdateMusicianDto(
+			$musicianPutData->lastName,
+			$musicianPutData->firstName,
+			$musicianPutData->patronymic,
+			PersonStatusEnum::tryFrom($musicianPutData->status),
+			PersonDegreeEnum::tryFrom($musicianPutData->degree),
+			$musicianPutData->phone,
+			$musicianPutData->email,
+			$musicianPutData->telegram,
+			$musicianPutData->instagram,
+			$musicianPutData->facebook,
+			$musicianPutData->VK,
+		);
 	}
 }

@@ -9,11 +9,11 @@ use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Exception\MusicianNotFoundException;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 
-class GetMusicianByIdUseCase
+readonly final class GetMusicianByIdUseCase
 {
 	public function __construct(
-		private readonly MusicianRepositoryInterface $musicianRepository,
-		private readonly ContractRepositoryInterface $contractRepository,
+		private MusicianRepositoryInterface $musicianRepository,
+		private ContractRepositoryInterface $contractRepository,
 	) {
 	}
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Person\Infrastructure\EventListener;
 
+use App\Person\Domain\Entity\Musician;
+use App\Person\Presentation\Http\Rest\Common\SuccessResponse;
 use App\Person\Presentation\Http\Rest\V1\Factory\MusicianDtoFactory;
 use App\Person\Presentation\Http\Rest\V1\Output\MusiciansSuccessResponse;
 use App\Person\Presentation\Http\Rest\V1\Output\MusicianSuccessResponse;
@@ -15,8 +17,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class KernelViewEventListener
 {
-	public function __construct(private readonly SerializerInterface $serializer, private readonly MusicianDtoFactory $musicianDtoFactory)
-	{
+	public function __construct(
+		private readonly SerializerInterface $serializer,
+		private readonly MusicianDtoFactory $musicianDtoFactory
+	) {
 	}
 
 	public function onKernelView(ViewEvent $event): void
@@ -29,16 +33,22 @@ class KernelViewEventListener
 					new MusiciansSuccessResponse($this->musicianDtoFactory->createFromMusicians($value))
 				)
 			);
-		} else {
+		} elseif ($value instanceof Musician) {
 			$event->setResponse(
 				$this->getHttpResponse(
 					new MusicianSuccessResponse($this->musicianDtoFactory->createFromMusician($value))
 				)
 			);
+		} else {
+			$event->setResponse(
+				$this->getHttpResponse(
+					new SuccessResponse()
+				)
+			);
 		}
 	}
 
-	private function getHttpResponse(mixed $successResponse): Response
+	private function getHttpResponse(SuccessResponse $successResponse): Response
 	{
 		$responseData = $this->serializer->serialize(
 			$successResponse,

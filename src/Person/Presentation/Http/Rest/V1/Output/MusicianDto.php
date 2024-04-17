@@ -7,7 +7,7 @@ namespace App\Person\Presentation\Http\Rest\V1\Output;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 
-class MusicianDto
+readonly class MusicianDto
 {
 
 	/**

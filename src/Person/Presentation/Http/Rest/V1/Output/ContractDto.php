@@ -6,7 +6,7 @@ namespace App\Person\Presentation\Http\Rest\V1\Output;
 
 use DateTimeImmutable;
 
-class ContractDto
+readonly class ContractDto
 {
 	public function __construct(
 		string $id,

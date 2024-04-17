@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Output;
 
-use App\Person\Presentation\Http\Rest\Common\ResponseTrait;
+use App\Person\Presentation\Http\Rest\Common\SuccessResponse;
 
-class MusicianSuccessResponse
+class MusicianSuccessResponse extends SuccessResponse
 {
-	use ResponseTrait;
-
 	public function __construct(public readonly MusicianDto $musician)
 	{
-		$this->setSuccess();
+		parent::__construct();
 	}
 }

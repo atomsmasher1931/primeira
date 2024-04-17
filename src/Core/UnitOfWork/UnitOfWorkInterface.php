@@ -12,6 +12,11 @@ interface UnitOfWorkInterface
 	/**
 	 * @throws UnitOfWorkException
 	 */
+	public function remove(object $removedObject): void;
+
+	/**
+	 * @throws UnitOfWorkException
+	 */
 	public function persist(object $persistingObject): void;
 
 	/**

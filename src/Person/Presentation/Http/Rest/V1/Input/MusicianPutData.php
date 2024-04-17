@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Input;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
-use Symfony\Component\Validator\Constraints as Assert;
 
-readonly class MusicianCreateData
+class MusicianPutData
 {
 	public function __construct(
 		#[Assert\NotBlank()]
