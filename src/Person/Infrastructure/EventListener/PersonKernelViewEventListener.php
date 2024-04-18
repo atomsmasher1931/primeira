@@ -4,27 +4,32 @@ declare(strict_types=1);
 
 namespace App\Person\Infrastructure\EventListener;
 
+use App\Core\EventListener\AbstractKernelViewListener;
+use App\Core\Http\Rest\Response\SuccessResponse;
 use App\Person\Domain\Entity\Musician;
-use App\Person\Presentation\Http\Rest\Common\SuccessResponse;
+use App\Person\Presentation\Http\Rest\V1\Controller\PersonController;
 use App\Person\Presentation\Http\Rest\V1\Factory\MusicianDtoFactory;
 use App\Person\Presentation\Http\Rest\V1\Output\MusiciansSuccessResponse;
 use App\Person\Presentation\Http\Rest\V1\Output\MusicianSuccessResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class KernelViewEventListener
+class PersonKernelViewEventListener extends AbstractKernelViewListener
 {
+	private const PROCESSABLE_CONTROLLERS = [PersonController::class];
+
 	public function __construct(
-		private readonly SerializerInterface $serializer,
+		protected readonly SerializerInterface $serializer,
 		private readonly MusicianDtoFactory $musicianDtoFactory
 	) {
 	}
 
 	public function onKernelView(ViewEvent $event): void
 	{
+		if ($this->isProcessableController($event, self::PROCESSABLE_CONTROLLERS) === false) {
+			return;
+		}
+
 		$value = $event->getControllerResult();
 
 		if (is_array($value)) {
@@ -46,16 +51,5 @@ class KernelViewEventListener
 				)
 			);
 		}
-	}
-
-	private function getHttpResponse(SuccessResponse $successResponse): Response
-	{
-		$responseData = $this->serializer->serialize(
-			$successResponse,
-			JsonEncoder::FORMAT,
-			[AbstractObjectNormalizer::SKIP_NULL_VALUES => true]
-		);
-
-		return new Response($responseData, Response::HTTP_OK, ['Content-Type' => 'application/json']);
 	}
 }

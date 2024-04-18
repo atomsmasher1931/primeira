@@ -2,19 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\V1\Output;
+namespace App\Person\Application\Dto;
 
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 
-readonly class MusicianDto
+class CreateMusicianDto
 {
-
-	/**
-	 * @param ContractDto[]    $contracts
-	 */
 	public function __construct(
-		public string $id,
 		public string $lastName,
 		public string $firstName,
 		public string $patronymic,
@@ -26,7 +21,6 @@ readonly class MusicianDto
 		public ?string $instagram = null,
 		public ?string $facebook = null,
 		public ?string $VK = null,
-		public array $contracts,
 	) {
 	}
 }

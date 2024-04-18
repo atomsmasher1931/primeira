@@ -11,6 +11,6 @@ class MusicianCreateException extends DomainException implements MusicianExcepti
 {
 	public function __construct(Throwable $previous = null, ?string $message = null)
 	{
-		parent::__construct($message ?? 'Ошибка создания пользователя', 0, $previous);
+		parent::__construct($message ?? 'Ошибка создания музыканта', 0, $previous);
 	}
 }

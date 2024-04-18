@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Output;
 
-use App\Person\Presentation\Http\Rest\Common\SuccessResponse;
+use App\Core\Http\Rest\Response\SuccessResponse;
 
 class MusicianSuccessResponse extends SuccessResponse
 {

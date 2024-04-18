@@ -28,10 +28,14 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-    App\Person\Infrastructure\EventListener\KernelViewEventListener:
+    App\Person\Infrastructure\EventListener\PersonKernelViewEventListener:
         tags:
             - { name: kernel.event_listener, event: kernel.view }
 
-    App\Person\Infrastructure\EventListener\KernelExceptionEventListener:
+    App\Billing\Infrastructure\EventListener\BillingKernelViewEventListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.view }
+
+    App\Core\EventListener\KernelExceptionEventListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }

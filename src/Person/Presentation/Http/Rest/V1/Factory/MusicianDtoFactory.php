@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Factory;
 
+use App\Person\Application\Dto\CreateMusicianDto;
 use App\Person\Application\Dto\PatchMusicianDto;
 use App\Person\Application\Dto\UpdateMusicianDto;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
+use App\Person\Presentation\Http\Rest\V1\Input\MusicianCreateData;
 use App\Person\Presentation\Http\Rest\V1\Input\MusicianPatchData;
 use App\Person\Presentation\Http\Rest\V1\Input\MusicianPutData;
 use App\Person\Presentation\Http\Rest\V1\Output\MusicianDto;
@@ -53,7 +55,24 @@ class MusicianDtoFactory
 		return $musiciansDto;
 	}
 
-	public function createForPatch(MusicianPatchData $musicianPatchData): PatchMusicianDto
+	public function createFromCreateData(MusicianCreateData $musicianCreateData): CreateMusicianDto
+	{
+		return new CreateMusicianDto(
+			$musicianCreateData->lastName,
+			$musicianCreateData->firstName,
+			$musicianCreateData->patronymic,
+			PersonStatusEnum::tryFrom($musicianCreateData->status),
+			PersonDegreeEnum::tryFrom($musicianCreateData->degree),
+			$musicianCreateData->phone,
+			$musicianCreateData->email,
+			$musicianCreateData->telegram,
+			$musicianCreateData->instagram,
+			$musicianCreateData->facebook,
+			$musicianCreateData->VK,
+		);
+	}
+
+	public function createFromPatchData(MusicianPatchData $musicianPatchData): PatchMusicianDto
 	{
 		return new PatchMusicianDto(
 			$musicianPatchData->lastName,
@@ -70,7 +89,7 @@ class MusicianDtoFactory
 		);
 	}
 
-	public function createForPut(MusicianPutData $musicianPutData): UpdateMusicianDto
+	public function createFromPutData(MusicianPutData $musicianPutData): UpdateMusicianDto
 	{
 		return new UpdateMusicianDto(
 			$musicianPutData->lastName,

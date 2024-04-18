@@ -40,18 +40,8 @@ class PersonController extends AbstractController
 	#[Route(path: '/create', methods: ['POST'])]
 	public function create(#[MapRequestPayload] MusicianCreateData $musicianCreateData): Musician
 	{
-		return  $this->createMusicianUseCase->create(
-			$musicianCreateData->lastName,
-			$musicianCreateData->firstName,
-			$musicianCreateData->patronymic,
-			PersonStatusEnum::tryFrom($musicianCreateData->status),
-			PersonDegreeEnum::tryFrom($musicianCreateData->degree),
-			$musicianCreateData->phone,
-			$musicianCreateData->email,
-			$musicianCreateData->telegram,
-			$musicianCreateData->instagram,
-			$musicianCreateData->facebook,
-			$musicianCreateData->VK,
+		return $this->createMusicianUseCase->create(
+			$this->musicianDtoFactory->createFromCreateData($musicianCreateData),
 		);
 	}
 
@@ -72,7 +62,7 @@ class PersonController extends AbstractController
 	{
 		return $this->updateMusicianUseCase->patchMusician(
 			$id,
-			$this->musicianDtoFactory->createForPatch($musicianUpdateData)
+			$this->musicianDtoFactory->createFromPatchData($musicianUpdateData)
 		);
 	}
 
@@ -81,7 +71,7 @@ class PersonController extends AbstractController
 	{
 		return $this->updateMusicianUseCase->updateMusician(
 			$id,
-			$this->musicianDtoFactory->createForPut($musicianUpdateData)
+			$this->musicianDtoFactory->createFromPutData($musicianUpdateData)
 		);
 	}
 

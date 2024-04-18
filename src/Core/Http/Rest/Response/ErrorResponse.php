@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\Common;
+namespace App\Core\Http\Rest\Response;
 
 class ErrorResponse implements ErrorResponseInterface
 {

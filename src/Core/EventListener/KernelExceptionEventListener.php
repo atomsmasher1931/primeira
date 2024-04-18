@@ -2,18 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Infrastructure\EventListener;
+namespace App\Core\EventListener;
 
 use App\Core\Environment\Environment;
 use App\Core\Exception\NotFoundException;
-use App\Person\Presentation\Http\Rest\Common\ErrorResponse;
-use App\Person\Presentation\Http\Rest\Common\ErrorResponseInterface;
-use App\Person\Presentation\Http\Rest\Common\ValidationErrorResponse;
+use App\Core\Http\Rest\Response\ErrorResponse;
+use App\Core\Http\Rest\Response\ErrorResponseInterface;
+use App\Core\Http\Rest\Response\ValidationErrorResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Throwable;
@@ -81,7 +82,11 @@ class KernelExceptionEventListener
 	}
 
 	private function getHttpResponse(ErrorResponseInterface $errorResponse, $code): Response {
-		$responseData = $this->serializer->serialize($errorResponse, JsonEncoder::FORMAT);
+		$responseData = $this->serializer->serialize(
+			$errorResponse,
+			JsonEncoder::FORMAT,
+			[AbstractObjectNormalizer::SKIP_NULL_VALUES => true]
+		);
 
 		return new Response($responseData, $code, ['Content-Type' => 'application/json']);
 	}
