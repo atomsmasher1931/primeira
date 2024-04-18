@@ -39,7 +39,7 @@ readonly class ContractDtoFactory
 	{
 		$contractsDto = [];
 		foreach ($contracts as $contract) {
-			$contractsDto = $this->createFromContract($contract);
+			$contractsDto[] = $this->createFromContract($contract);
 		}
 
 		return $contractsDto;

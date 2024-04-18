@@ -15,7 +15,7 @@ use App\Core\UuidGenerator\UuidGeneratorException;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Throwable;
 
-readonly class CreateContractUseCase
+final readonly class CreateContractUseCase
 {
 	public function __construct(
 		private UnitOfWorkInterface $unitOfWork,

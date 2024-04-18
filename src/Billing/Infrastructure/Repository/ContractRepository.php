@@ -10,7 +10,6 @@ use App\Billing\Domain\Exception\ContractNotFoundException;
 use App\Billing\Domain\Exception\TooManyActiveContractsByMusicianException;
 use App\Billing\Domain\Repository\ContractRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**

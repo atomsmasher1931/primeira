@@ -24,4 +24,19 @@ readonly class TariffDtoFactory
 			$tariff->getStatus(),
 		);
 	}
+
+	/**
+	 * @param Tariff[] $tariffs
+	 *
+	 * @return TariffDto[]
+	 */
+	public function createFromTariffs(array $tariffs): array
+	{
+		$tariffsDto = [];
+		foreach ($tariffs as $tariff) {
+			$tariffsDto[] = $this->createFromTariff($tariff);
+		}
+
+		return $tariffsDto;
+	}
 }

@@ -13,4 +13,9 @@ interface TariffRepositoryInterface
 	 * @throws TariffNotFoundException
 	 */
 	public function getById(string $id): Tariff;
+
+	/**
+	 * @return Tariff[]
+	 */
+	public function getAll(): array;
 }
