@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Billing\Infrastructure\Repository;
 
-use App\Billing\Domain\Entity\Contract;
 use App\Billing\Domain\Entity\Tariff;
 use App\Billing\Domain\Exception\TariffNotFoundException;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
@@ -35,5 +34,15 @@ class TariffRepository extends ServiceEntityRepository implements TariffReposito
 		}
 
 		return $tariff;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getAll(): array
+	{
+		//TODO Сделать получение всех тарифов, метод почему-то не работает, хотя в доке так
+		//return $this->findAll();
+		return [];
 	}
 }

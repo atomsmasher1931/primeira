@@ -162,7 +162,7 @@ class Contract
 			'finishDate' => $this->finishDate->format('d.m.Y H:i:s'),
 			'status' => $this->status,
 			'tariff' => $this->tariff->toArray(),
-			'musician' => ['id' => $this->musician->id, 'name' => $this->musician->getName()],
+			'musician' => ['id' => $this->musician->getId(), 'name' => $this->musician->getName()],
 		];
 
 	}

@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\V1\Controller;
 
-use App\Billing\Domain\Repository\ContractRepositoryInterface;
-use App\Core\Identity\EntityIdGeneratorInterface;
+use App\Person\Application\UseCase\CreateMusicianUseCase;
+use App\Person\Application\UseCase\DeleteMusicianUseCase;
+use App\Person\Application\UseCase\GetMusicianByIdUseCase;
+use App\Person\Application\UseCase\GetMusicianByPhoneUseCase;
+use App\Person\Application\UseCase\UpdateMusicianUseCase;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
-use App\Person\Domain\Exception\MusicianNotFoundException;
-use App\Person\Domain\Repository\MusicianRepositoryInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Person\Presentation\Http\Rest\V1\Factory\MusicianDtoFactory;
+use App\Person\Presentation\Http\Rest\V1\Input\MusicianCreateData;
+use App\Person\Presentation\Http\Rest\V1\Input\MusicianPatchData;
+use App\Person\Presentation\Http\Rest\V1\Input\MusicianPutData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryString;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
-use Throwable;
 
 /**
  * Контроллер работы с музыкантами
@@ -24,80 +27,59 @@ use Throwable;
 #[Route(path: '/api/v1/person')]
 class PersonController extends AbstractController
 {
-	private array $errorResponseContent = ['error' => 'Непредвиденная ошибка'];
-
 	public function __construct(
-		private readonly EntityManagerInterface $entityManager,
-		private readonly EntityIdGeneratorInterface $idGenerator,
-		private readonly MusicianRepositoryInterface $repository,
-		private readonly ContractRepositoryInterface $contractRepository,
+		private readonly CreateMusicianUseCase $createMusicianUseCase,
+		private readonly GetMusicianByIdUseCase $getMusicianByIdUseCase,
+		private readonly GetMusicianByPhoneUseCase $getMusicianByPhoneUseCase,
+		private readonly MusicianDtoFactory $musicianDtoFactory,
+		private readonly UpdateMusicianUseCase $updateMusicianUseCase,
+		private readonly DeleteMusicianUseCase $deleteMusicianUseCase,
 	) {
 	}
 
 	#[Route(path: '/create', methods: ['POST'])]
-	public function create(Request $request): Response
+	public function create(#[MapRequestPayload] MusicianCreateData $musicianCreateData): Musician
 	{
-		$musician = Musician::create(
-			$this->idGenerator->generate(),
-			$request->request->get('lastName'),
-			$request->request->get('firstName'),
-			$request->request->get('patronymic'),
-			PersonStatusEnum::ACTIVE,
-			PersonDegreeEnum::NEWBIE,
-			trim($request->request->get('phone')),
-			$request->request->get('email'),
-			$request->request->get('telegram'),
+		return $this->createMusicianUseCase->create(
+			$this->musicianDtoFactory->createFromCreateData($musicianCreateData),
 		);
-		$this->entityManager->persist($musician);
-		$this->entityManager->flush();
-
-		return $this->json(['musician' => $musician->id]);
 	}
 
 	#[Route(path: '/{id}', requirements: ['id' => '[0-9a-f\-]{36}'], methods: ['GET'])]
-	public function getById(string $id): Response
+	public function getById(string $id): Musician
 	{
-		try {
-			$musician = $this->repository->getById($id);
-			$musician->addContracts($this->contractRepository->findByMusicianId($id));
-			$responseContent = $musician->toArray();
-			$httpCode = Response::HTTP_OK;
-
-		} catch (MusicianNotFoundException $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_NOT_FOUND;
-
-		} catch (Throwable $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-		}
-
-		return $this->json($responseContent, $httpCode);
+		return $this->getMusicianByIdUseCase->get($id);
 	}
 
-	#[Route(path: '/phone/{phone}', requirements: ['phone' => '\d{11,20}'], methods: ['GET'])]
-	public function getByPhone(string $phone): Response
+	#[Route(path: '/phone/{phone}', methods: ['GET'])]
+	public function getByPhone(string $phone): Musician
 	{
-		try {
-			$musician = $this->repository->getByPhone($phone);
-			$musician->addContracts($this->contractRepository->findByMusicianId($musician->id));
-			$responseContent = $musician->toArray();
-			$httpCode = Response::HTTP_OK;
+		return $this->getMusicianByPhoneUseCase->get($phone);
+	}
 
+	#[Route(path: '/{id}', methods: ['PATCH'])]
+	public function patchUserById(#[MapQueryString] MusicianPatchData $musicianUpdateData, string $id): Musician
+	{
+		return $this->updateMusicianUseCase->patchMusician(
+			$id,
+			$this->musicianDtoFactory->createFromPatchData($musicianUpdateData)
+		);
+	}
 
-		} catch (MusicianNotFoundException $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_NOT_FOUND;
+	#[Route(path: '/{id}', methods: ['PUT'])]
+	public function putUserById(#[MapRequestPayload] MusicianPutData $musicianUpdateData, string $id): Musician
+	{
+		return $this->updateMusicianUseCase->updateMusician(
+			$id,
+			$this->musicianDtoFactory->createFromPutData($musicianUpdateData)
+		);
+	}
 
-		} catch (Throwable $exception) {
-			$this->errorResponseContent['error'] = $exception->getMessage();
-			$responseContent = $this->errorResponseContent;
-			$httpCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-		}
+	#[Route(path: '/{id}', methods: ['DELETE'])]
+	public function deleteById(string $id): bool
+	{
+		$this->deleteMusicianUseCase->delete($id);
 
-		return $this->json($responseContent, $httpCode);
+		return true;
 	}
 }

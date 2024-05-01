@@ -36,28 +36,28 @@ class Musician
 		type: Types::GUID,
 		options: ['comment' => 'Идентификтор']
 	)]
-	public readonly string $id;
+	private string $id;
 
 	#[ORM\Column(
 		type: Types::STRING,
 		length: 250,
 		options: ['comment' => 'Фамилия']
 	)]
-	public readonly string $lastName;
+	private string $lastName;
 
 	#[ORM\Column(
 		type: Types::STRING,
 		length: 250,
 		options: ['comment' => 'Имя']
 	)]
-	public readonly string $firstName;
+	private string $firstName;
 
 	#[ORM\Column(
 		type: Types::STRING,
 		length: 250,
 		options: ['comment' => 'Отчество']
 	)]
-	public readonly string $patronymic;
+	private string $patronymic;
 
 	#[ORM\Column(
 		type: Types::SMALLINT,
@@ -152,8 +152,9 @@ class Musician
 	): self {
 		$musician = new Musician($id, $lastName, $firstName, $patronymic);
 
-		$musician->status = $status;
-		$musician->degree = $degree;
+		$musician->changeStatus($status);
+		$musician->changeDegree($degree);
+
 		$musician->phone = $phone;
 		$musician->email = $email;
 		$musician->telegram = $telegram;
@@ -164,8 +165,105 @@ class Musician
 		return $musician;
 	}
 
+	/**
+	 * Обновляет музканта. Поля, пришедшие как NULL не изменяют сущность
+	 */
+	public function patch(
+		?string $lastName,
+		?string $firstName,
+		?string $patronymic,
+		?PersonStatusEnum $status,
+		?PersonDegreeEnum $degree,
+		?string $phone,
+		?string $email,
+		?string $telegram,
+		?string $instagram,
+		?string $facebook,
+		?string $VK,
+	) {
+		$this->lastName = $lastName ?? $this->lastName;
+		$this->firstName = $firstName ?? $this->firstName;
+		$this->patronymic = $patronymic ?? $this->patronymic;
+		$this->changeStatus($status ?? $this->status);
+		$this->changeDegree($degree ?? $this->degree);
+		$this->changePhone($phone ?? $this->phone);
+		$this->changeEmail($email ?? $this->email);
+		$this->telegram = $telegram ?? $this->telegram;
+		$this->instagram = $instagram ?? $this->instagram;
+		$this->facebook = $facebook ?? $this->facebook;
+		$this->VK = $VK ?? $this->VK;
+	}
 
-	public function getName()
+	/**
+	 * Обновляет музыканта. Поля, пришедшие как NULL изменяют сущность
+	 */
+	public function update(
+		string $lastName,
+		string $firstName,
+		string $patronymic,
+		PersonStatusEnum $status,
+		PersonDegreeEnum $degree,
+		string $phone,
+		string $email,
+		string $telegram,
+		?string $instagram = null,
+		?string $facebook = null,
+		?string $VK = null,
+	): void {
+		$this->lastName = $lastName;
+		$this->firstName = $firstName;
+		$this->patronymic = $patronymic;
+		$this->changeStatus($status);
+		$this->changeDegree($degree);
+		$this->changePhone($phone);
+		$this->changeEmail($email);
+		$this->telegram = $telegram;
+		$this->instagram = $instagram;
+		$this->facebook = $facebook;
+		$this->VK = $VK;
+	}
+
+	public function changeStatus(PersonStatusEnum $newStatus): void
+	{
+		$this->status = $newStatus;
+	}
+
+	public function changeDegree(PersonDegreeEnum $newDegree): void
+	{
+		$this->degree = $newDegree;
+	}
+
+	public function changePhone(string $phone): void
+	{
+		$this->phone = $phone;
+	}
+
+	public function changeEmail(string $email): void
+	{
+		$this->email = $email;
+	}
+
+	public function getId(): string
+	{
+		return $this->id;
+	}
+
+	public function getLastName(): string
+	{
+		return $this->lastName;
+	}
+
+	public function getFirstName(): string
+	{
+		return $this->firstName;
+	}
+
+	public function getPatronymic(): string
+	{
+		return $this->patronymic;
+	}
+
+	public function getName(): string
 	{
 		return "{$this->lastName} {$this->firstName} {$this->patronymic}";
 	}
@@ -225,6 +323,14 @@ class Musician
 		if (!$this->contracts->contains($contract)) {
 			$this->contracts->add($contract);
 		}
+	}
+
+	/**
+	 * @return Contract[]
+	 */
+	public function getContracts(): array
+	{
+		return $this->contracts->toArray();
 	}
 
 	public function toArray(): array
