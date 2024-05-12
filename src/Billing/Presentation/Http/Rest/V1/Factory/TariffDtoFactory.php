@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace App\Billing\Presentation\Http\Rest\V1\Factory;
 
+use App\Billing\Application\Dto\UpdateTariffDto;
 use App\Billing\Domain\Entity\Tariff;
+use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
+use App\Billing\Domain\Enum\TariffStatusEnum;
+use App\Billing\Domain\Enum\TariffTypeEnum;
+use App\Billing\Presentation\Http\Rest\V1\Input\TariffManageDto;
 use App\Billing\Presentation\Http\Rest\V1\Output\TariffDto;
 
 /**
@@ -16,7 +21,7 @@ readonly class TariffDtoFactory
 	{
 		return new TariffDto(
 			$tariff->id,
-			$tariff->musicianDegreeTariff,
+			$tariff->musicianDegree,
 			$tariff->type,
 			$tariff->value,
 			$tariff->getStartDate(),
@@ -38,5 +43,29 @@ readonly class TariffDtoFactory
 		}
 
 		return $tariffsDto;
+	}
+
+	public function createFromTariffToForm(Tariff $tariff): TariffManageDto
+	{
+		return new TariffManageDto(
+			$tariff->musicianDegree->value,
+			$tariff->type->value,
+			$tariff->value,
+			$tariff->getStartDate(),
+			$tariff->getFinishDate(),
+			$tariff->getStatus()->value,
+		);
+	}
+
+	public function createForUpdateTariff(TariffManageDto $tariffDto): UpdateTariffDto
+	{
+		return new UpdateTariffDto(
+			MusicianDegreeTariffEnum::tryFrom($tariffDto->musicianDegree),
+			TariffTypeEnum::tryFrom($tariffDto->type),
+			$tariffDto->value,
+			$tariffDto->startDate,
+			$tariffDto->finishDate,
+			TariffStatusEnum::tryFrom($tariffDto->status),
+		);
 	}
 }

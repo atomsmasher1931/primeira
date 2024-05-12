@@ -29,4 +29,9 @@ enum TariffTypeEnum: int
 
 	/** @const int Для новичков, тариф ЗА МЕСЯЦ, 8-9 занятий в месяц, берём сразу */
 	case MONTHLY = 6;
+
+	public static function values(): array
+	{
+		return array_map(static fn(TariffTypeEnum $value): int => $value->value, self::cases());
+	}
 }

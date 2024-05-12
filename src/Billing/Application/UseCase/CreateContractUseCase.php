@@ -6,7 +6,7 @@ namespace App\Billing\Application\UseCase;
 
 use App\Billing\Application\Dto\CreateContractDto;
 use App\Billing\Domain\Entity\Contract;
-use App\Billing\Domain\Exception\ContractCreateException;
+use App\Billing\Domain\Exception\ContractManageException;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
@@ -26,7 +26,7 @@ final readonly class CreateContractUseCase
 	}
 
 	/**
-	 * @throws ContractCreateException
+	 * @throws ContractManageException
 	 */
 	public function create(CreateContractDto $createContractDto): Contract
 	{
@@ -46,13 +46,13 @@ final readonly class CreateContractUseCase
 			return $contract;
 
 		} catch (UnitOfWorkException $exception) {
-			throw new ContractCreateException($exception, 'Ошибка сохранения контракта.');
+			throw new ContractManageException($exception, 'Ошибка сохранения контракта.');
 
 		} catch (UuidGeneratorException $exception) {
-			throw new ContractCreateException($exception, 'Ошибка генерации ID контракта.');
+			throw new ContractManageException($exception, 'Ошибка генерации ID контракта.');
 
 		} catch (Throwable $exception) {
-			throw new ContractCreateException($exception);
+			throw new ContractManageException($exception);
 		}
 	}
 }

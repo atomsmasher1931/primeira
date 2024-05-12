@@ -1,0 +1,31 @@
+{% extends '@billing/layout.twig' %}
+
+{% block title %}
+	Редактирование тарифа
+{% endblock %}
+
+{% block body %}
+	{% if message is defined and message is not empty %}
+		<div class="alert alert-success" role="alert">
+			{{ message }}
+		</div>
+	{% endif %}
+
+	{% form_theme form 'bootstrap_5_layout.html.twig' %}
+	{{ form_start(form) }}
+	{{ form_errors(form) }}
+	<div class="card">
+		<div class="card-body">
+			<div class="row">{{ form_row(form.musicianDegree) }}</div>
+			<div class="row">{{ form_row(form.type) }}</div>
+			<div class="row">{{ form_row(form.value) }}</div>
+			<div class="row">{{ form_row(form.startDate) }}</div>
+			<div class="row">{{ form_row(form.finishDate) }}</div>
+			<div class="row">{{ form_row(form.status) }}</div>
+		</div>
+		<div class="card-footer">
+			{{ form_widget(form.submit) }}
+		</div>
+	</div>
+	{{ form_end(form) }}
+{% endblock %}

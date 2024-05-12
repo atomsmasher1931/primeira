@@ -33,10 +33,11 @@ class Tariff
 
 	#[ORM\Column(
 		type: Types::SMALLINT,
+		name: 'musician_degree_tariff',
 		enumType: MusicianDegreeTariffEnum::class,
 		options: ['comment' => 'Уровень музыканта, для которого работает тариф']
 	)]
-	public readonly MusicianDegreeTariffEnum $musicianDegreeTariff;
+	public readonly MusicianDegreeTariffEnum $musicianDegree;
 
 	#[ORM\Column(
 		type: Types::SMALLINT,
@@ -82,7 +83,7 @@ class Tariff
 		TariffStatusEnum $status,
 	) {
 		$this->id = $id;
-		$this->musicianDegreeTariff = $musicianDegree;
+		$this->musicianDegree = $musicianDegree;
 		$this->type = $type;
 		$this->value = $value;
 		$this->startDate = $startDate;
@@ -98,7 +99,7 @@ class Tariff
 		DateTimeImmutable $startDate,
 		DateTimeImmutable $finishDate,
 		TariffStatusEnum $status,
-	) {
+	): self {
 		$tariff = new Tariff(
 			$id,
 			$musicianDegree,
@@ -112,15 +113,42 @@ class Tariff
 		return $tariff;
 	}
 
+	public function update(
+		DateTimeImmutable $startDate,
+		DateTimeImmutable $finishDate,
+		TariffStatusEnum $status,
+	): void {
+		$this->changeStartDate($startDate);
+		$this->changeFinishDate($finishDate);
+		$this->changeStatus($status);
+	}
+
+	public function changeStatus(TariffStatusEnum $status): void
+	{
+		//TODO реализовать выброс события и по событию отключение всех договор тарифа
+		$this->status = $status;
+	}
+
 	public function getStartDate(): DateTimeImmutable
 	{
 		return $this->startDate;
+	}
+
+	public function changeFinishDate(DateTimeImmutable $finishDate): void
+	{
+		$this->finishDate = $finishDate;
 	}
 
 	public function getFinishDate(): DateTimeImmutable
 	{
 		return $this->finishDate;
 	}
+
+	public function changeStartDate(DateTimeImmutable $startDate): void
+	{
+		$this->startDate = $startDate;
+	}
+
 
 	public function getStatus(): TariffStatusEnum
 	{
@@ -131,7 +159,7 @@ class Tariff
 	{
 		return [
 			'id' => $this->id,
-			'musicianDegree' => $this->musicianDegreeTariff,
+			'musicianDegree' => $this->musicianDegree,
 			'type' => $this->type,
 			'value' => $this->value,
 			'startDate' => $this->startDate->format('d.m.Y H:i:s'),

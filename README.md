@@ -14,3 +14,8 @@ Liveness probe: http://localhost:7777/probe/liveness
 
 Readyness probe: http://localhost:7777/probe/readyness
 Проверяет, что корректно завёлся PHP-FPM и оттуда можем подключиться к PostgreSQL
+
+# Форма работы с тарифом
+Создание http://localhost:7777/api/v1/billing/tariff/create
+
+Правка http://localhost:7777/api/v1/billing/tariff/update/{tariffId}
