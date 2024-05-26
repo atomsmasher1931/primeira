@@ -16,7 +16,7 @@ class TariffDtoFactory
 	{
 		return new TariffDto(
 			$tariff->id,
-			$tariff->musicianDegreeTariff,
+			$tariff->musicianDegree,
 			$tariff->type,
 			$tariff->value,
 			$tariff->getStartDate(),

@@ -7,7 +7,7 @@ namespace App\Billing\Domain\Exception;
 use DomainException;
 use Throwable;
 
-class ContractCreateException extends DomainException
+class ContractManageException extends DomainException
 {
 	public function __construct(Throwable $previous = null, ?string $message = null)
 	{

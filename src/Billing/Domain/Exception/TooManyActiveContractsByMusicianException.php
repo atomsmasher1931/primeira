@@ -10,6 +10,6 @@ class TooManyActiveContractsByMusicianException extends DomainException implemen
 {
 	public function __construct(string $musicianId, int $contractQuantity)
 	{
-		parent::__construct("За музакантом {$musicianId} закреплено {$contractQuantity}, а должен быть 1");
+		parent::__construct("За музыкантом {$musicianId} закреплено {$contractQuantity}, а должен быть 1");
 	}
 }
