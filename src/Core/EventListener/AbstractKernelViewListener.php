@@ -39,7 +39,12 @@ abstract class AbstractKernelViewListener
 
 	private function getProcessableController(ViewEvent $event): string
 	{
-		return get_class($event->controllerArgumentsEvent->getController()[0]);
+
+		if (is_array($event->controllerArgumentsEvent->getController())) {
+			return get_class($event->controllerArgumentsEvent->getController()[0]);
+		} else {
+			return get_class($event->controllerArgumentsEvent->getController());
+		}
 	}
 
 	protected function getHttpResponse(SuccessResponse $successResponse): Response

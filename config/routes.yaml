@@ -6,8 +6,8 @@ probes:
 
 person:
     resource:
-        path: ../src/Person/Presentation/Http/Rest/V1/Controller/
-        namespace: App\Person\Presentation\Http\Rest\V1\Controller
+        path: ../src/Person/Presentation/Http/Rest/
+        namespace: App\Person\Presentation\Http\Rest
     type: attribute
 
 billing:

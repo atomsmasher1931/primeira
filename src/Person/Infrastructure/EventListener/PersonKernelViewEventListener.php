@@ -7,16 +7,17 @@ namespace App\Person\Infrastructure\EventListener;
 use App\Core\EventListener\AbstractKernelViewListener;
 use App\Core\Http\Rest\Response\SuccessResponse;
 use App\Person\Domain\Entity\Musician;
-use App\Person\Presentation\Http\Rest\V1\Controller\PersonController;
-use App\Person\Presentation\Http\Rest\V1\Factory\MusicianDtoFactory;
-use App\Person\Presentation\Http\Rest\V1\Output\MusiciansSuccessResponse;
-use App\Person\Presentation\Http\Rest\V1\Output\MusicianSuccessResponse;
+use App\Person\Presentation\Http\Rest\Musician\Create\V1\CreateMusicianController;
+use App\Person\Presentation\Http\Rest\Musician\Factory\MusicianDtoFactory;
+use App\Person\Presentation\Http\Rest\Musician\V1\Controller\MusicianController;
+use App\Person\Presentation\Http\Rest\Musician\V1\Output\MusiciansSuccessResponse;
+use App\Person\Presentation\Http\Rest\Musician\V1\Output\MusicianSuccessResponse;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class PersonKernelViewEventListener extends AbstractKernelViewListener
 {
-	private const PROCESSABLE_CONTROLLERS = [PersonController::class];
+	private const PROCESSABLE_CONTROLLERS = [MusicianController::class, CreateMusicianController::class];
 
 	public function __construct(
 		protected readonly SerializerInterface $serializer,

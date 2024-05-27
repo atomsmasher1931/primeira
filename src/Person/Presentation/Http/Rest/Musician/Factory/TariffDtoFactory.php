@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\V1\Factory;
+namespace App\Person\Presentation\Http\Rest\Musician\Factory;
 
 use App\Billing\Domain\Entity\Tariff;
-use App\Person\Presentation\Http\Rest\V1\Output\TariffDto;
+use App\Person\Presentation\Http\Rest\Musician\V1\Output\TariffDto;
 
 /**
  *

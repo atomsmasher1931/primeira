@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\V1\Factory;
+namespace App\Person\Presentation\Http\Rest\Musician\Factory;
 
 use App\Person\Application\Dto\CreateMusicianDto;
 use App\Person\Application\Dto\PatchMusicianDto;
@@ -10,10 +10,10 @@ use App\Person\Application\Dto\UpdateMusicianDto;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
-use App\Person\Presentation\Http\Rest\V1\Input\MusicianCreateData;
-use App\Person\Presentation\Http\Rest\V1\Input\MusicianPatchData;
-use App\Person\Presentation\Http\Rest\V1\Input\MusicianPutData;
-use App\Person\Presentation\Http\Rest\V1\Output\MusicianDto;
+use App\Person\Presentation\Http\Rest\Musician\Create\V1\Input\MusicianCreateData;
+use App\Person\Presentation\Http\Rest\Musician\V1\Input\MusicianPatchData;
+use App\Person\Presentation\Http\Rest\Musician\V1\Input\MusicianPutData;
+use App\Person\Presentation\Http\Rest\Musician\V1\Output\MusicianDto;
 
 class MusicianDtoFactory
 {

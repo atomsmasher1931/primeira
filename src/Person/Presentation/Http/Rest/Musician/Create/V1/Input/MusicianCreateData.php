@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\V1\Input;
+namespace App\Person\Presentation\Http\Rest\Musician\Create\V1\Input;
 
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
