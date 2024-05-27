@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\Musician\V1\Output;
+namespace App\Person\Presentation\Http\Rest\Musician\Output;
 
 use App\Core\Http\Rest\Response\SuccessResponse;
 

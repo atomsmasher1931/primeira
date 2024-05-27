@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\Musician\Factory;
+namespace App\Person\Presentation\Http\Rest\Musician\Common\Factory;
 
 use App\Billing\Domain\Entity\Contract;
-use App\Person\Presentation\Http\Rest\Musician\V1\Output\ContractDto;
+use App\Person\Presentation\Http\Rest\Musician\Output\ContractDto;
 
 class ContractDtoFactory
 {

@@ -14,12 +14,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
-/**
- *
- */
 class CreateMusicianController extends AbstractController
 {
-	public function __construct(private readonly CreateMusicianUseCase $createMusicianUseCase,)
+	public function __construct(private readonly CreateMusicianUseCase $createMusicianUseCase)
 	{
 	}
 
