@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Billing\Presentation\Http\Rest\V1\Factory;
+namespace App\Billing\Presentation\Http\Rest\Common\Factory;
 
-use App\Billing\Application\Dto\CreateContractDto;
 use App\Billing\Domain\Entity\Contract;
-use App\Billing\Presentation\Http\Rest\V1\Input\ContractCreateData;
-use App\Billing\Presentation\Http\Rest\V1\Output\ContractDto;
-use DateTimeImmutable;
+use App\Billing\Presentation\Http\Rest\Common\Output\ContractDto;
 
 readonly class ContractDtoFactory
 {
@@ -43,18 +40,5 @@ readonly class ContractDtoFactory
 		}
 
 		return $contractsDto;
-	}
-
-	/**
-	 * @throws \Exception
-	 */
-	public function createFromCreateData(ContractCreateData $contractCreateData): CreateContractDto
-	{
-		return new CreateContractDto(
-			$contractCreateData->musician,
-			$contractCreateData->tariff,
-			new DateTimeImmutable($contractCreateData->startDate),
-			new DateTimeImmutable($contractCreateData->finishDate),
-		);
 	}
 }

@@ -8,11 +8,17 @@ use App\Core\Http\Rest\Response\SuccessResponse;
 
 readonly abstract class AbstractHandler
 {
-	protected const CONTROLLER_NAME = 'ПЕРЕОПРЕДЕЛИ КОНТРОЛЛЕР В ХЕНДЛЕРЕ';
+	protected const CONTROLLERS_NAME = ['ПЕРЕОПРЕДЕЛИ КОНТРОЛЛЕР В ХЕНДЛЕРЕ'];
 
 	public function isProcessable(string $controllerName): bool
 	{
-		return static::CONTROLLER_NAME === $controllerName;
+		foreach (static::CONTROLLERS_NAME as $handledControllerName) {
+			if ($handledControllerName === $controllerName) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	abstract public function handle(mixed $payload): SuccessResponse;

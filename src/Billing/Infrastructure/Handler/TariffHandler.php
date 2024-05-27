@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Billing\Infrastructure\Handler;
 
 use App\Billing\Domain\Entity\Tariff;
+use App\Billing\Presentation\Http\Rest\Common\Factory\TariffDtoFactory;
+use App\Billing\Presentation\Http\Rest\Common\Output\TariffDto;
+use App\Billing\Presentation\Http\Rest\Common\Output\TariffsSuccessResponse;
+use App\Billing\Presentation\Http\Rest\Common\Output\TariffSuccessResponse;
 use App\Billing\Presentation\Http\Rest\V1\Controller\TariffController;
-use App\Billing\Presentation\Http\Rest\V1\Factory\TariffDtoFactory;
-use App\Billing\Presentation\Http\Rest\V1\Output\TariffDto;
-use App\Billing\Presentation\Http\Rest\V1\Output\TariffsSuccessResponse;
-use App\Billing\Presentation\Http\Rest\V1\Output\TariffSuccessResponse;
 use App\Core\Http\Rest\Response\SuccessResponse;
 
 /**
@@ -17,7 +17,7 @@ use App\Core\Http\Rest\Response\SuccessResponse;
  */
 readonly class TariffHandler extends AbstractHandler
 {
-	protected const CONTROLLER_NAME = TariffController::class;
+	protected const CONTROLLERS_NAME = [TariffController::class];
 
 	public function __construct(private TariffDtoFactory $tariffDtoFactory)
 	{

@@ -12,6 +12,6 @@ person:
 
 billing:
     resource:
-        path: ../src/Billing/Presentation/Http/Rest/V1/Controller/
-        namespace: App\Billing\Presentation\Http\Rest\V1\Controller
+        path: ../src/Billing/Presentation/Http/Rest/
+        namespace: App\Billing\Presentation\Http\Rest
     type: attribute

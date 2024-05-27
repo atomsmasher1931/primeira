@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Billing\Presentation\Http\Rest\V1\Output;
+namespace App\Billing\Presentation\Http\Rest\Common\Output;
 
 use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;

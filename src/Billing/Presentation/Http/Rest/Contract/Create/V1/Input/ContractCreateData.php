@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Billing\Presentation\Http\Rest\V1\Input;
+namespace App\Billing\Presentation\Http\Rest\Contract\Create\V1\Input;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

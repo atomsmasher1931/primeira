@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Billing\Presentation\Http\Rest\V1\Factory;
+namespace App\Billing\Presentation\Http\Rest\Common\Factory;
 
 use App\Billing\Application\Dto\UpdateTariffDto;
 use App\Billing\Domain\Entity\Tariff;
 use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Enum\TariffTypeEnum;
+use App\Billing\Presentation\Http\Rest\Common\Output\TariffDto;
 use App\Billing\Presentation\Http\Rest\V1\Input\TariffManageDto;
-use App\Billing\Presentation\Http\Rest\V1\Output\TariffDto;
 
 /**
  *
