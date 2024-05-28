@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Billing\Infrastructure\Repository;
 
 use App\Billing\Domain\Entity\Tariff;
+use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Exception\TariffNotFoundException;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -39,10 +41,17 @@ class TariffRepository extends ServiceEntityRepository implements TariffReposito
 	/**
 	 * @inheritDoc
 	 */
-	public function getAll(): array
+	public function getByStatus(int $status): array
 	{
-		//TODO Сделать получение всех тарифов, метод почему-то не работает, хотя в доке так
-		//return $this->findAll();
-		return [];
+		$queryBuilder = $this->getEntityManager()->createQueryBuilder();
+
+		$queryBuilder->select('t')
+			->from(Tariff::class, 't')
+			->andWhere('t.status = :status')
+			->orderBy('t.musicianDegree, t.type, t.value', 'ASC')
+			->setParameter('status', $status)
+		;
+
+		return $queryBuilder->getQuery()->getResult();
 	}
 }

@@ -36,7 +36,7 @@ class TariffController extends AbstractController
 	public function updateTariff(Request $request, string $_route, ?string $id = null): Response
 	{
 		//TODO Надо бы проверить BOOL, может чего выловим
-
+		// ВЫПИЛИТЬ этот метод, перенести в CreateTariffController
 		$isNew = $_route === 'create_tariff';
 
 		$tariff = $tariffDto = null;
@@ -65,20 +65,5 @@ class TariffController extends AbstractController
 			'isNew' => false,
 			'tariff' => $tariff,
 		]);
-	}
-
-	#[Route(path: '/{id}', methods: ['GET'])]
-	public function getById(string $id): Tariff
-	{
-		return $this->getTariffUseCase->getById($id);
-	}
-
-	/**
-	 * @return Tariff[]
-	 */
-	#[Route(path: '/all', methods: ['GET'])]
-	public function getAll(): array
-	{
-		return $this->getTariffUseCase->getAll();
 	}
 }

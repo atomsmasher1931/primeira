@@ -18,10 +18,8 @@ class DeleteMusicianController extends AbstractController
 	 * @throws \App\Core\UnitOfWork\UnitOfWorkException
 	 */
 	#[Route(path: '/api/person/v1/musician/{id}', methods: ['DELETE'])]
-	public function __invoke(string $id): bool
+	public function __invoke(string $id): void
 	{
 		$this->deleteMusicianUseCase->delete($id);
-
-		return true;
 	}
 }
