@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Billing\Application\UseCase;
 
+use App\Billing\Application\Dto\CreateTariffDto;
 use App\Billing\Domain\Entity\Tariff;
 use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Enum\TariffTypeEnum;
 use App\Billing\Domain\Exception\TariffManageException;
-use App\Billing\Presentation\Http\Rest\V1\Input\TariffManageDto;
 use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
 use App\Core\UuidGenerator\EntityIdGeneratorInterface;
@@ -24,17 +24,17 @@ readonly final class CreateTariffUseCase
 	) {
 	}
 
-	public function create(TariffManageDto $dto): Tariff
+	public function create(CreateTariffDto $dto): Tariff
 	{
 		try {
 			$tariff = Tariff::create(
 				$this->idGenerator->generate(),
-				MusicianDegreeTariffEnum::tryFrom($dto->musicianDegree),
-				TariffTypeEnum::tryFrom($dto->type),
+				$dto->musicianDegree,
+				$dto->type,
 				$dto->value,
 				$dto->startDate,
 				$dto->finishDate,
-				TariffStatusEnum::tryFrom($dto->status),
+				$dto->status,
 			);
 
 			$this->unitOfWork->persist($tariff);

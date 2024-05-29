@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Person\Presentation\Http\Rest\Musician\GetById\V1;
 
 use App\Person\Application\UseCase\GetMusicianByIdUseCase;
-use App\Person\Domain\Entity\Musician;
 use App\Person\Presentation\Http\Rest\Musician\Common\Factory\MusicianDtoFactory;
-use App\Person\Presentation\Http\Rest\Musician\Output\MusicianDto;
+use App\Person\Presentation\Http\Rest\Musician\Common\Output\MusicianDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 

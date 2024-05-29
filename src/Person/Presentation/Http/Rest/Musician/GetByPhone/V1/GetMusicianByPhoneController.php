@@ -6,7 +6,7 @@ namespace App\Person\Presentation\Http\Rest\Musician\GetByPhone\V1;
 
 use App\Person\Application\UseCase\GetMusicianByPhoneUseCase;
 use App\Person\Presentation\Http\Rest\Musician\Common\Factory\MusicianDtoFactory;
-use App\Person\Presentation\Http\Rest\Musician\Output\MusicianDto;
+use App\Person\Presentation\Http\Rest\Musician\Common\Output\MusicianDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Attribute\Route;
 

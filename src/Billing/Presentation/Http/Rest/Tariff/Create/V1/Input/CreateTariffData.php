@@ -2,35 +2,34 @@
 
 declare(strict_types=1);
 
-namespace App\Billing\Presentation\Http\Rest\V1\Input;
+namespace App\Billing\Presentation\Http\Rest\Tariff\Create\V1\Input;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Enum\TariffTypeEnum;
-use \DateTimeImmutable;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class TariffManageDto
+class CreateTariffData
 {
 	public function __construct(
 		#[Assert\NotBlank()]
 		#[Assert\Choice(callback: [MusicianDegreeTariffEnum::class, 'values'])]
-		public ?int $musicianDegree = null,
+		public int $musicianDegree,
 		#[Assert\NotBlank()]
 		#[Assert\Choice(callback: [TariffTypeEnum::class, 'values'])]
-		public ?int $type = null,
+		public int $type,
 		#[Assert\NotBlank()]
 		#[Assert\Type(type: 'numeric')]
-		public ?int $value = null,
+		public int $value,
 		#[Assert\NotBlank()]
-		#[Assert\Type(type: 'DateTimeImmutable')]
-		public ?DateTimeImmutable $startDate = null,
+		#[Assert\DateTime()]
+		public string $startDate,
 		#[Assert\NotBlank()]
-		#[Assert\Type(type: 'DateTimeImmutable')]
-		public ?DateTimeImmutable $finishDate = null,
+		#[Assert\DateTime()]
+		public string $finishDate,
 		#[Assert\NotBlank()]
 		#[Assert\Choice(callback: [TariffStatusEnum::class, 'values'])]
-		public ?int $status = null,
+		public int $status,
 	) {
 	}
 }

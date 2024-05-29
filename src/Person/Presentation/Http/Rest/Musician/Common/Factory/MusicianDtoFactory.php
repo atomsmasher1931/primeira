@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Person\Presentation\Http\Rest\Musician\Common\Factory;
 
 use App\Person\Domain\Entity\Musician;
-use App\Person\Presentation\Http\Rest\Musician\Output\MusicianDto;
+use App\Person\Presentation\Http\Rest\Musician\Common\Output\MusicianDto;
 
 class MusicianDtoFactory
 {

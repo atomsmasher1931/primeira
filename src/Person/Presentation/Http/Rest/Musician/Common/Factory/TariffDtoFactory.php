@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Person\Presentation\Http\Rest\Musician\Common\Factory;
 
 use App\Billing\Domain\Entity\Tariff;
-use App\Person\Presentation\Http\Rest\Musician\Output\TariffDto;
+use App\Person\Presentation\Http\Rest\Musician\Common\Output\TariffDto;
 
 /**
  *

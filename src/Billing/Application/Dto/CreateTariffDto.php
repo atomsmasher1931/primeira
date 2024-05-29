@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Person\Presentation\Http\Rest\Musician\Output;
+namespace App\Billing\Application\Dto;
 
 use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Enum\TariffTypeEnum;
-use DateTimeImmutable;
+use \DateTimeImmutable;
 
-readonly class TariffDto
+readonly final class CreateTariffDto
 {
 	public function __construct(
-		public string $id,
 		public MusicianDegreeTariffEnum $musicianDegree,
 		public TariffTypeEnum $type,
 		public int $value,

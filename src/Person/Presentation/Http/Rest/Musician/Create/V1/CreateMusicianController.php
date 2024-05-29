@@ -6,12 +6,11 @@ namespace App\Person\Presentation\Http\Rest\Musician\Create\V1;
 
 use App\Person\Application\Dto\CreateMusicianDto;
 use App\Person\Application\UseCase\CreateMusicianUseCase;
-use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Person\Presentation\Http\Rest\Musician\Common\Factory\MusicianDtoFactory;
+use App\Person\Presentation\Http\Rest\Musician\Common\Output\MusicianDto;
 use App\Person\Presentation\Http\Rest\Musician\Create\V1\Input\MusicianCreateData;
-use App\Person\Presentation\Http\Rest\Musician\Output\MusicianDto;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;

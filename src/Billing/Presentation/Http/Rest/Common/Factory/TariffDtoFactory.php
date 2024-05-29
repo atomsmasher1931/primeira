@@ -10,7 +10,7 @@ use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
 use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Enum\TariffTypeEnum;
 use App\Billing\Presentation\Http\Rest\Common\Output\TariffDto;
-use App\Billing\Presentation\Http\Rest\V1\Input\TariffManageDto;
+use App\Billing\Presentation\Http\Rest\Tariff\Create\V1\Input\CreateTariffData;
 
 /**
  *
@@ -43,29 +43,5 @@ readonly class TariffDtoFactory
 		}
 
 		return $tariffsDto;
-	}
-
-	public function createFromTariffToForm(Tariff $tariff): TariffManageDto
-	{
-		return new TariffManageDto(
-			$tariff->musicianDegree->value,
-			$tariff->type->value,
-			$tariff->value,
-			$tariff->getStartDate(),
-			$tariff->getFinishDate(),
-			$tariff->getStatus()->value,
-		);
-	}
-
-	public function createForUpdateTariff(TariffManageDto $tariffDto): UpdateTariffDto
-	{
-		return new UpdateTariffDto(
-			MusicianDegreeTariffEnum::tryFrom($tariffDto->musicianDegree),
-			TariffTypeEnum::tryFrom($tariffDto->type),
-			$tariffDto->value,
-			$tariffDto->startDate,
-			$tariffDto->finishDate,
-			TariffStatusEnum::tryFrom($tariffDto->status),
-		);
 	}
 }
