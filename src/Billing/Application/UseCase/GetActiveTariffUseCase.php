@@ -5,16 +5,23 @@ declare(strict_types=1);
 namespace App\Billing\Application\UseCase;
 
 use App\Billing\Domain\Entity\Tariff;
+use App\Billing\Domain\Enum\TariffStatusEnum;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
 
-final readonly class GetTariffUseCase
+/**
+ *
+ */
+final readonly class GetActiveTariffUseCase
 {
 	public function __construct(private TariffRepositoryInterface $tariffRepository)
 	{
 	}
 
-	public function getById(string $tariffId): Tariff
+	/**
+	 * @return Tariff[]
+	 */
+	public function getActive(): array
 	{
-		return $this->tariffRepository->getById($tariffId);
+		return $this->tariffRepository->getByStatus(TariffStatusEnum::ACTIVE->value);
 	}
 }

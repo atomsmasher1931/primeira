@@ -13,6 +13,8 @@ class ValidationErrorResponse implements ErrorResponseInterface
 	 */
 	public function __construct(private readonly array $errors)
 	{
+		$this->setUnsuccess();
+
 		$this->message = 'Ошибка валидации';
 	}
 

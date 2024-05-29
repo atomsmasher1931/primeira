@@ -17,5 +17,5 @@ interface TariffRepositoryInterface
 	/**
 	 * @return Tariff[]
 	 */
-	public function getAll(): array;
+	public function getByStatus(int $status): array;
 }
