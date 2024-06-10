@@ -9,7 +9,7 @@ use App\Core\Exception\NotFoundException;
 /**
  * Не найден музыкант
  */
-class MusicianNotFoundException extends NotFoundException implements MusicianExceptionInterface
+class MusicianNotFoundException extends NotFoundException
 {
 	public function __construct()
 	{

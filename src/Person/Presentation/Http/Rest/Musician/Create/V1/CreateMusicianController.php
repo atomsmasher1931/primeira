@@ -23,7 +23,7 @@ class CreateMusicianController extends AbstractController
 	) {
 	}
 
-	#[Route(path: '/api/person/v1/musician/create', methods: ['POST'])]
+	#[Route(path: '/api/person/v1/musician/create', name: 'musician_create', methods: ['POST'])]
 	public function __invoke(#[MapRequestPayload] MusicianCreateData $musicianCreateData): MusicianDto
 	{
 		return $this->musicianDtoFactory->createFromMusician(

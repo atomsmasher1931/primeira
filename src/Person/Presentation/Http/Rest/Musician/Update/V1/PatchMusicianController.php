@@ -26,7 +26,7 @@ class PatchMusicianController extends AbstractController
 	/**
 	 * @throws \App\Core\UnitOfWork\UnitOfWorkException
 	 */
-	#[Route(path: '/api/person/v1/musician/{id}', methods: ['PATCH'])]
+	#[Route(path: '/api/person/v1/musician/{id}', name: 'musician_patch', methods: ['PATCH'])]
 	public function __invoke(#[MapQueryString] MusicianPatchData $musicianUpdateData, string $id): Musician
 	{
 		return $this->updateMusicianUseCase->patchMusician(

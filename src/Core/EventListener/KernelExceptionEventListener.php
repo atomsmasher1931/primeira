@@ -9,17 +9,22 @@ use App\Core\Exception\NotFoundException;
 use App\Core\Http\Rest\Response\ErrorResponse;
 use App\Core\Http\Rest\Response\ErrorResponseInterface;
 use App\Core\Http\Rest\Response\ValidationErrorResponse;
+use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTFailureException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Throwable;
 
-class KernelExceptionEventListener
+final readonly class KernelExceptionEventListener
 {
 	public function __construct(
 		private readonly SerializerInterface $serializer,
@@ -46,6 +51,32 @@ class KernelExceptionEventListener
 			}
 			$event->setResponse(
 				$this->getHttpResponse(new ErrorResponse($message ?? 'Неизвестный путь.'), Response::HTTP_NOT_FOUND)
+			);
+
+			return;
+		}
+
+		if ($exception instanceof UnauthorizedHttpException) {
+			$event->setResponse(
+				$this->getHttpResponse(
+					new ErrorResponse('Неверные логин или пароль'),
+					Response::HTTP_UNAUTHORIZED
+				),
+			);
+
+			return;
+		}
+
+		if (
+			$exception instanceof AccessDeniedHttpException ||
+			$exception instanceof JWTFailureException ||
+			$exception instanceof AuthenticationException
+		) {
+			$event->setResponse(
+				$this->getHttpResponse(
+					new ErrorResponse('Доступ запрещён'),
+					Response::HTTP_FORBIDDEN
+				)
 			);
 
 			return;
@@ -81,7 +112,8 @@ class KernelExceptionEventListener
 		}
 	}
 
-	private function getHttpResponse(ErrorResponseInterface $errorResponse, $code): Response {
+	private function getHttpResponse(ErrorResponseInterface $errorResponse, $code): Response
+	{
 		$responseData = $this->serializer->serialize(
 			$errorResponse,
 			JsonEncoder::FORMAT,

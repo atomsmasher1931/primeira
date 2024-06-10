@@ -23,7 +23,7 @@ class PutMusicianController extends AbstractController
 	/**
 	 * @throws \App\Core\UnitOfWork\UnitOfWorkException
 	 */
-	#[Route(path: '/api/person/v1/musician/{id}', methods: ['PUT'])]
+	#[Route(path: '/api/person/v1/musician/{id}', name: 'musician_put', methods: ['PUT'])]
 	public function __invoke(#[MapRequestPayload] MusicianPutData $musicianUpdateData, string $id): Musician
 	{
 		return $this->updateMusicianUseCase->updateMusician(

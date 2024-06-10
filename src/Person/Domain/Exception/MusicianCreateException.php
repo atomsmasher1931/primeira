@@ -7,7 +7,7 @@ namespace App\Person\Domain\Exception;
 use DomainException;
 use Throwable;
 
-class MusicianCreateException extends DomainException implements MusicianExceptionInterface
+class MusicianCreateException extends DomainException
 {
 	public function __construct(Throwable $previous = null, ?string $message = null)
 	{

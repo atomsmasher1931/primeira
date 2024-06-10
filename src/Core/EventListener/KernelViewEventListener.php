@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class KernelViewEventListener
+final readonly class KernelViewEventListener
 {
 	public function __construct(protected readonly SerializerInterface $serializer)
 	{
