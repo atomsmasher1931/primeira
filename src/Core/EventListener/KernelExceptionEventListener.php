@@ -10,6 +10,7 @@ use App\Core\Http\Rest\Response\ErrorResponse;
 use App\Core\Http\Rest\Response\ErrorResponseInterface;
 use App\Core\Http\Rest\Response\ValidationErrorResponse;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\JWTFailureException;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -17,13 +18,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Throwable;
 
+#[AsEventListener(event: ExceptionEvent::class, method: 'onKernelException')]
 final readonly class KernelExceptionEventListener
 {
 	public function __construct(

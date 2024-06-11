@@ -1,0 +1,720 @@
+{
+	"info": {
+		"_postman_id": "cf8d691f-63cf-4544-bc3d-5c4d0addfd86",
+		"name": "Primeira",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14999040"
+	},
+	"item": [
+		{
+			"name": "Person",
+			"item": [
+				{
+					"name": "Employee",
+					"item": [
+						{
+							"name": "Login V1",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "login",
+											"value": "ipetrov_1",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/api/person/v1/employee/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"employee",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create V1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "lastName",
+											"value": "Петров",
+											"type": "text"
+										},
+										{
+											"key": "firstName",
+											"value": "Иван",
+											"type": "text"
+										},
+										{
+											"key": "patronymic",
+											"value": "Денисович",
+											"type": "text"
+										},
+										{
+											"key": "login",
+											"value": "ipetrov",
+											"type": "text"
+										},
+										{
+											"key": "passwords",
+											"value": "123456",
+											"type": "text"
+										},
+										{
+											"key": "roles[]",
+											"value": "ROLE_ADMIN",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "roles[]",
+											"value": "ROLE_TARIFF_MANAGER",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "roles[]",
+											"value": "ROLE_VIEWER",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "ipetrov@primeira.ru",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "79261234567",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": " 1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/api/person/v1/employee/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"employee",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete V1",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/person/v1/employee/delete/634f70d1-ed8c-4e5e-b4d1-253846c29b33",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"employee",
+										"delete",
+										"634f70d1-ed8c-4e5e-b4d1-253846c29b33"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Musician",
+					"item": [
+						{
+							"name": "Create V1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"lastName\": \"Сидоров\",\n    \"firstName\": \"Василий\",\n    \"patronymic\": \"Николаевич\",\n    \"status\": 1,\n    \"degree\": 1,\n    \"email\": \"vsidorov@primeira.ru\",\n    \"phone\": \"79261234566\",\n    \"telegram\": \"https://t.me/vsidorod\",\n    \"instagram\": \"https://www.instagram.com/vsidorod\",\n    \"facebook\": \"https://www.facebook.com/vsidorod\",\n    \"VK\": \"https://vk.com/v.sidorov\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/person/v1/musician/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"musician",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put V1",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"lastName\": \"Иванов\",\n    \"firstName\": \"Пётр\",\n    \"patronymic\": \"Сергеевич\",\n    \"status\": 1,\n    \"degree\": 1,\n    \"email\": \"pivanov@primeira.ru\",\n    \"phone\": \"79261234567\",\n    \"telegram\": \"https://t.me/pivanov\",\n    \"instagram\": \"https://www.instagram.com/pivanov\",\n    \"facebook\": \"https://www.facebook.com/pivanov\",\n    \"VK\": \"https://vk.com/petr.ivanov\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/person/v1/musician/025d7e73-1b07-4603-a6be-6909ac74e3be",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"musician",
+										"025d7e73-1b07-4603-a6be-6909ac74e3be"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Patch V1",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/person/v1/musician/aac999b5-9985-4fd9-a8ab-3bf831779ddc?lastName=Петров&firstName=Сергей&patronymic=Валерьевич&status=1&degree=1&email=spetrov@primeira.ru&phone=79261234561&telegram=https://t.me/spetrov&instagram=https://www.instagram.com/spetrov&facebook=https://www.facebook.com/spetrov&VK=https://vk.com/sergey.petrov",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"musician",
+										"aac999b5-9985-4fd9-a8ab-3bf831779ddc"
+									],
+									"query": [
+										{
+											"key": "lastName",
+											"value": "Петров"
+										},
+										{
+											"key": "firstName",
+											"value": "Сергей"
+										},
+										{
+											"key": "patronymic",
+											"value": "Валерьевич"
+										},
+										{
+											"key": "status",
+											"value": "1"
+										},
+										{
+											"key": "degree",
+											"value": "1"
+										},
+										{
+											"key": "email",
+											"value": "spetrov@primeira.ru"
+										},
+										{
+											"key": "phone",
+											"value": "79261234561"
+										},
+										{
+											"key": "telegram",
+											"value": "https://t.me/spetrov"
+										},
+										{
+											"key": "instagram",
+											"value": "https://www.instagram.com/spetrov"
+										},
+										{
+											"key": "facebook",
+											"value": "https://www.facebook.com/spetrov"
+										},
+										{
+											"key": "VK",
+											"value": "https://vk.com/sergey.petrov"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by Phone V1",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/person/v1/musician/phone/79261234561",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"musician",
+										"phone",
+										"79261234561"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by ID V1",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/person/v1/musician/848ac4cd-3c2e-4d2d-9a1f-868b9c4581c8",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"person",
+										"v1",
+										"musician",
+										"848ac4cd-3c2e-4d2d-9a1f-868b9c4581c8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Billing",
+			"item": [
+				{
+					"name": "Contract",
+					"item": [
+						{
+							"name": "Create V1",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "musician",
+											"value": "025d7e73-1b07-4603-a6be-6909ac74e3be",
+											"type": "text"
+										},
+										{
+											"key": "tariff",
+											"value": "233843ba-0e84-43ce-abc2-d7930e0f3733",
+											"type": "text"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-09-01 00:00:00",
+											"type": "text"
+										},
+										{
+											"key": "finishDate",
+											"value": "2024-07-31 23:59:59",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/api/billing/v1/contract/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"billing",
+										"v1",
+										"contract",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by ID V1",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/billing/v1/contract/683c6b04-da89-4e87-8133-ca9b28802978",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"billing",
+										"v1",
+										"contract",
+										"683c6b04-da89-4e87-8133-ca9b28802978"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get by Musician V1",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/billing/v1/contract/musician/025d7e73-1b07-4603-a6be-6909ac74e3be",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"billing",
+										"v1",
+										"contract",
+										"musician",
+										"025d7e73-1b07-4603-a6be-6909ac74e3be"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tariff",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "musicianDegree",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "type",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "value",
+											"value": "5000",
+											"type": "text"
+										},
+										{
+											"key": "startDate",
+											"value": "2023-08-01 00:00:00",
+											"type": "text"
+										},
+										{
+											"key": "finishDate",
+											"value": "2024-07-31 23:59:59",
+											"type": "text"
+										},
+										{
+											"key": "status",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host}}/api/billing/v1/tariff/create",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"billing",
+										"v1",
+										"tariff",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Put V1",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"musicianDegree\": 1,\n    \"type\": 1,\n    \"value\": 100000,\n    \"startDate\": \"2023-08-01 00:00:00\",\n    \"finishDate\": \"2025-07-31 23:59:59\",\n    \"status\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/billing/v1/tariff/4b6aafff-24fe-46fe-9a3b-04eb8e10dcde",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"billing",
+										"v1",
+										"tariff",
+										"4b6aafff-24fe-46fe-9a3b-04eb8e10dcde"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Active V1",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/billing/v1/tariff/active",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"billing",
+										"v1",
+										"tariff",
+										"active"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get By ID V1",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{JWT}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/api/billing/v1/tariff/fa11d588-91ef-42c3-9691-3ce8d4b6dc89",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"billing",
+										"v1",
+										"tariff",
+										"fa11d588-91ef-42c3-9691-3ce8d4b6dc89"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "System",
+			"item": [
+				{
+					"name": "Liveness",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Readiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/probe/readiness",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"probe",
+								"readiness"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "JWT",
+			"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MTgwOTIwMzcsImV4cCI6MTcxODA5NTYzNywidXNlcm5hbWUiOiJhdG9tc21hc2hlcjE5MzEiLCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9UQVJJRkZfTUFLRVIiLCJST0xFX1VTRVIiXX0.d2OrJ864UbXiR-4Q1wxmc6e_5kWzVp2bqc9qLb5dwBp7-1_6kvg-Vctey2QsJAAEOnFQjFBtO85T1SFeTADOf0G1s1KWdkLBvHFlzBfXX64-sjKFYOYc8F0JsY_xbB_811Ij1MuncUbseDsmedBm9ekEuLSAAwhpAaMUnnL31OL3GjJrSL_d5MeDCYzu_-wEv9Vi0QLXIcMmQS-SwRLFV0jZYJS66Ngl1ZUIztUUIN3F33y0nXVwWKc9-jNsMGYk8XX9Y2wIhGMCOTvURunVL3cQ_2hDOUWScEj5qoW9bJHpeMM3I6MZ_bClMjeIRkgHVagirAR5kztwP7YwVmwVrKaZKeDitr3TkFDj_eom-wcegmV4O9sJuoFGTntLojx6tO6r143Ij_QOEWM2Z-HZE4-uRJdNI7vCjiygO0KNmsizEJh0nt_Itp5aWU79Rlq7nXTY5L7UdhDHXrTIgyibGh8V7lgT3YVD_ygobCrNfbF5XjrcDYWejdHqdCbfaRBIM3jSAF0XH2orYmoKNAbYNBBpf0gtms2yQkY8rbE4lWCsXtnEGOP65DnwgP7aqjFv-hRIt2t1tQpq0zDhChvVwt4AqaaC3fUMPTsUtdjsOmp7jzJ7Me2JZtNsKDieS9aixGAtY0ZjMEAfzJtqsH9-UOcMF4PidUUsfqR3PZYcIOw"
+		},
+		{
+			"key": "host",
+			"value": "localhost:77"
+		}
+	]
+}

@@ -42,7 +42,7 @@ final class JWTTokenAuthenticator extends AbstractAuthenticator
 	{
 		$extractor = new AuthorizationHeaderTokenExtractor('Bearer', 'Authorization');
 		$token = $extractor->extract($request);
-		if ($token === null) {
+		if (empty($token)) {
 			throw new CustomUserMessageAuthenticationException('Клиент не прислал JWT');
 		}
 
@@ -74,6 +74,6 @@ final class JWTTokenAuthenticator extends AbstractAuthenticator
 
 	public function onAuthenticationFailure(Request $request, AuthenticationException $exception): JsonResponse
 	{
-		throw new AccessDeniedHttpException('Ошибка аутентификации, токен истёк');
+		throw new AccessDeniedHttpException('Ошибка аутентификации, токен истёк или не был прислан клиентом', $exception);
 	}
 }

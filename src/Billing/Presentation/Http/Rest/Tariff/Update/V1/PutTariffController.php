@@ -28,7 +28,7 @@ class PutTariffController extends AbstractController
 	/**
 	 * @throws \Exception
 	 */
-	#[Route(path: '/api/billing/v1/tariff/{id}', name: 'put_tariff', requirements: ['id' => '[0-9a-f\-]{36}'])]
+	#[Route(name: 'tariff_put', path: '/api/billing/v1/tariff/{id}', requirements: ['id' => '[0-9a-f\-]{36}'], methods: ['PUT'])]
 	public function __invoke(#[MapRequestPayload] PutTariffData $putTariffData, string $id): TariffDto
 	{
 		return $this->tariffDtoFactory->createFromTariff(

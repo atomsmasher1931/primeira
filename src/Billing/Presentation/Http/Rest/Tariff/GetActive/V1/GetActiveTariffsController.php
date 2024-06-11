@@ -21,7 +21,7 @@ class GetActiveTariffsController extends AbstractController
 	/**
 	 * @return TariffDto[]
 	 */
-	#[Route(path: '/api/billing/v1/tariff/active', methods: ['GET'])]
+	#[Route(name: 'tariff_get_all_active', path: '/api/billing/v1/tariff/active', methods: ['GET'])]
 	public function __invoke(): array
 	{
 		return $this->tariffDtoFactory->createFromTariffs($this->activeTariffUseCase->getActive());

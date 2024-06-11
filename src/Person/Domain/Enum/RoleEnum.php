@@ -9,13 +9,16 @@ namespace App\Person\Domain\Enum;
  */
 enum RoleEnum: string
 {
-	/* управляет пользователями */
+	/* Управление пользователями */
 	case ADMIN = 'ROLE_ADMIN';
 
-	/* создаёт тарифы */
-	case TARIFF_MAKER = 'ROLE_TARIFF_MAKER';
+	/* Управление музыкантами */
+	case MUSICIAN_MANAGER = 'ROLE_MUSICIAN_MANAGER';
 
-	/* выставляет счета и следит за оплатами */
+	/* Управление тарифами */
+	case TARIFF_MANAGER = 'ROLE_TARIFF_MANAGER';
+
+	/* Выставляет счета и следит за оплатами */
 	case ACCOUNTER = 'ROLE_ACCOUNTER';
 
 	/* может смотреть за активностями, без возможности исправления */

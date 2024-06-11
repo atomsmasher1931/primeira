@@ -25,13 +25,6 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
-    App\Core\EventListener\KernelViewEventListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.view }
-    App\Core\EventListener\KernelExceptionEventListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception }
-
     App\Core\Security\TokenGenerator\JwtTokenGenerator:
         arguments:
             $tokenTTL: '%env(JWT_TTL_SEC)%'

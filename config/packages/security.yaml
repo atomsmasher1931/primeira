@@ -1,12 +1,13 @@
 security:
     role_hierarchy:
         ROLE_ADMIN:
-            - ROLE_TARIFF_MAKER
+            - ROLE_MUSICIAN_MANAGER
+            - ROLE_TARIFF_MANAGER
             - ROLE_ACCOUNTER
-            - ROLE_VIEWER
-            - ROLE_USER
-        ROLE_TARIFF_MAKER:
+        ROLE_TARIFF_MANAGER:
             - ROLE_ACCOUNTER
+            - ROLE_MUSICIAN_MANAGER
+        ROLE_MUSICIAN_MANAGER:
             - ROLE_VIEWER
             - ROLE_USER
         ROLE_ACCOUNTER:
@@ -30,6 +31,7 @@ security:
                 - ^/images/
                 - ^/js/
                 - ^/api/person/v1/employee/login$
+                - ^/api/v1/probe/
             security: false
         main:
             lazy: true
@@ -44,9 +46,13 @@ security:
             # switch_user: true
 
     access_control:
-        - { path: ^/api/person/v1/employee/create, roles: ROLE_ADMIN, methods: [POST] }
-        - { path: ^/api/person/v1/employee/delete, roles: ROLE_ADMIN, methods: [DELETE] }
-        - { path: ^/api/person/v1/musician/create, roles: ROLE_ACCOUNTER, methods: [POST] }
+        - { path: ^/api/person/v1/employee/, methods: [POST, DELETE], roles: [ROLE_ADMIN] }
+        - { path: ^/api/person/v1/musician/, methods: [POST, PATCH, PUT, DELETE], roles: [ROLE_MUSICIAN_MANAGER] }
+        - { path: ^/api/person/v1/musician/, methods: [GET], roles: [ROLE_VIEWER] }
+        - { path: ^/api/billing/v1/contract/, methods: [POST], roles: [ROLE_ACCOUNTER] }
+        - { path: ^/api/billing/v1/contract/, methods: [GET], roles: [ROLE_VIEWER] }
+        - { path: ^/api/billing/v1/tariff/, methods: [POST, PUT], roles: [ROLE_TARIFF_MANAGER] }
+        - { path: ^/api/billing/v1/tariff/, methods: [GET], roles: [ROLE_VIEWER] }
 
 when@test:
     security:

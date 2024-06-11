@@ -18,7 +18,7 @@ class GetTariffByIdController extends AbstractController
 	) {
 	}
 
-	#[Route(path: '/api/billing/v1/tariff/{id}', methods: ['GET'])]
+	#[Route(name: 'tariff_get_by_id', path: '/api/billing/v1/tariff/{id}', methods: ['GET'])]
 	public function __invoke(string $id): TariffDto
 	{
 		return $this->tariffDtoFactory->createFromTariff($this->getTariffUseCase->getById($id));

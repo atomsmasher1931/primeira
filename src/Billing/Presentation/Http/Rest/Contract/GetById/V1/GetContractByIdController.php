@@ -19,7 +19,7 @@ class GetContractByIdController extends AbstractController
 	) {
 	}
 
-	#[Route(path: '/api/billing/v1/contract/{id}', requirements: ['id' => '[0-9a-f\-]{36}'], methods: ['GET'])]
+	#[Route(name: 'contract_get_by_id', path: '/api/billing/v1/contract/{id}', requirements: ['id' => '[0-9a-f\-]{36}'], methods: ['GET'])]
 	public function __invoke(string $id): ContractDto
 	{
 		return $this->contractDtoFactory->createFromContract($this->getContractUseCase->get($id));

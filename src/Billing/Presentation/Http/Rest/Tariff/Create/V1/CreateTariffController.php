@@ -28,7 +28,7 @@ class CreateTariffController extends AbstractController
 	/**
 	 * @throws \Exception
 	 */
-	#[Route(path: '/api/billing/v1/tariff/create', name: 'create_tariff', methods: ['POST'])]
+	#[Route(name: 'tariff_create', path: '/api/billing/v1/tariff/create', methods: ['POST'])]
 	public function __invoke(#[MapRequestPayload] CreateTariffData $createTariffData): TariffDto
 	{
 		return $this->tariffDtoFactory->createFromTariff(
