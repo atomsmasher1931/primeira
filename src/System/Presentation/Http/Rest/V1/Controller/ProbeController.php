@@ -21,13 +21,13 @@ class ProbeController extends AbstractController
 	{
 	}
 
-	#[Route(path: '/liveness', methods: ['GET'])]
+	#[Route(path: '/liveness', name: 'system_liveness', methods: ['GET'])]
 	public function liveness(): Response
 	{
 		return $this->json(self::RESULT_APP);
 	}
 
-	#[Route(path: '/readiness', methods: ['GET'])]
+	#[Route(path: '/readiness', name: 'system_readiness', methods: ['GET'])]
 	public function readiness(): Response
 	{
 		$startTime = microtime(true);

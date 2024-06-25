@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace App\Core\EventListener;
 
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class KernelViewEventListener
+#[AsEventListener(event: ViewEvent::class, method: 'onKernelView')]
+final readonly class KernelViewEventListener
 {
 	public function __construct(protected readonly SerializerInterface $serializer)
 	{

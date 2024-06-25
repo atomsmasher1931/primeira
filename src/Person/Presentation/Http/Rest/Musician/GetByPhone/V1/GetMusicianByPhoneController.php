@@ -18,7 +18,7 @@ class GetMusicianByPhoneController extends AbstractController
 	) {
 	}
 
-	#[Route(path: '/api/person/v1/musician/phone/{phone}', methods: ['GET'])]
+	#[Route(path: '/api/person/v1/musician/phone/{phone}', name: 'musician_get_by_phone', methods: ['GET'])]
 	public function __invoke(string $phone): MusicianDto
 	{
 		return $this->musicianDtoFactory->createFromMusician($this->getMusicianByPhoneUseCase->get($phone));

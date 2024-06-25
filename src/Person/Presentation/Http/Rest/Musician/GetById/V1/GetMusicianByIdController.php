@@ -18,7 +18,7 @@ class GetMusicianByIdController extends AbstractController
 	) {
 	}
 
-	#[Route(path: '/api/person/v1/musician/{id}', requirements: ['id' => '[0-9a-f\-]{36}'], methods: ['GET'])]
+	#[Route(path: '/api/person/v1/musician/{id}', requirements: ['id' => '[0-9a-f\-]{36}'], name: 'musician_get_by_id', methods: ['GET'])]
 	public function __invoke(string $id): MusicianDto
 	{
 		return $this->musicianDtoFactory->createFromMusician($this->getMusicianByIdUseCase->get($id));

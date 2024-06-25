@@ -22,7 +22,7 @@ class CreateContractController extends AbstractController
 	) {
 	}
 
-	#[Route(path: '/api/billing/v1/contract/create', methods: ['POST'])]
+	#[Route(name: 'contract_create', path: '/api/billing/v1/contract/create', methods: ['POST'])]
 	public function __invoke(#[MapRequestPayload] ContractCreateData $contractCreateData): ContractDto
 	{
 		return $this->contractDtoFactory->createFromContract(

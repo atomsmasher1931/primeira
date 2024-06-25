@@ -8,14 +8,12 @@
 Репозиторий курса:
 https://otus.ru/lessons/symfony/?utm_source=github&utm_medium=free&utm_campaign=otus
 
+# Коллекция Postman
+В папке docs в корне проекта
+
 # Проверка работоспособности проекта
-Liveness probe: http://localhost:7777/probe/liveness
+Liveness probe: http://localhost:77/probe/liveness
 Проверяет, что корректно завёлся PHP-FPM
 
-Readyness probe: http://localhost:7777/probe/readyness
+Readyness probe: http://localhost:77/probe/readyness
 Проверяет, что корректно завёлся PHP-FPM и оттуда можем подключиться к PostgreSQL
-
-# Форма работы с тарифом
-Создание http://localhost:7777/api/v1/billing/tariff/create
-
-Правка http://localhost:7777/api/v1/billing/tariff/update/{tariffId}
