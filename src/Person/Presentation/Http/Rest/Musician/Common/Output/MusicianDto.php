@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Person\Presentation\Http\Rest\Musician\Common\Output;
 
 use App\Person\Domain\Enum\PersonDegreeEnum;
+use App\Person\Domain\Enum\PersonPreferNotifierEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 
 readonly class MusicianDto
@@ -20,6 +21,7 @@ readonly class MusicianDto
 		public string $patronymic,
 		public PersonStatusEnum $status,
 		public PersonDegreeEnum $degree,
+		public PersonPreferNotifierEnum $notifier,
 		public string $phone,
 		public string $email,
 		public string $telegram,

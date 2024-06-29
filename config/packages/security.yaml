@@ -3,14 +3,14 @@ security:
         ROLE_ADMIN:
             - ROLE_MUSICIAN_MANAGER
             - ROLE_TARIFF_MANAGER
-            - ROLE_ACCOUNTER
+            - ROLE_ACCOUNT_MANAGER
         ROLE_TARIFF_MANAGER:
-            - ROLE_ACCOUNTER
+            - ROLE_ACCOUNT_MANAGER
             - ROLE_MUSICIAN_MANAGER
         ROLE_MUSICIAN_MANAGER:
             - ROLE_VIEWER
             - ROLE_USER
-        ROLE_ACCOUNTER:
+        ROLE_ACCOUNT_MANAGER:
             - ROLE_VIEWER
             - ROLE_USER
 
@@ -49,7 +49,7 @@ security:
         - { path: ^/api/person/v1/employee/, methods: [POST, DELETE], roles: [ROLE_ADMIN] }
         - { path: ^/api/person/v1/musician/, methods: [POST, PATCH, PUT, DELETE], roles: [ROLE_MUSICIAN_MANAGER] }
         - { path: ^/api/person/v1/musician/, methods: [GET], roles: [ROLE_VIEWER] }
-        - { path: ^/api/billing/v1/contract/, methods: [POST], roles: [ROLE_ACCOUNTER] }
+        - { path: ^/api/billing/v1/contract/, methods: [POST], roles: [ROLE_ACCOUNT_MANAGER] }
         - { path: ^/api/billing/v1/contract/, methods: [GET], roles: [ROLE_VIEWER] }
         - { path: ^/api/billing/v1/tariff/, methods: [POST, PUT], roles: [ROLE_TARIFF_MANAGER] }
         - { path: ^/api/billing/v1/tariff/, methods: [GET], roles: [ROLE_VIEWER] }

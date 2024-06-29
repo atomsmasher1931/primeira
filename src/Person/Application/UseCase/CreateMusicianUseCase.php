@@ -35,6 +35,7 @@ readonly final class CreateMusicianUseCase
 				$createMusicianDto->patronymic,
 				$createMusicianDto->status,
 				$createMusicianDto->degree,
+				$createMusicianDto->notifier,
 				$createMusicianDto->phone,
 				$createMusicianDto->email,
 				$createMusicianDto->telegram,
