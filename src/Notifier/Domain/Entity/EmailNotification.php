@@ -41,13 +41,13 @@ class EmailNotification
 	)]
 	private PersonTypeEnum $personType;
 
-	#[ORM\Column(type: 'string', length: 128, nullable: false, options: ['comment' => 'Адресат, кому отправляем письмо'])]
+	#[ORM\Column(type: Types::STRING, length: 128, nullable: false, options: ['comment' => 'Адресат, кому отправляем письмо'])]
 	private string $email;
 
-	#[ORM\Column(type: 'string', length: 512, nullable: false, options: ['comment' => 'Тема письма'])]
+	#[ORM\Column(type: Types::STRING, length: 1024, nullable: false, options: ['comment' => 'Тема письма'])]
 	private string $topic;
 
-	#[ORM\Column(type: 'string', length: 1024, nullable: false, options: ['comment' => 'Текст письма'])]
+	#[ORM\Column(type: Types::TEXT, nullable: false, options: ['comment' => 'Текст письма'])]
 	private string $text;
 
 	#[ORM\Column(type: Types::SMALLINT, nullable: false, enumType: EmailNotificationStatusEnum::class, options: ['comment' => 'Статус извещения: создано, в работе, отправлено, ошибка, отменено'])]

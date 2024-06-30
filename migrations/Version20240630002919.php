@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240629210302 extends AbstractMigration
+final class Version20240630002919 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20240629210302 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE email_notification (id UUID NOT NULL, person_id UUID NOT NULL, person_type SMALLINT NOT NULL, email VARCHAR(128) NOT NULL, topic VARCHAR(512) NOT NULL, text VARCHAR(1024) NOT NULL, status SMALLINT NOT NULL, created_at TIMESTAMP(0) WITH TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITH TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE email_notification (id UUID NOT NULL, person_id UUID NOT NULL, person_type SMALLINT NOT NULL, email VARCHAR(128) NOT NULL, topic VARCHAR(512) NOT NULL, text TEXT NOT NULL, status SMALLINT NOT NULL, created_at TIMESTAMP(0) WITH TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITH TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX email_notification__status__ix ON email_notification (status)');
         $this->addSql('COMMENT ON TABLE email_notification IS \'Лог писем, отправляемых нотификатором\'');
         $this->addSql('COMMENT ON COLUMN email_notification.id IS \'Идентификатор\'');

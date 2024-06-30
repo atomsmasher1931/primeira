@@ -10,18 +10,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 final readonly class Message
 {
 	public function __construct(
-		#[Assert\Type('string')]
-		#[Assert\Length(36)]
+		#[Assert\Uuid]
 		public string $personId,
 		#[Assert\Choice(callback: [PersonTypeEnum::class, 'values'])]
 		public int $personType,
 		#[Assert\Email]
 		public string $email,
 		#[Assert\Type('string')]
-		#[Assert\Length(512)]
+		#[Assert\Length(min: 7, max: 1024)]
 		public string $topic,
 		#[Assert\Type('string')]
-		#[Assert\Length(1024)]
+		#[Assert\Length(min: 10, max: 4000)]
 		public string $text,
 	) {
 	}

@@ -31,7 +31,7 @@ class EventBus
 	{
 		if (isset($this->producers[self::CONTRACT_CREATED])) {
 			$this->producers[self::CONTRACT_CREATED]
-				->publish($this->serializer->serialize($event, 'json'));
+				->publish($this->serializer->serialize($event, 'json', ));
 
 			return true;
 		}

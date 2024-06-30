@@ -26,6 +26,11 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    Symfony\Component\Serializer\Normalizer\DateTimeNormalizer:
+        arguments:
+            $defaultContext:
+                datetime_format: 'Y-m-d H:i:s'
+
     App\Core\Security\TokenGenerator\JwtTokenGenerator:
         arguments:
             $tokenTTL: '%env(JWT_TTL_SEC)%'
