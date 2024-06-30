@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Throwable;
 
-#[AsEventListener(event: ExceptionEvent::class, method: 'onKernelException')]
+//#[AsEventListener(event: ExceptionEvent::class, method: 'onKernelException')]
 final readonly class KernelExceptionEventListener
 {
 	public function __construct(

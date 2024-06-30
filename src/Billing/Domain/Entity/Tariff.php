@@ -155,16 +155,18 @@ class Tariff
 		return $this->status;
 	}
 
-	public function toArray(): array
+	public function getDegreeName(): string
 	{
-		return [
-			'id' => $this->id,
-			'musicianDegree' => $this->musicianDegree,
-			'type' => $this->type,
-			'value' => $this->value,
-			'startDate' => $this->startDate->format('d.m.Y H:i:s'),
-			'finishDate' => $this->finishDate->format('d.m.Y H:i:s'),
-			'status' => $this->status,
-		];
+		return MusicianDegreeTariffEnum::getName($this->musicianDegree);
+	}
+
+	public function getTypeName(): string
+	{
+		return TariffTypeEnum::getName($this->type);
+	}
+
+	public function getStatusName(): string
+	{
+		return TariffStatusEnum::getName($this->status);
 	}
 }

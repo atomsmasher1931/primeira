@@ -20,4 +20,9 @@ enum ContractStatusEnum: int
 	case ON_PAUSE = 3;
 	/** Договор отменён, обычно раньше времени */
 	case CANCELED = 4;
+
+	public static function values(): array
+	{
+		return array_map(static fn(ContractStatusEnum $value): int => $value->value, self::cases());
+	}
 }

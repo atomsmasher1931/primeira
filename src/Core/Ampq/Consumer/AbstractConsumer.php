@@ -13,11 +13,8 @@ use Throwable;
 
 abstract readonly class AbstractConsumer implements ConsumerInterface
 {
-	public function __construct(
-		protected SerializerInterface $serializer,
-		protected ValidatorInterface $validator,
-	) {
-	}
+	protected SerializerInterface $serializer;
+	protected ValidatorInterface $validator;
 
 	/**
 	 * Deserializes data into the given type.

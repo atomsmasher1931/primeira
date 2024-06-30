@@ -34,4 +34,24 @@ enum TariffTypeEnum: int
 	{
 		return array_map(static fn(TariffTypeEnum $value): int => $value->value, self::cases());
 	}
+
+	public static function getName(TariffTypeEnum $value): string
+	{
+		switch ($value) {
+			case TariffTypeEnum::FREE:
+				return 'Тариф Бесплатный, для опытных, распространяется на месяц';
+			case TariffTypeEnum::CHILDISH:
+				return 'Тариф Детский, для опытных, оплата за месяц безлимитных посещений, скидка максимальная';
+			case TariffTypeEnum::STUDENT:
+				return 'Тариф Студенческий, для опытных, оплата за месяц безлимитных посещений, скидка';
+			case TariffTypeEnum::ADULT:
+				return 'Тариф Элитный, для опытных, оплата за месяц белимитных посещений';
+			case TariffTypeEnum::SINGLE:
+				return 'Тариф Однократный, для новичков, оплата за каждое занятие по факту посещения';
+			case TariffTypeEnum::WEEKLY:
+				return 'Тариф Неделя, для новичков, оплата за месяц, занятие раз в неделю, 4 раза за месяц';
+			case TariffTypeEnum::MONTHLY:
+				return 'Тариф Месяц, для новичков, оплата за месяц, занятие 2 раза в неделю 8-9 в месяц';
+		}
+	}
 }

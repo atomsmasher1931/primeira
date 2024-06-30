@@ -7,7 +7,7 @@ namespace App\Notifier\Presentation\Ampq\Consumer\SendEmailNotification\Input;
 use App\Notifier\Domain\Enum\PersonTypeEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class NotifyPersonCommand
+final readonly class Message
 {
 	public function __construct(
 		#[Assert\Type('string')]
