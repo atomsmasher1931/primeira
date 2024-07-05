@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Billing\Presentation\Amqp\Consumer\ContractCreated\Input;
 
 use App\Billing\Domain\Enum\ContractStatusEnum;
+use App\Core\Ampq\Event\MessageInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final readonly class Message
+final readonly class Message implements MessageInterface
 {
 	public function __construct(
 		#[Assert\NotBlank()]

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Core\Ampq\Consumer;
 
+use App\Core\Ampq\Event\MessageInterface;
 use App\Core\Ampq\Exception\ConsumerDeserializationException;
 use App\Core\Ampq\Exception\ConsumerValidationException;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
+use PhpAmqpLib\Message\AMQPMessage;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Throwable;
@@ -17,34 +19,41 @@ abstract readonly class AbstractConsumer implements ConsumerInterface
 	protected ValidatorInterface $validator;
 
 	/**
-	 * Deserializes data into the given type.
-	 *
-	 * @template TObject of object
-	 * @template TType of string|class-string<TObject>
-	 *
-	 * @param TType $type
-	 *
-	 * @psalm-return (TType is class-string<TObject> ? TObject : mixed)
-	 *
-	 * @phpstan-return ($type is class-string<TObject> ? TObject : mixed)
-	 *
 	 * @throws ConsumerDeserializationException
 	 * @throws ConsumerValidationException
 	 */
-	protected function prepareMessage(string $message, string $fqcn): mixed
-	{
-		try {
-			$messageObject = $this->serializer->deserialize($message, $fqcn, 'json');
-		} catch (Throwable $exception) {
-			throw new ConsumerDeserializationException($exception);
-		}
+	abstract protected function deserializeMessage(string $message): MessageInterface;
 
-		$errors = $this->validator->validate($messageObject);
+	/**
+	 * @throws ConsumerValidationException
+	 */
+	protected function validateMessage(MessageInterface $message): void
+	{
+		$errors = $this->validator->validate($message);
 		if ($errors->count() > 0) {
 			throw new ConsumerValidationException((string)$errors);
 		}
+	}
 
-		return $messageObject;
+	abstract protected function processMessage(MessageInterface $message);
+
+	/**
+	 * @param AMQPMessage $msg
+	 *
+	 * @return bool|int
+	 */
+	public function execute(AMQPMessage $msg): bool|int
+	{
+		try {
+			$message = $this->deserializeMessage($msg->getBody());
+			$this->validateMessage($message);
+			$this->processMessage($message);
+			
+		} catch (Throwable $exception) {
+			return $this->reject($exception->getMessage());
+		}
+
+		return self::MSG_ACK;
 	}
 
 	protected function reject(string $error): int
