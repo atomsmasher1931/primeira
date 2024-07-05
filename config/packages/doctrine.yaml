@@ -30,6 +30,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Billing/Domain/Entity'
                 prefix: 'App\Billing\Domain\Entity'
                 alias: App
+            App\Notifier\Domain:
+                type: attribute
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Notifier/Domain/Entity'
+                prefix: 'App\Notifier\Domain\Entity'
+                alias: App
         controller_resolver:
             auto_mapping: false
 

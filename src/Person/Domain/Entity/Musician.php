@@ -7,6 +7,7 @@ namespace App\Person\Domain\Entity;
 use App\Billing\Domain\Entity\Contract;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
 use App\Person\Domain\Enum\PersonDegreeEnum;
+use App\Person\Domain\Enum\PersonPreferNotifierEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -26,6 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\UniqueConstraint(name: 'musician__vk__ux', columns: ['vk'])]
 #[ORM\Index(name: 'musician__status__ix', columns: ['status'])]
 #[ORM\Index(name: 'musician__degree__ix', columns: ['degree'])]
+#[ORM\Index(name: 'musician__notifier__ix', columns: ['notifier'])]
 #[ORM\HasLifecycleCallbacks]
 class Musician
 {
@@ -72,6 +74,13 @@ class Musician
 		options: ['comment' => 'Уровень: новичок, опытный']
 	)]
 	private PersonDegreeEnum $degree;
+
+	#[ORM\Column(
+		type: Types::STRING,
+		enumType: PersonPreferNotifierEnum::class,
+		options: ['comment' => 'Предпочитаемый метод получения уведомления: пока только e-mail']
+	)]
+	private PersonPreferNotifierEnum $notifier;
 
 	#[ORM\Column(
 		type: Types::STRING,
@@ -143,6 +152,7 @@ class Musician
 		string $patronymic,
 		PersonStatusEnum $status,
 		PersonDegreeEnum $degree,
+		PersonPreferNotifierEnum $notifier,
 		string $phone,
 		string $email,
 		string $telegram,
@@ -155,6 +165,7 @@ class Musician
 		$musician->changeStatus($status);
 		$musician->changeDegree($degree);
 
+		$musician->notifier = $notifier;
 		$musician->phone = $phone;
 		$musician->email = $email;
 		$musician->telegram = $telegram;
@@ -174,6 +185,7 @@ class Musician
 		?string $patronymic,
 		?PersonStatusEnum $status,
 		?PersonDegreeEnum $degree,
+		?PersonPreferNotifierEnum $notifier,
 		?string $phone,
 		?string $email,
 		?string $telegram,
@@ -186,6 +198,7 @@ class Musician
 		$this->patronymic = $patronymic ?? $this->patronymic;
 		$this->changeStatus($status ?? $this->status);
 		$this->changeDegree($degree ?? $this->degree);
+		$this->notifier = $notifier ?? $this->notifier;
 		$this->changePhone($phone ?? $this->phone);
 		$this->changeEmail($email ?? $this->email);
 		$this->telegram = $telegram ?? $this->telegram;
@@ -203,6 +216,7 @@ class Musician
 		string $patronymic,
 		PersonStatusEnum $status,
 		PersonDegreeEnum $degree,
+		PersonPreferNotifierEnum $notifier,
 		string $phone,
 		string $email,
 		string $telegram,
@@ -215,6 +229,7 @@ class Musician
 		$this->patronymic = $patronymic;
 		$this->changeStatus($status);
 		$this->changeDegree($degree);
+		$this->notifier = $notifier;
 		$this->changePhone($phone);
 		$this->changeEmail($email);
 		$this->telegram = $telegram;
@@ -278,6 +293,11 @@ class Musician
 		return $this->degree;
 	}
 
+	public function getNotifier(): PersonPreferNotifierEnum
+	{
+		return $this->notifier;
+	}
+
 	public function getPhone(): string
 	{
 		return $this->phone;
@@ -331,25 +351,5 @@ class Musician
 	public function getContracts(): array
 	{
 		return $this->contracts->toArray();
-	}
-
-	public function toArray(): array
-	{
-		return [
-			'id' => $this->id,
-			'name' => $this->getName(),
-			'status' => $this->status,
-			'degree' => $this->degree,
-			'phone' => $this->phone,
-			'email' => $this->email,
-			'telegram' => $this->telegram,
-			'instagram' => $this->instagram,
-			'facebook' => $this->facebook,
-			'VK' => $this->VK,
-			'contracts' => array_map(
-				static fn(Contract $contract) => $contract->toArray(),
-				$this->contracts->toArray()
-			),
-		];
 	}
 }

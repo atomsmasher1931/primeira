@@ -22,6 +22,7 @@ class MusicianDtoFactory
 			$musician->getPatronymic(),
 			$musician->getStatus(),
 			$musician->getDegree(),
+			$musician->getNotifier(),
 			$musician->getPhone(),
 			$musician->getEmail(),
 			$musician->getTelegram(),

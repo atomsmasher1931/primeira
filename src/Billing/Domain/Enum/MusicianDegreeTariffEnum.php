@@ -16,4 +16,14 @@ enum MusicianDegreeTariffEnum: int
 	{
 		return array_map(static fn(MusicianDegreeTariffEnum $value): int => $value->value, self::cases());
 	}
+
+	public static function getName(MusicianDegreeTariffEnum $value)
+	{
+		switch ($value) {
+			case MusicianDegreeTariffEnum::FOR_NEWBIE:
+				return 'для новичка';
+			case MusicianDegreeTariffEnum::FOR_EXPERIENCED:
+				return 'для опытного';
+		}
+	}
 }

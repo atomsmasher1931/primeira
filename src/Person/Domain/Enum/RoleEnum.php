@@ -19,7 +19,7 @@ enum RoleEnum: string
 	case TARIFF_MANAGER = 'ROLE_TARIFF_MANAGER';
 
 	/* Выставляет счета и следит за оплатами */
-	case ACCOUNTER = 'ROLE_ACCOUNTER';
+	case ACCOUNTER = 'ROLE_ACCOUNT_MANAGER';
 
 	/* может смотреть за активностями, без возможности исправления */
 	case VIEWER = 'ROLE_VIEWER';

@@ -36,6 +36,18 @@ services:
       - primeira_dump:/app/dump
       - primeira_postgresql:/var/lib/postgresql/data
 
+  rabbitmq:
+    image: rabbitmq:3.7.5-management
+    working_dir: /app
+    hostname: primeira-rabbit-mq
+    container_name: 'primeira-rabbit-mq'
+    ports:
+      - '35672:15672'
+      - '25672:5672'
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+
 volumes:
   primeira_dump:
   primeira_postgresql:

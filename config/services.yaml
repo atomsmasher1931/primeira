@@ -19,12 +19,23 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Billing/Domain/Entity/'
             - '../src/Person/Domain/Entity/'
+            - '../src/Notifier/Domain/Entity/'
             - '../src/Kernel.php'
 
     App\Core\Doctrine\Subscriber\MigrationEventSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    Symfony\Component\Serializer\Normalizer\DateTimeNormalizer:
+        arguments:
+            $defaultContext:
+                datetime_format: 'Y-m-d H:i:s'
+
     App\Core\Security\TokenGenerator\JwtTokenGenerator:
         arguments:
             $tokenTTL: '%env(JWT_TTL_SEC)%'
+
+    App\Core\Ampq\Producer\EventBus:
+        calls:
+            - [ 'registerProducer', [ !php/const App\Core\Ampq\Producer\EventBus::CONTRACT_CREATED, '@old_sound_rabbit_mq.contract_created_producer' ] ]
+            - [ 'registerProducer', [ !php/const App\Core\Ampq\Producer\EventBus::NOTIFY_PERSON, '@old_sound_rabbit_mq.notify_person_producer' ] ]

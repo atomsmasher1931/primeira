@@ -8,6 +8,8 @@ use App\Billing\Application\Dto\CreateContractDto;
 use App\Billing\Domain\Entity\Contract;
 use App\Billing\Domain\Exception\ContractManageException;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
+use App\Core\Ampq\Event\ContractCreatedEvent;
+use App\Core\Ampq\Producer\EventBus;
 use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
 use App\Core\UuidGenerator\EntityIdGeneratorInterface;
@@ -21,7 +23,8 @@ final readonly class CreateContractUseCase
 		private UnitOfWorkInterface $unitOfWork,
 		private EntityIdGeneratorInterface $idGenerator,
 		private TariffRepositoryInterface $tariffRepository,
-		private MusicianRepositoryInterface $musicianRepository
+		private MusicianRepositoryInterface $musicianRepository,
+		private EventBus $eventBus,
 	) {
 	}
 
@@ -42,6 +45,24 @@ final readonly class CreateContractUseCase
 
 			$this->unitOfWork->persist($contract);
 			$this->unitOfWork->flush();
+
+			$this->eventBus->publishContractCreated(
+				new ContractCreatedEvent(
+					$contract->id,
+					$contract->number,
+					$contract->getStartDate(),
+					$contract->getFinishDate(),
+					$contract->getStatus(),
+					$contract->getTariffId(),
+					$contract->getTariffValue(),
+					$contract->getTariffTypeName(),
+					$contract->getTariffDegreeName(),
+					$contract->getTariffStatusName(),
+					$contract->getMusicianId(),
+					$contract->getMusicianEmail(),
+					$contract->getMusicianPhone(),
+				)
+			);
 
 			return $contract;
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Person\Presentation\Http\Rest\Musician\Create\V1\Input;
 
 use App\Person\Domain\Enum\PersonDegreeEnum;
+use App\Person\Domain\Enum\PersonPreferNotifierEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,6 +30,9 @@ readonly class MusicianCreateData
 		#[Assert\NotBlank()]
 		#[Assert\Choice(callback: [PersonDegreeEnum::class, 'values'])]
 		public int $degree,
+		#[Assert\NotBlank()]
+		#[Assert\Choice(callback: [PersonPreferNotifierEnum::class, 'values'])]
+		public string $notifier,
 		#[Assert\NotBlank()]
 		#[Assert\Email]
 		public string $email,

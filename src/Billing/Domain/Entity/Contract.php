@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Index(name: 'contract__tariff_id__ix', columns: ['tariff_id'])]
 #[ORM\Index(name: 'contract__musician_id__ix', columns: ['musician_id'])]
 #[ORM\HasLifecycleCallbacks]
-class Contract
+final class Contract
 {
 	use EntityTimestampTrait;
 
@@ -153,17 +153,45 @@ class Contract
 		return $this;
 	}
 
-	public function toArray(): array
+	public function getTariffId(): string
 	{
-		return [
-			'id' => $this->id,
-			'number' => $this->number,
-			'startDate' => $this->startDate->format('d.m.Y H:i:s'),
-			'finishDate' => $this->finishDate->format('d.m.Y H:i:s'),
-			'status' => $this->status,
-			'tariff' => $this->tariff->toArray(),
-			'musician' => ['id' => $this->musician->getId(), 'name' => $this->musician->getName()],
-		];
-
+		return $this->tariff->id;
 	}
+
+	public function getTariffValue(): int
+	{
+		return $this->tariff->value;
+	}
+
+	public function getTariffTypeName(): string
+	{
+		return $this->tariff->getTypeName();
+	}
+
+	public function getTariffDegreeName(): string
+	{
+		return $this->tariff->getDegreeName();
+	}
+	
+	public function getTariffStatusName(): string
+	{
+		return $this->tariff->getStatusName();
+	}
+
+	public function getMusicianId(): string
+	{
+		return $this->musician->getId();
+	}
+
+	public function getMusicianEmail(): string
+	{
+		return $this->musician->getEmail();
+	}
+
+	public function getMusicianPhone(): string
+	{
+		return $this->musician->getPhone();
+	}
+
+
 }

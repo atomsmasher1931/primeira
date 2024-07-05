@@ -17,4 +17,14 @@ enum TariffStatusEnum: int
 	{
 		return array_map(static fn(TariffStatusEnum $value): int => $value->value, self::cases());
 	}
+
+	public static function getName(TariffStatusEnum $value)
+	{
+		switch ($value) {
+			case TariffStatusEnum::ACTIVE:
+				return 'активен';
+			case TariffStatusEnum::INACTIVE:
+				return 'отключён';
+		}
+	}
 }

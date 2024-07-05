@@ -8,6 +8,7 @@ use App\Person\Application\Dto\UpdateMusicianDto;
 use App\Person\Application\UseCase\UpdateMusicianUseCase;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Enum\PersonDegreeEnum;
+use App\Person\Domain\Enum\PersonPreferNotifierEnum;
 use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Person\Presentation\Http\Rest\Musician\Update\V1\Input\MusicianPutData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,6 +35,7 @@ class PutMusicianController extends AbstractController
 				$musicianUpdateData->patronymic,
 				PersonStatusEnum::tryFrom($musicianUpdateData->status),
 				PersonDegreeEnum::tryFrom($musicianUpdateData->degree),
+				PersonPreferNotifierEnum::tryFrom($musicianUpdateData->notifier),
 				$musicianUpdateData->phone,
 				$musicianUpdateData->email,
 				$musicianUpdateData->telegram,
