@@ -17,4 +17,9 @@ class PasswordHasher implements PasswordHasherInterface
 	{
 		return $this->userPasswordHasher->hashPassword($employee, $password);
 	}
+
+	public function check(Employee $employee, string $password): bool
+	{
+		return $this->userPasswordHasher->isPasswordValid($employee, $password);
+	}
 }

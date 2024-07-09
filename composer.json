@@ -44,7 +44,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\Unit\\": "tests/Unit",
+            "App\\Tests\\Integration\\": "tests/Functional",
+            "App\\Tests\\Api\\": "tests/Acceptance"
         }
     },
     "replace": {
@@ -76,5 +78,14 @@
             "allow-contrib": false,
             "require": "6.4.*"
         }
+    },
+    "require-dev": {
+        "codeception/codeception": "^5.1",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-datafactory": "^3.0",
+        "codeception/module-doctrine": "^3.1",
+        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-rest": "^3.3",
+        "codeception/module-symfony": "^3.4"
     }
 }
