@@ -36,6 +36,21 @@ services:
       - primeira_dump:/app/dump
       - primeira_postgresql:/var/lib/postgresql/data
 
+  postgres_test:
+    image: postgres:15
+    ports:
+      - 35432:5432
+    container_name: 'primeira_postgresql_test'
+    working_dir: /app
+    restart: always
+    environment:
+      POSTGRES_DB: 'primeira'
+      POSTGRES_USER: 'user'
+      POSTGRES_PASSWORD: 'password'
+    volumes:
+      - primeira_dump:/app/dump
+      - primeira_postgresql_test:/var/lib/postgresql/data
+
   rabbitmq:
     image: rabbitmq:3.7.5-management
     working_dir: /app
@@ -51,3 +66,4 @@ services:
 volumes:
   primeira_dump:
   primeira_postgresql:
+  primeira_postgresql_test:
