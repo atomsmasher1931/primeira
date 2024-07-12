@@ -86,6 +86,7 @@
         "codeception/module-doctrine": "^3.1",
         "codeception/module-phpbrowser": "^3.0",
         "codeception/module-rest": "^3.3",
-        "codeception/module-symfony": "^3.4"
+        "codeception/module-symfony": "^3.4",
+        "mockery/mockery": "^1.6"
     }
 }
