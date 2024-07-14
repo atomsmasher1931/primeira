@@ -104,7 +104,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
 	)]
 	private PersonStatusEnum $status;
 
-	public function __construct()
+	private function __construct()
 	{
 	}
 
