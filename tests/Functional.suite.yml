@@ -10,6 +10,10 @@ modules:
         - Symfony:
               app_path: 'src'
               environment: 'test'
-#        - Doctrine:
-#              depends: Symfony
-#              cleanup: true
+        - Doctrine:
+              depends: Symfony
+              cleanup: true
+        - DataFactory:
+            depends: Doctrine
+            cleanup: true
+        - \App\Tests\Support\Helper\PersonFactory

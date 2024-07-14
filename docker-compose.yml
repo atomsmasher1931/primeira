@@ -40,11 +40,11 @@ services:
     image: postgres:15
     ports:
       - 35432:5432
-    container_name: 'primeira_postgresql_test'
+    container_name: 'primeira-postgresql-test'
     working_dir: /app
     restart: always
     environment:
-      POSTGRES_DB: 'primeira'
+      POSTGRES_DB: 'primeira_test'
       POSTGRES_USER: 'user'
       POSTGRES_PASSWORD: 'password'
     volumes:

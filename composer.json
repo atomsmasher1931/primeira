@@ -46,7 +46,8 @@
         "psr-4": {
             "App\\Tests\\Unit\\": "tests/Unit",
             "App\\Tests\\Integration\\": "tests/Functional",
-            "App\\Tests\\Api\\": "tests/Acceptance"
+            "App\\Tests\\Api\\": "tests/Acceptance",
+            "App\\Tests\\Support\\": "tests/Support"
         }
     },
     "replace": {

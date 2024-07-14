@@ -31,13 +31,13 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
 	 */
 	public function getByLogin(string $login): Employee
 	{
-		$users = $this->findBy(['login' => $login]);
+		$employees = $this->findBy(['login' => $login]);
 
-		if (count($users) === 0) {
+		if (count($employees) === 0) {
 			throw new EmployeeNotFoundException();
 		}
 
-		return current($users);
+		return current($employees);
 	}
 
 	/**
@@ -45,12 +45,12 @@ class EmployeeRepository extends ServiceEntityRepository implements EmployeeRepo
 	 */
 	public function getById(string $id): Employee
 	{
-		$user = $this->find($id);
+		$employee = $this->find($id);
 
-		if ($user === null) {
+		if ($employee === null) {
 			throw new EmployeeNotFoundException();
 		}
 
-		return $user;
+		return $employee;
 	}
 }
