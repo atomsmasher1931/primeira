@@ -3,6 +3,7 @@
 actor: AcceptanceTester
 modules:
     enabled:
+        - Asserts
         - PhpBrowser:
             url: http://primeira-nginx:80/
             depends: PhpBrowser

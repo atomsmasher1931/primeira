@@ -38,7 +38,7 @@ class MusicianRepositoryCest
 
 		$I->expectThrowable(
 			MusicianNotFoundException::class,
-			static fn() => $repository->getByPhone(str_replace('1', '2', $musician->getPhone()))
+			static fn() => $repository->getByPhone(str_replace(['1', '2', '3', '4', '5'], ['6','7', '8', '9', '0'], $musician->getPhone()))
 		);
 	}
 

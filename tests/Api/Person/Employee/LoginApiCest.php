@@ -14,6 +14,7 @@ class LoginApiCest
 {
 	private const LOGIN = 'ipetrov';
 	private const PASSWORD = '123456';
+
 	public function test(ApiTester $I): void
 	{
 		$I->sendPost(
