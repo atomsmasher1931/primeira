@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Person;
+namespace App\Tests\Unit\Person\Entity;
 
 use App\Person\Domain\Entity\Employee;
 use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Tests\Support\UnitTester;
 use Codeception\Attribute\DataProvider;
 use Codeception\Example;
-use Traversable;
 use Throwable;
+use Traversable;
 
 class EmployeeCest
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Core\PasswordHasher;
+namespace App\Tests\Functional\Core\PasswordHasher;
 
 use App\Core\PasswordHasher\PasswordHasherInterface;
 use App\Person\Domain\Entity\Employee;

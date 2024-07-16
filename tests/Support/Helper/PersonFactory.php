@@ -17,6 +17,8 @@ use League\FactoryMuffin\Faker\Facade;
 
 class PersonFactory extends Module
 {
+	public const HASHED_PASSWORD = '$2y$13$.8uIDeMXUzIX72eDQYg2yebTD.MimCcuxDwuOgfU1/o4YnIu0qEeu';
+	public const PLAIN_PASSWORD = '123456';
 	public function _beforeSuite(array $settings = [])
 	{
 		/** @var DataFactory $factory */
@@ -34,15 +36,15 @@ class PersonFactory extends Module
 					(string)Uuid::uuid_create(),
 					Facade::lastName(250)(),
 					Facade::firstName(250)(),
-					Facade::name(250)() . 's',
-					Facade::name(255)(),
+					Facade::firstName(250)() . 's',
+					'login_'.Facade::randomNumber(9, true)(),
 					bin2hex(random_bytes(64)),
 					[RoleEnum::getRoleByIntCode(Facade::numberBetween(0, 5)())],
 					'79' . Facade::randomNumber(9, true)(),
 					Facade::email()(),
 					PersonStatusEnum::tryFrom(Facade::numberBetween(-1, 1)()),
 				);
-				$employee->changePassword('hashed test password');
+				$employee->changePassword(self::HASHED_PASSWORD);
 
 				return $employee;
 			}

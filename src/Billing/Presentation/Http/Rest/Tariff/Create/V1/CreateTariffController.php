@@ -32,7 +32,7 @@ class CreateTariffController extends AbstractController
 	public function __invoke(#[MapRequestPayload] CreateTariffData $createTariffData): TariffDto
 	{
 		return $this->tariffDtoFactory->createFromTariff(
-			$this->createTariffUseCase->create(
+			($this->createTariffUseCase)(
 				new CreateTariffDto(
 					MusicianDegreeTariffEnum::tryFrom($createTariffData->musicianDegree),
 					TariffTypeEnum::tryFrom($createTariffData->type),

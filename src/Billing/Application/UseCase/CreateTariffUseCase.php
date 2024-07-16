@@ -24,7 +24,7 @@ readonly final class CreateTariffUseCase
 	) {
 	}
 
-	public function create(CreateTariffDto $dto): Tariff
+	public function __invoke(CreateTariffDto $dto): Tariff
 	{
 		try {
 			$tariff = Tariff::create(

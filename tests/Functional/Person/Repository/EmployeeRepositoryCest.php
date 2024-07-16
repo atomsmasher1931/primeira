@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration\Person\Repository;
+namespace App\Tests\Functional\Person\Repository;
 
 
 use App\Person\Domain\Entity\Employee;
