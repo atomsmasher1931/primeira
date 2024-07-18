@@ -7,15 +7,12 @@ namespace Acceptance\Person\Employee;
 use App\Tests\Support\AcceptanceTester;
 use Codeception\Util\HttpCode;
 
-/**
- *
- */
 class CreateAndDeleteEmployeeCest
 {
 	public function testAccessPermited(AcceptanceTester $I): void
 	{
 		$I->amAdmin();
-		$I->sendAjaxPostRequest(
+		$I->sendPost(
 			'/api/person/v1/employee/create',
 			[
 				'lastName' => 'Иванов',
@@ -30,19 +27,29 @@ class CreateAndDeleteEmployeeCest
 			]
 		);
 		$I->seeResponseCodeIs(HttpCode::OK);
-		$result = $I->grabPageSource();
-		$I->assertJson($result);
-		$result = json_decode($result, true);
-		$I->assertArrayHasKey('id', $result);
+		$I->seeResponseIsJson();
+		$I->seeResponseMatchesJsonType(
+			[
+				'id' => 'string',
+				'login' => 'string',
+				'roles' => ['string'],
+				'lastName' => 'string',
+				'firstName' => 'string',
+				'patronymic' => 'string',
+				'phone' => 'string',
+				'email' => 'string:email',
+			]
+		);
+		$token = $I->grabDataFromResponseByJsonPath('$.id')[0];
 
-		$I->sendAjaxRequest('DELETE',"/api/person/v1/employee/delete/{$result['id']}");
+		$I->sendDelete("/api/person/v1/employee/delete/{$token}");
 		$I->seeResponseCodeIs(HttpCode::OK);
 	}
 
-	public function testAccessDenied(AcceptanceTester $I)
+	public function testAccessDenied(AcceptanceTester $I): void
 	{
 		$I->amViewer();
-		$I->sendAjaxPostRequest(
+		$I->sendPost(
 			'/api/person/v1/employee/create',
 			[
 				'lastName' => 'Иванов',
@@ -58,13 +65,13 @@ class CreateAndDeleteEmployeeCest
 		);
 
 		$I->seeResponseCodeIs(HttpCode::FORBIDDEN);
-
-		$result = $I->grabPageSource();
-		$I->assertJson($result);
-
-		$result = json_decode($result, true);
-		$I->assertArrayHasKey('success', $result);
-		$I->assertArrayHasKey('message', $result);
-		$I->assertFalse($result['success']);
+		$I->seeResponseIsJson();
+		$I->seeResponseMatchesJsonType(
+			[
+				'success' => 'boolean',
+				'message' => 'string',
+			]
+		);
+		$I->assertFalse($I->grabDataFromResponseByJsonPath('$.success')[0]);
 	}
 }

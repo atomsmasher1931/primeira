@@ -4,7 +4,7 @@ actor: AcceptanceTester
 modules:
     enabled:
         - Asserts
-        - PhpBrowser:
+        - REST:
             url: http://primeira-nginx:80/
             depends: PhpBrowser
             part: Json

@@ -35,17 +35,17 @@ class AcceptanceTester extends \Codeception\Actor
 
 	public function amAdmin(): void
 	{
-		$this->authenticated(self::ADMIN_LOGIN, self::ADMIN_PASSWORD);
+		$this->login(self::ADMIN_LOGIN, self::ADMIN_PASSWORD);
 	}
 
 	public function amViewer(): void
 	{
-		$this->authenticated(self::VIEWER_LOGIN, self::VIEWER_PASSWORD);
+		$this->login(self::VIEWER_LOGIN, self::VIEWER_PASSWORD);
 	}
 
-	private function authenticated(string $login, string $password): void
+	private function login(string $login, string $password): void
 	{
-		$this->sendAjaxPostRequest(
+		$this->sendPost(
 			'/api/person/v1/employee/login',
 			[
 				'login' => $login,
@@ -54,11 +54,9 @@ class AcceptanceTester extends \Codeception\Actor
 		);
 
 		$this->seeResponseCodeIs(HttpCode::OK);
-		$result = $this->grabPageSource();
-		$this->assertJson($result);
-		$result = json_decode($result, true);
-		$this->assertArrayHasKey('token', $result);
+		$this->seeResponseIsJson();
+		$this->seeResponseJsonMatchesJsonPath('$.token');
 
-		$this->setHeader('Authorization', "Bearer {$result['token']}");
+		$this->amBearerAuthenticated($this->grabDataFromResponseByJsonPath('$.token')[0]);
 	}
 }

@@ -31,24 +31,47 @@ class EmployeeCest
     public function testCreate(UnitTester $I, Example $example): void
     {
         $employee = Employee::create(...$example['employeeData']);
-        $I->assertEquals(self::UUID, $employee->getId());
-        $I->assertEquals(self::LAST_NAME, $employee->getLastName());
-        $I->assertEquals(self::FIRST_NAME, $employee->getFirstName());
-        $I->assertEquals(self::PATRONYMIC, $employee->getPatronymic());
-        $I->assertEquals(self::LOGIN, $employee->getLogin());
-        $I->assertEquals(self::SALT, $employee->getSalt());
-        $I->assertEquals($example['roles'], $employee->getRoles());
-        $I->assertEquals(self::EMAIL, $employee->getEmail());
-        $I->assertEquals(self::STATUS, $employee->getStatus());
-
-        $I->expectThrowable(
-            Throwable::class,
-            static fn(Employee $employee) => $employee->getPassword()
-        );
-
-        $employee->changePassword(self::PASSWORD);
-        $I->assertEquals(self::PASSWORD, $employee->getPassword());
+		$I->assertEquals(
+			[
+				'id' => self::UUID,
+				'lastName' => self::LAST_NAME,
+				'firstName' => self::FIRST_NAME,
+				'patronymic' => self::PATRONYMIC,
+				'login' => self::LOGIN,
+				'salt' => self::SALT,
+				'roles' => $example['roles'],
+				'email' => self::EMAIL,
+				'phone' => self::PHONE,
+				'status' => self::STATUS,
+			],
+			[
+				'id' => $employee->getId(),
+				'lastName' => $employee->getLastName(),
+				'firstName' => $employee->getFirstName(),
+				'patronymic' => $employee->getPatronymic(),
+				'login' => $employee->getLogin(),
+				'salt' => $employee->getSalt(),
+				'roles' => $employee->getRoles(),
+				'email' => $employee->getEmail(),
+				'phone' => $employee->getPhone(),
+				'status' => $employee->getStatus(),
+			],
+		);
     }
+
+	#[DataProvider('employeesProvider')]
+	public function testChangePassword(UnitTester $I, Example $example): void
+	{
+		$employee = Employee::create(...$example['employeeData']);
+
+		$I->expectThrowable(
+			Throwable::class,
+			static fn(Employee $employee) => $employee->getPassword()
+		);
+
+		$employee->changePassword(self::PASSWORD);
+		$I->assertEquals(self::PASSWORD, $employee->getPassword());
+	}
 
     protected function employeesProvider(): Traversable
     {

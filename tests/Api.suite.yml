@@ -1,8 +1,0 @@
-actor: ApiTester
-suite_namespace: App\Tests\Api
-modules:
-  enabled:
-    - REST:
-        url: http://primeira-nginx:80/
-        depends: PhpBrowser
-        part: Json
