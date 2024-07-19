@@ -23,7 +23,7 @@ class LoginController extends AbstractController
 	) {
 	}
 
-	#[Route(path: '/api/person/v1/employee/login', name: 'employee_login')]
+	#[Route(path: '/api/person/v1/employee/login', name: 'employee_login', methods: ['POST'])]
 	public function __invoke(#[MapRequestPayload] LoginData $loginData): array
 	{
 		try {

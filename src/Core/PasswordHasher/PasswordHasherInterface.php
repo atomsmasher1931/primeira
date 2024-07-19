@@ -9,4 +9,6 @@ use App\Person\Domain\Entity\Employee;
 interface PasswordHasherInterface
 {
 	public function hash(Employee $employee, string $password): string;
+
+	public function check(Employee $employee, string $password): bool;
 }

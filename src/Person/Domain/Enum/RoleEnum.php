@@ -31,4 +31,9 @@ enum RoleEnum: string
 	{
 		return array_map(static fn(RoleEnum $value): string => $value->value, self::cases());
 	}
+
+	public static function getRoleByIntCode(int $code): string
+	{
+		return self::cases()[$code]->value;
+	}
 }

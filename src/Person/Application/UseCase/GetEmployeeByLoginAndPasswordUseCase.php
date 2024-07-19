@@ -8,12 +8,12 @@ use App\Person\Domain\Entity\Employee;
 use App\Person\Domain\Exception\EmployeeNotFoundException;
 use App\Person\Domain\Exception\EmployeeWrongPasswordException;
 use App\Person\Domain\Repository\EmployeeRepositoryInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Core\PasswordHasher\PasswordHasherInterface;
 
 final readonly class GetEmployeeByLoginAndPasswordUseCase
 {
 	public function __construct(
-		private UserPasswordHasherInterface $passwordHasher,
+		private PasswordHasherInterface $passwordHasher,
 		private EmployeeRepositoryInterface $employeeRepository,
 	) {
 	}
@@ -25,7 +25,7 @@ final readonly class GetEmployeeByLoginAndPasswordUseCase
 	public function __invoke(string $login, string $password): Employee
 	{
 		$employee = $this->employeeRepository->getByLogin($login);
-		if (!$this->passwordHasher->isPasswordValid($employee, $password)) {
+		if (!$this->passwordHasher->check($employee, $password)) {
 			throw new EmployeeWrongPasswordException();
 		}
 

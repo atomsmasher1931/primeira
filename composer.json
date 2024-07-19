@@ -44,7 +44,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\Unit\\": "tests/Unit",
+            "App\\Tests\\Functional\\": "tests/Functional",
+            "App\\Tests\\Acceptance\\": "tests/Acceptance",
+            "App\\Tests\\Support\\": "tests/Support"
         }
     },
     "replace": {
@@ -76,5 +79,15 @@
             "allow-contrib": false,
             "require": "6.4.*"
         }
+    },
+    "require-dev": {
+        "codeception/codeception": "^5.1",
+        "codeception/module-asserts": "^3.0",
+        "codeception/module-datafactory": "^3.0",
+        "codeception/module-doctrine": "^3.1",
+        "codeception/module-phpbrowser": "^3.0",
+        "codeception/module-rest": "^3.3",
+        "codeception/module-symfony": "^3.4",
+        "mockery/mockery": "^1.6"
     }
 }
