@@ -14,7 +14,6 @@ use Traversable;
 
 class EmployeeCest
 {
-
     private const UUID = 'ab0cf837-5eb4-48dc-b40a-5c7605ec6112';
     private const LAST_NAME = 'Петров';
     private const FIRST_NAME = 'Иван';
@@ -70,7 +69,7 @@ class EmployeeCest
 		);
 
 		$employee->changePassword(self::PASSWORD);
-		$I->assertEquals(self::PASSWORD, $employee->getPassword());
+		$I->assertSame(self::PASSWORD, $employee->getPassword());
 	}
 
     protected function employeesProvider(): Traversable
