@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Notifier\Domain\Entity;
+namespace NotifierBundle\src\Domain\Entity;
 
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
-use App\Notifier\Domain\Enum\EmailNotificationStatusEnum;
-use App\Notifier\Domain\Enum\PersonTypeEnum;
+use NotifierBundle\src\Domain\Enum\EmailNotificationStatusEnum;
+use NotifierBundle\src\Domain\Enum\PersonTypeEnum;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

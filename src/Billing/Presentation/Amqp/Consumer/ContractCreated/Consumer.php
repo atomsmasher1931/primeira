@@ -10,7 +10,7 @@ use App\Core\Ampq\Event\MessageInterface;
 use App\Core\Ampq\Event\NotifyPersonCommand;
 use App\Core\Ampq\Exception\ConsumerDeserializationException;
 use App\Core\Ampq\Producer\EventBus;
-use App\Notifier\Domain\Enum\PersonTypeEnum;
+use NotifierBundle\src\Domain\Enum\PersonTypeEnum;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Throwable;

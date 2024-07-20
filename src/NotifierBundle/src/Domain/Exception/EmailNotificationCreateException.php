@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Notifier\Domain\Exception;
+namespace NotifierBundle\src\Domain\Exception;
 
-use Throwable;
 use DomainException;
+use Throwable;
 
 class EmailNotificationCreateException extends DomainException
 {

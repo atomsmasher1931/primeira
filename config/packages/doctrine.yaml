@@ -18,24 +18,24 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App\Person\Domain:
+            App\Person:
                 type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Person/Domain/Entity'
                 prefix: 'App\Person\Domain\Entity'
                 alias: App
-            App\Billing\Domain:
+            App\Billing:
                 type: attribute
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Billing/Domain/Entity'
                 prefix: 'App\Billing\Domain\Entity'
                 alias: App
-            App\Notifier\Domain:
+            NotifierBundle:
+                is_bundle: true
                 type: attribute
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Notifier/Domain/Entity'
-                prefix: 'App\Notifier\Domain\Entity'
-                alias: App
+                dir: 'Domain/Entity'
+                prefix: 'NotifierBundle\src\Domain\Entity'
+                alias: NotifierBundle
         controller_resolver:
             auto_mapping: false
 

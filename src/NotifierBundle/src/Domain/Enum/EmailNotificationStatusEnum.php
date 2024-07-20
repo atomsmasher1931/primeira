@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Notifier\Domain\Enum;
+namespace NotifierBundle\src\Domain\Enum;
 
 enum EmailNotificationStatusEnum: int
 {
