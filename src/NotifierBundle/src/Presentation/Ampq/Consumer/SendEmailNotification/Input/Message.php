@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NotifierBundle\src\Presentation\Ampq\Consumer\SendEmailNotification\Input;
+namespace NotifierBundle\Presentation\Ampq\Consumer\SendEmailNotification\Input;
 
 use App\Core\Ampq\Event\MessageInterface;
-use NotifierBundle\src\Domain\Enum\PersonTypeEnum;
+use NotifierBundle\Domain\Enum\PersonTypeEnum;
 use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class Message implements MessageInterface

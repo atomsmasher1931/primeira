@@ -26,7 +26,7 @@ old_sound_rabbit_mq:
       connection: default
       exchange_options: { name: 'old_sound_rabbit_mq.notify_person', type: direct }
       queue_options: { name: 'old_sound_rabbit_mq.consumer.notify_person' }
-      callback: NotifierBundle\src\Presentation\Ampq\Consumer\SendEmailNotification\Consumer
+      callback: NotifierBundle\Presentation\Ampq\Consumer\SendEmailNotification\Consumer
       idle_timeout: 300
       idle_timeout_exit_code: 0
       graceful_max_execution:

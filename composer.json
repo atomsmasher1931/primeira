@@ -42,7 +42,7 @@
             "App\\": "src/",
             "Acquiring\\": "src/Acquiring/",
             "FiscalDataOperator\\": "src/FiscalDataOperator/",
-            "NotifierBundle\\": "src/NotifierBundle/"
+            "NotifierBundle\\": "src/NotifierBundle/src/"
         }
     },
     "autoload-dev": {
