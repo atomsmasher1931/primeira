@@ -33,8 +33,8 @@ doctrine:
             NotifierBundle:
                 is_bundle: true
                 type: attribute
-                dir: 'src/Domain/Entity'
-                prefix: 'NotifierBundle\Domain\Entity'
+                dir: 'src/Entity'
+                prefix: 'NotifierBundle\Entity'
                 alias: NotifierBundle
         controller_resolver:
             auto_mapping: false

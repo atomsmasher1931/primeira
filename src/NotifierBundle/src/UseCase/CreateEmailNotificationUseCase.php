@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NotifierBundle\Application\UseCase;
+namespace NotifierBundle\UseCase;
 
 use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
 use App\Core\UuidGenerator\EntityIdGeneratorInterface;
 use App\Core\UuidGenerator\UuidGeneratorException;
-use NotifierBundle\Domain\Entity\EmailNotification;
-use NotifierBundle\Domain\Exception\EmailNotificationCreateException;
-use NotifierBundle\Application\Dto\CreateEmailNotificationDto;
+use NotifierBundle\UseCase\Dto\CreateEmailNotificationDto;
+use NotifierBundle\Entity\EmailNotification;
+use NotifierBundle\Exception\EmailNotificationCreateException;
 use Throwable;
 
 final readonly class CreateEmailNotificationUseCase

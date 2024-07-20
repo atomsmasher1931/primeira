@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\Ampq\Event;
 
-use NotifierBundle\Domain\Enum\PersonTypeEnum;
+use NotifierBundle\Enum\PersonTypeEnum;
 
 final readonly class NotifyPersonCommand
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NotifierBundle\Domain\Exception;
+namespace NotifierBundle\Exception;
 
 use DomainException;
 use Throwable;

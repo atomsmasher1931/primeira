@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NotifierBundle\Application\Dto;
+namespace NotifierBundle\UseCase\Dto;
 
-use NotifierBundle\Domain\Enum\PersonTypeEnum;
+use NotifierBundle\Enum\PersonTypeEnum;
 
 class CreateEmailNotificationDto
 {

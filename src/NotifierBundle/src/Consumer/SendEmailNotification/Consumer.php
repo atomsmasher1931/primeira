@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NotifierBundle\Presentation\Ampq\Consumer\SendEmailNotification;
+namespace NotifierBundle\Consumer\SendEmailNotification;
 
 use App\Core\Ampq\Consumer\AbstractConsumer;
 use App\Core\Ampq\Event\MessageInterface;
 use App\Core\Ampq\Exception\ConsumerDeserializationException;
-use NotifierBundle\Domain\Enum\PersonTypeEnum;
-use NotifierBundle\Application\Dto\CreateEmailNotificationDto;
-use NotifierBundle\Application\UseCase\CreateEmailNotificationUseCase;
-use NotifierBundle\Presentation\Ampq\Consumer\SendEmailNotification\Input\Message;
+use NotifierBundle\Consumer\SendEmailNotification\Input\Message;
+use NotifierBundle\UseCase\CreateEmailNotificationUseCase;
+use NotifierBundle\UseCase\Dto\CreateEmailNotificationDto;
+use NotifierBundle\Enum\PersonTypeEnum;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Throwable;
