@@ -10,4 +10,5 @@ return [
     OldSound\RabbitMqBundle\OldSoundRabbitMqBundle::class => ['all' => true],
 	NotifierBundle\NotifierBundle::class => ['all' => true],
 	AcquiringBundle\AcquiringBundle::class => ['all' => true],
+	FiscalDataOperatorBundle\FiscalDataOperatorBundle::class => ['all' => true],
 ];

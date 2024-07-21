@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  FiscalDataOperatorBundle\:
+    resource: '../src/'
+    exclude:
+      - '../../Infrastructure/DependencyInjection/'
+      - '../../Entity/'

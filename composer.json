@@ -44,7 +44,7 @@
         "psr-4": {
             "App\\": "src/",
             "AcquiringBundle\\": "src/AcquiringBundle/src/",
-            "FiscalDataOperatorBundle\\": "src/FiscalDataOperatorBundle/",
+            "FiscalDataOperatorBundle\\": "src/FiscalDataOperatorBundle/src/",
             "NotifierBundle\\": "src/NotifierBundle/src/"
         }
     },
