@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Index(name: 'contract__tariff_id__ix', columns: ['tariff_id'])]
 #[ORM\Index(name: 'contract__musician_id__ix', columns: ['musician_id'])]
 #[ORM\HasLifecycleCallbacks]
-final class Contract
+class Contract
 {
 	use EntityTimestampTrait;
 

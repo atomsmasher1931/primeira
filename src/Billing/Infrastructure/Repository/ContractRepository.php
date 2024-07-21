@@ -87,6 +87,14 @@ class ContractRepository extends ServiceEntityRepository implements ContractRepo
 		return $this->findBy(['musician' => $musicianId]);
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function getActiveContracts(): array
+	{
+		return $this->findBy(['status' => ContractStatusEnum::ACTIVE->value]);
+	}
+
 	public function countByYear($year)
 	{
 		//TODO здесь сделать запрос, который считает договоры по году начала

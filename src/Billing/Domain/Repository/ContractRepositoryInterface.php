@@ -29,4 +29,9 @@ interface ContractRepositoryInterface
 	 * @return Contract[]
 	 */
 	public function findByMusicianId(string $musicianId): array;
+
+	/**
+	 * @return Contract[]
+	 */
+	public function getActiveContracts(): array;
 }

@@ -29,7 +29,7 @@ final class AddTariffsCommand extends Command
 		parent::__construct();
 	}
 
-	protected function configure()
+	protected function configure(): void
 	{
 		$this->setName('billing:tariff:add')
 			->setHidden()
