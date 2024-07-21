@@ -9,7 +9,7 @@ use App\Core\Ampq\Consumer\AbstractConsumer;
 use App\Core\Ampq\Event\MessageInterface;
 use App\Core\Ampq\Event\NotifyPersonCommand;
 use App\Core\Ampq\Exception\ConsumerDeserializationException;
-use App\Core\Ampq\Producer\EventBus;
+use App\Core\Ampq\MessageBus\MessageBus;
 use NotifierBundle\Enum\PersonTypeEnum;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -20,7 +20,7 @@ final readonly class Consumer extends AbstractConsumer
 	public function __construct(
 		protected SerializerInterface $serializer,
 		protected ValidatorInterface $validator,
-		private EventBus $eventBus,
+		private MessageBus $messageBus,
 	) {
 	}
 
@@ -41,7 +41,7 @@ final readonly class Consumer extends AbstractConsumer
 	protected function processMessage(MessageInterface $message): void
 	{
 		$cost = $message->tariffValue / 100;
-		$this->eventBus->publishNotifyPersonCommand(
+		$this->messageBus->dispatch(
 			new NotifyPersonCommand(
 				$message->musicianId,
 				PersonTypeEnum::MUSICIAN,

@@ -9,7 +9,7 @@ use App\Billing\Domain\Entity\Contract;
 use App\Billing\Domain\Exception\ContractManageException;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use App\Core\Ampq\Event\ContractCreatedEvent;
-use App\Core\Ampq\Producer\EventBus;
+use App\Core\Ampq\MessageBus\MessageBus;
 use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
 use App\Core\UuidGenerator\EntityIdGeneratorInterface;
@@ -24,7 +24,7 @@ final readonly class CreateContractUseCase
 		private EntityIdGeneratorInterface $idGenerator,
 		private TariffRepositoryInterface $tariffRepository,
 		private MusicianRepositoryInterface $musicianRepository,
-		private EventBus $eventBus,
+		private MessageBus $messageBus,
 	) {
 	}
 
@@ -46,7 +46,7 @@ final readonly class CreateContractUseCase
 			$this->unitOfWork->persist($contract);
 			$this->unitOfWork->flush();
 
-			$this->eventBus->publishContractCreated(
+			$this->messageBus->dispatch(
 				new ContractCreatedEvent(
 					$contract->id,
 					$contract->number,

@@ -36,8 +36,3 @@ services:
   App\Core\Security\TokenGenerator\JwtTokenGenerator:
     arguments:
       $tokenTTL: '%env(JWT_TTL_SEC)%'
-
-  App\Core\Ampq\Producer\EventBus:
-    calls:
-      - [ 'registerProducer', [ !php/const App\Core\Ampq\Producer\EventBus::CONTRACT_CREATED, '@old_sound_rabbit_mq.contract_created_producer' ] ]
-      - [ 'registerProducer', [ !php/const App\Core\Ampq\Producer\EventBus::NOTIFY_PERSON, '@old_sound_rabbit_mq.notify_person_producer' ] ]
