@@ -7,7 +7,7 @@ namespace App\Core\Ampq\Event;
 use App\Billing\Domain\Enum\ContractStatusEnum;
 use DateTimeImmutable;
 
-final readonly class ContractCreatedEvent
+final readonly class ContractCreatedEvent implements MessageInterface
 {
 	public function __construct(
 		public string $id,

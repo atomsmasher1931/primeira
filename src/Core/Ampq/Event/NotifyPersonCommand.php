@@ -6,7 +6,7 @@ namespace App\Core\Ampq\Event;
 
 use NotifierBundle\Enum\PersonTypeEnum;
 
-final readonly class NotifyPersonCommand
+final readonly class NotifyPersonCommand implements MessageInterface
 {
 	public function __construct(
 		public string $personId,

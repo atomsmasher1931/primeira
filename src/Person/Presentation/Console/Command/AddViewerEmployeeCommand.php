@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Console\Command;
 
-use App\Billing\Domain\Entity\Tariff;
-use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
-use App\Billing\Domain\Enum\TariffStatusEnum;
-use App\Billing\Domain\Enum\TariffTypeEnum;
 use App\Core\PasswordHasher\PasswordHasher;
 use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
@@ -16,12 +12,9 @@ use App\Person\Domain\Enum\PersonStatusEnum;
 use App\Person\Domain\Enum\RoleEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use DateTimeImmutable;
-use DateInterval;
 use Throwable;
 
 final class AddViewerEmployeeCommand extends Command
