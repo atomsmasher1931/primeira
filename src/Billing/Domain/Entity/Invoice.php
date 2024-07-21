@@ -6,6 +6,7 @@ namespace App\Billing\Domain\Entity;
 
 use App\Billing\Domain\Enum\InvoiceStatusEnum;
 use App\Core\Doctrine\Trait\EntityTimestampTrait;
+use App\Core\Utils\MonthNameEnum;
 use App\Person\Domain\Entity\Musician;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -171,21 +172,6 @@ class Invoice
 		return $this->acquiringNumber;
 	}
 
-	public function getContract(): Contract
-	{
-		return $this->contract;
-	}
-
-	public function getTariff(): Tariff
-	{
-		return $this->tariff;
-	}
-
-	public function getMusician(): Musician
-	{
-		return $this->musician;
-	}
-
 	public function getStatus(): InvoiceStatusEnum
 	{
 		return $this->status;
@@ -214,5 +200,28 @@ class Invoice
 	public function getReceivedByAcquireDate(): DateTimeImmutable
 	{
 		return $this->receivedByAcquireDate;
+	}
+
+	public function getPayerPhone(): string
+	{
+		return $this->musician->getPhone();
+	}
+
+	public function getPayerEmail(): string
+	{
+		return $this->musician->getEmail();
+	}
+
+	public function getInvoiceMessage(): string
+	{
+		$month = MonthNameEnum::getByNumber((int)$this->issueDate->format('n'));
+		$year = $this->issueDate->format('Y');
+
+		return "Услуги по организации площадки для занятия перкуссией за {$month} {$year} в соответствии с договором №{$this->contract->number}";
+	}
+
+	public function getSum(): int
+	{
+		return $this->tariff->value;
 	}
 }

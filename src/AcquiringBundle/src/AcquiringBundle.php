@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace NotifierBundle;
+namespace AcquiringBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 
 /**
- * Бандл извещения
- * Пока это заглушка, по плану умеет слать письма и СМС
+ * Бандл эквайринга
+ * Пока заглушка, по плану умеет отправлять счета в банк и спрашивать оплачены ли они
  */
-class NotifierBundle extends AbstractBundle
+class AcquiringBundle extends AbstractBundle
 {
 	/**
 	 * @inheritDoc

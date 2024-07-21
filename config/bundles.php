@@ -9,4 +9,5 @@ return [
     Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],
     OldSound\RabbitMqBundle\OldSoundRabbitMqBundle::class => ['all' => true],
 	NotifierBundle\NotifierBundle::class => ['all' => true],
+	AcquiringBundle\AcquiringBundle::class => ['all' => true],
 ];

@@ -6,6 +6,7 @@ namespace App\Billing\Application\UseCase;
 
 use App\Billing\Domain\Exception\InvoiceManageException;
 use App\Billing\Domain\Repository\InvoiceRepositoryInterface;
+use App\Core\Client\Acquiring\AcquiringClient;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
 use Throwable;
 
@@ -14,6 +15,7 @@ final readonly class CheckInvoicesPaidUseCase
 	public function __construct(
 		private InvoiceRepositoryInterface $invoiceRepository,
 		private UnitOfWorkInterface $unitOfWork,
+		private AcquiringClient $acquiringClient,
 	) {
 	}
 
@@ -23,13 +25,9 @@ final readonly class CheckInvoicesPaidUseCase
 		$i = 0;
 		foreach ($invoices as $invoice) {
 			try {
-				//TODO Номер счёта у эквайера $invoice->getAcquiringNumber() передаётся в бандл и получаем статус
-				// Может быть сетевай ошибка да и просто ошибка бандла
-				$isPaid = true;
-				$paidData = new \DateTimeImmutable();
-				if ($isPaid) {
-					$invoice->paid($paidData);
-				}
+				//TODO Может быть сетевой ошибка да и просто ошибка бандла
+				$paidData = $this->acquiringClient->checkPayment($invoice->getAcquiringNumber());
+				$invoice->paid($paidData);
 
 				$this->unitOfWork->persist($invoice);
 				$this->unitOfWork->flush();

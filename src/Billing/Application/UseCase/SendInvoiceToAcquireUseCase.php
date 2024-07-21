@@ -7,9 +7,10 @@ namespace App\Billing\Application\UseCase;
 use App\Billing\Domain\Entity\Invoice;
 use App\Billing\Domain\Exception\InvoiceManageException;
 use App\Billing\Domain\Repository\InvoiceRepositoryInterface;
+use App\Core\Client\Acquiring\AcquiringClient;
+use App\Core\Client\Acquiring\InvoiceDto;
 use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
-use App\Core\UuidGenerator\UuidGeneratorException;
 use Throwable;
 
 final readonly class SendInvoiceToAcquireUseCase
@@ -17,6 +18,7 @@ final readonly class SendInvoiceToAcquireUseCase
 	public function __construct(
 		private InvoiceRepositoryInterface $invoiceRepository,
 		private UnitOfWorkInterface $unitOfWork,
+		private AcquiringClient $acquiringClient,
 	) {
 	}
 
@@ -49,15 +51,21 @@ final readonly class SendInvoiceToAcquireUseCase
 	private function process(array $invoices): int
 	{
 		$i = 0;
-
 		foreach ($invoices as $invoice) {
 			try {
 
 				$invoice->sentToAcquire();
-				//TODO Здесь бандл отправляется счёт в эквайринг и получает ID счёта в эквайре
-				// если эквайер ответил ошибкой, то мы ловим её и не переводим в получено эквайером
-				// научиться логировать ошибку эквайера
-				$invoiceNumberInAcquire = '123';
+
+				$invoiceNumberInAcquire = $this->acquiringClient->sendInvoice(
+					new InvoiceDto(
+						$invoice->getIssueDate(),
+						$invoice->getExpiredDate(),
+						$invoice->getPayerPhone(),
+						$invoice->getPayerEmail(),
+						$invoice->getInvoiceMessage(),
+						$invoice->getSum(),
+					)
+				);
 				$invoice->receivedByAcquire($invoiceNumberInAcquire);
 
 				$this->unitOfWork->persist($invoice);

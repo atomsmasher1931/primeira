@@ -3,7 +3,7 @@ services:
     autowire: true
     autoconfigure: true
 
-  NotifierBundle\:
+  AcquiringBundle\:
     resource: '../src/'
     exclude:
       - '../../Infrastructure/DependencyInjection/'

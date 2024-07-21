@@ -20,8 +20,8 @@ services:
       - '../src/Billing/Domain/Entity/'
       - '../src/Person/Domain/Entity/'
       - '../src/Kernel.php'
-      - '../src/Acquiring/'
-      - '../src/FiscalDataOperator/'
+      - '../src/AcquiringBundle/'
+      - '../src/FiscalDataOperatorBundle/'
       - '../src/NotifierBundle/'
 
   App\Core\Doctrine\Subscriber\MigrationEventSubscriber:

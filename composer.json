@@ -43,8 +43,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/",
-            "Acquiring\\": "src/Acquiring/",
-            "FiscalDataOperator\\": "src/FiscalDataOperator/",
+            "AcquiringBundle\\": "src/AcquiringBundle/src/",
+            "FiscalDataOperatorBundle\\": "src/FiscalDataOperatorBundle/",
             "NotifierBundle\\": "src/NotifierBundle/src/"
         }
     },
