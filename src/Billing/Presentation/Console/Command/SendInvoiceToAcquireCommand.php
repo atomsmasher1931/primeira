@@ -19,7 +19,7 @@ class SendInvoiceToAcquireCommand extends Command
 
 	protected function configure(): void
 	{
-		$this->setName('billing:invoice:send_to_aquire')
+		$this->setName('billing:invoice:send_to_aсquire')
 			->setDescription('Отправка созданных и недоставленных счетов в эквайринг')
 		;
 	}

@@ -7,6 +7,8 @@ namespace App\Billing\Application\UseCase;
 use App\Billing\Domain\Exception\InvoiceManageException;
 use App\Billing\Domain\Repository\InvoiceRepositoryInterface;
 use App\Core\Client\Acquiring\AcquiringClient;
+use App\Core\Client\FiscalDataOperator\FiscalDataOperatorClient;
+use App\Core\Client\FiscalDataOperator\ReceiptDto;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
 use Throwable;
 
@@ -16,6 +18,7 @@ final readonly class CheckInvoicesPaidUseCase
 		private InvoiceRepositoryInterface $invoiceRepository,
 		private UnitOfWorkInterface $unitOfWork,
 		private AcquiringClient $acquiringClient,
+		private FiscalDataOperatorClient $fiscalDataOperatorClient,
 	) {
 	}
 
@@ -32,9 +35,16 @@ final readonly class CheckInvoicesPaidUseCase
 				$this->unitOfWork->persist($invoice);
 				$this->unitOfWork->flush();
 
-				//TODO После удачной отправки надо дёрнуть бандл отправки чеков и отправить чек,
-				// Считаем, что сохранение чека в бандле
-				// лучше сделать это отдельной командой и записать инфу по чеку в отдельную сущность (успеем ли?)
+				//TODO возможны ошибки, требуется повторная отправка
+				$receipt = $this->fiscalDataOperatorClient->sendReceipt(
+					new ReceiptDto(
+						$invoice->getPaidDate(),
+						$invoice->getPayerFullName(),
+						$invoice->getInvoiceMessage(),
+						$invoice->getSum(),
+					)
+				);
+
 				$i++;
 			} catch (Throwable $exception) {
 				throw new InvoiceManageException(
@@ -46,5 +56,4 @@ final readonly class CheckInvoicesPaidUseCase
 
 		return $i;
 	}
-
 }

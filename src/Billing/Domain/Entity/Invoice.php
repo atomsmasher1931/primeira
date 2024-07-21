@@ -202,6 +202,11 @@ class Invoice
 		return $this->receivedByAcquireDate;
 	}
 
+	public function getPayerFullName(): string
+	{
+		return "{$this->musician->getLastName()} {$this->musician->getFirstName()}, {$this->musician->getPatronymic()}";
+	}
+
 	public function getPayerPhone(): string
 	{
 		return $this->musician->getPhone();
