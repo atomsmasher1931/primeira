@@ -7,6 +7,7 @@ namespace App\Billing\Application\UseCase;
 use App\Billing\Application\Dto\CreateContractDto;
 use App\Billing\Domain\Entity\Contract;
 use App\Billing\Domain\Exception\ContractManageException;
+use App\Billing\Domain\Repository\MusicianLookupInterface;
 use App\Billing\Domain\Repository\TariffRepositoryInterface;
 use App\Core\Ampq\Event\ContractCreatedEvent;
 use App\Core\Ampq\MessageBus\MessageBus;
@@ -14,7 +15,6 @@ use App\Core\UnitOfWork\UnitOfWorkException;
 use App\Core\UnitOfWork\UnitOfWorkInterface;
 use App\Core\UuidGenerator\EntityIdGeneratorInterface;
 use App\Core\UuidGenerator\UuidGeneratorException;
-use App\Person\Domain\Repository\MusicianRepositoryInterface;
 use Throwable;
 
 final readonly class CreateContractUseCase
@@ -23,7 +23,7 @@ final readonly class CreateContractUseCase
 		private UnitOfWorkInterface $unitOfWork,
 		private EntityIdGeneratorInterface $idGenerator,
 		private TariffRepositoryInterface $tariffRepository,
-		private MusicianRepositoryInterface $musicianRepository,
+		private MusicianLookupInterface $musicianLookup,
 		private MessageBus $messageBus,
 	) {
 	}
@@ -40,7 +40,7 @@ final readonly class CreateContractUseCase
 				$createContractDto->startDate,
 				$createContractDto->startDate,
 				$this->tariffRepository->getById($createContractDto->tariff),
-				$this->musicianRepository->getById($createContractDto->musician),
+				$this->musicianLookup->getById($createContractDto->musician),
 			);
 
 			$this->unitOfWork->persist($contract);

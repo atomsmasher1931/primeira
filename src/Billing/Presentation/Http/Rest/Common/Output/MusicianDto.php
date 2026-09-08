@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Billing\Presentation\Http\Rest\Common\Output;
 
-use App\Person\Domain\Enum\PersonDegreeEnum;
-use App\Person\Domain\Enum\PersonStatusEnum;
+use App\Billing\Domain\Enum\MusicianDegreeEnum;
+use App\Billing\Domain\Enum\MusicianStatusEnum;
 
 class MusicianDto
 {
@@ -14,8 +14,8 @@ class MusicianDto
 		public string $lastName,
 		public string $firstName,
 		public string $patronymic,
-		public PersonStatusEnum $status,
-		public PersonDegreeEnum $degree,
+		public MusicianStatusEnum $status,
+		public MusicianDegreeEnum $degree,
 	) {
 	}
 }
