@@ -11,6 +11,12 @@
 
 .idea/*
 
+###> claude-code ###
+.mcp.json
+.claude/settings.local.json
+.claude/.DS_Store
+###< claude-code ###
+
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
