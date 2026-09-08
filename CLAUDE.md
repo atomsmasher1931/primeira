@@ -38,7 +38,7 @@ vendor/bin/codecept run unit tests/Unit/Person/Entity/EmployeeCest.php:testSomet
 - `Functional` — поднимают ядро Symfony через модуль `Symfony`, работают с БД через модуль `Doctrine` (`cleanup: true`) и фабрики данных `DataFactory`.
 - `Acceptance` — HTTP-запросы к `http://primeira-nginx:80/` (модуль `REST` поверх `PhpBrowser`), т.е. должны выполняться против поднятого docker-compose стека.
 
-Консольные команды приложения именуются `<контекст>:<сущность>:<действие>`, например `billing:invoice:issue`, `billing:invoice:send_to_aсquire`, `billing:invoice:check_paid_status`, `billing:tariff:add`.
+Консольные команды приложения именуются `<контекст>:<сущность>:<действие>`, например `billing:invoice:issue`, `billing:invoice:send_to_acquire`, `billing:invoice:check_paid_status`, `billing:tariff:add`.
 
 ## Архитектура
 
@@ -88,3 +88,7 @@ vendor/bin/codecept run unit tests/Unit/Person/Entity/EmployeeCest.php:testSomet
 ### Стиль кода
 
 Табы для отступов (не пробелы), `declare(strict_types=1)` в каждом файле, `final readonly class` для сервисов без наследования (юзкейсы, клиенты, фасады).
+
+## Architecture Decision Records
+
+Значимые архитектурные решения (границы модулей, выбор технологии, сознательно отклонённые варианты) фиксируются в `docs/adr/` — этот файл хранит только текущее состояние, не историю решений. Перед пересмотром архитектурного вопроса — сначала проверить `docs/adr/README.md` (правила, индекс существующих записей), не решался ли он уже. См. [ADR-0001](docs/adr/0001-claude-md-and-adr-process.md).
