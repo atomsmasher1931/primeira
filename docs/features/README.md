@@ -44,3 +44,4 @@
 | 2026-09-09 | [person-billing-acl](2026-09-09-person-billing-acl.md) | ✅ Готово |
 | 2026-09-16 | [markdown-changelog](2026-09-16-markdown-changelog.md) | 🟡 В работе |
 | 2026-09-17 | [batch-flush](2026-09-17-batch-flush.md) | 🟡 В работе (не начато) |
+| 2026-09-17 | [pr-description-conventions](2026-09-17-pr-description-conventions.md) | ✅ Готово |
