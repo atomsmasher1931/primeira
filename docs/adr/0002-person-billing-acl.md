@@ -5,7 +5,7 @@
 
 ## Контекст
 
-При ревью `/src` (см. `docs/refactoring-plan.md`) нашлись два реальных бага в `Person\Presentation\Http\Rest\Musician\Common\{Output\ContractDto,Factory\ContractDtoFactory}`, из-за которых `GET /api/person/v1/musician/{id}` и `/by-phone` падали `TypeError`, если у музыканта был хотя бы один договор. Причина — `TariffDto`/`TariffDtoFactory`/`ContractDto`/`ContractDtoFactory` были продублированы почти 1-в-1 между `Billing\Presentation\Http\Rest\Common\*` и `Person\Presentation\Http\Rest\Musician\Common\*`: одну копию починили раньше, вторая осталась сломанной.
+При ревью `/src` (см. `../features/refactoring-plan.md`) нашлись два реальных бага в `Person\Presentation\Http\Rest\Musician\Common\{Output\ContractDto,Factory\ContractDtoFactory}`, из-за которых `GET /api/person/v1/musician/{id}` и `/by-phone` падали `TypeError`, если у музыканта был хотя бы один договор. Причина — `TariffDto`/`TariffDtoFactory`/`ContractDto`/`ContractDtoFactory` были продублированы почти 1-в-1 между `Billing\Presentation\Http\Rest\Common\*` и `Person\Presentation\Http\Rest\Musician\Common\*`: одну копию починили раньше, вторая осталась сломанной.
 
 Первая попытка исправить — удалить дубликаты в `Person` и переиспользовать версии из `Billing` напрямую (DRY). Это было оспорено: удаление дубликатов ценой прямой зависимости `Person` от DTO/enum'ов `Billing` разрушает независимость доменов, которую дублирование как будто обеспечивало.
 
@@ -69,6 +69,6 @@
 
 ## Ссылки
 
-- `docs/refactoring-plan.md` — исходное ревью `/src`, где найдены баги, приведшие к этому решению.
+- `../features/refactoring-plan.md` — исходное ревью `/src`, где найдены баги, приведшие к этому решению.
 - [ADR-0001](0001-claude-md-and-adr-process.md) — правила ведения ADR.
 - Затронутые файлы: `src/Person/Domain/Enum/{TariffTypeEnum,TariffStatusEnum,MusicianDegreeTariffEnum}.php`, `src/Billing/Domain/Enum/{MusicianDegreeEnum,MusicianStatusEnum}.php`, `src/Person/Presentation/Http/Rest/Musician/Common/{Output/TariffDto,Factory/TariffDtoFactory}.php`, `src/Billing/Presentation/Http/Rest/Common/{Output/MusicianDto,Factory/MusicianDtoFactory}.php`, `src/Person/Domain/Repository/MusicianContractsProviderInterface.php`, `src/Billing/Infrastructure/Gateway/PersonMusicianContractsGateway.php`, `src/Billing/Domain/Repository/MusicianLookupInterface.php`, `src/Person/Infrastructure/Gateway/BillingMusicianLookupGateway.php`, `src/Person/Application/UseCase/{GetMusicianByIdUseCase,GetMusicianByPhoneUseCase}.php`, `src/Billing/Application/UseCase/CreateContractUseCase.php`.
