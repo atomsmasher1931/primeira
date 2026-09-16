@@ -30,11 +30,11 @@ final readonly class SendInvoiceToAcquireUseCase
 	{
 		$count = 0;
 		$issuedInvoices = $this->invoiceRepository->getIssued();
-		$count = +count($issuedInvoices);
+		$count += count($issuedInvoices);
 		$sent = $this->process($issuedInvoices);
 
 		$sentInvoices = $this->invoiceRepository->getSentToAcquire();
-		$count = +count($sentInvoices);
+		$count += count($sentInvoices);
 		$resent = $this->process($sentInvoices);
 
 		return [

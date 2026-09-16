@@ -9,11 +9,11 @@ use DateTimeImmutable;
 readonly class ContractDto
 {
 	public function __construct(
-		string $id,
-		string $number,
-		DateTimeImmutable $startDate,
-		DateTimeImmutable $finishDate,
-		TariffDto $tariff,
+		public string $id,
+		public string $number,
+		public DateTimeImmutable $startDate,
+		public DateTimeImmutable $finishDate,
+		public TariffDto $tariff,
 	) {
 	}
 }
