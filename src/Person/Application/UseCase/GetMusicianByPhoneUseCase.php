@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Person\Application\UseCase;
 
-use App\Billing\Domain\Repository\ContractRepositoryInterface;
 use App\Person\Domain\Entity\Musician;
 use App\Person\Domain\Exception\MusicianNotFoundException;
+use App\Person\Domain\Repository\MusicianContractsProviderInterface;
 use App\Person\Domain\Repository\MusicianRepositoryInterface;
 
 readonly final class GetMusicianByPhoneUseCase
 {
 	public function __construct(
 		private MusicianRepositoryInterface $musicianRepository,
-		private ContractRepositoryInterface $contractRepository,
+		private MusicianContractsProviderInterface $musicianContractsProvider,
 	) {
 	}
 
@@ -23,7 +23,7 @@ readonly final class GetMusicianByPhoneUseCase
 	public function get(string $phone): Musician
 	{
 		$musician = $this->musicianRepository->getByPhone($phone);
-		$musician->addContracts($this->contractRepository->findByMusicianId($musician->getId()));
+		$musician->addContracts($this->musicianContractsProvider->findByMusicianId($musician->getId()));
 
 		return $musician;
 	}

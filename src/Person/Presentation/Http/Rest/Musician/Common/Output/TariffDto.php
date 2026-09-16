@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Person\Presentation\Http\Rest\Musician\Common\Output;
 
-use App\Billing\Domain\Enum\MusicianDegreeTariffEnum;
-use App\Billing\Domain\Enum\TariffStatusEnum;
-use App\Billing\Domain\Enum\TariffTypeEnum;
+use App\Person\Domain\Enum\MusicianDegreeTariffEnum;
+use App\Person\Domain\Enum\TariffStatusEnum;
+use App\Person\Domain\Enum\TariffTypeEnum;
 use DateTimeImmutable;
 
 readonly class TariffDto
