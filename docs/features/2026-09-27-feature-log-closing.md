@@ -1,6 +1,6 @@
 # Закрытие записей дневника и актуализация индекса
 
-**Статус:** 🟡 В работе \
+**Статус:** ✅ Готово \
 **Начато:** 2026-09-27 \
 **Обновлено:** 2026-09-27 \
 **Ветка:** `feature/feature-log-closing`
@@ -26,6 +26,8 @@
 - `.claude/hooks/features-check.sh` (режимы `index`, `merged`, `pre-bash`, `session-start`) и хуки `PreToolUse` (Bash) и `SessionStart` в `.claude/settings.json`. Режимы проверены вручную на синтетическом JSON и временных расхождениях.
 - `docs/features/template.md` — поле «Ветка»; `docs/features/README.md` — поле «Ветка», когда ставится ✅, описание проверок и их ограничение (squash-merge не распознаётся).
 - Индекс: `markdown-changelog` приведён к ✅, как в файле.
+- Разовая сверка старых записей: закрыта [`2026-09-08-minor-findings.md`](2026-09-08-minor-findings.md) — её ветка `feature/strict-return-types` смёржена в PR #5.
+- Проверено в сессии: хук на `git commit` срабатывает. Известная неточность: напоминание перед push реагирует и на текст «git push» внутри сообщения коммита — ложное напоминание, на коммит не влияет.
 
 ## Не стали делать
 
@@ -33,6 +35,19 @@
 - Поле «Ветка» в старых записях не проставлялось — у открытых записей ветки ещё нет или она уже смёржена; сверка старых записей сделана вручную один раз.
 
 ## Изменённые файлы
+
+Снимок перед мёржем, `git diff --stat master...feature/feature-log-closing`:
+
+```
+ .claude/hooks/features-check.sh                 | 109 ++++++++++++++++++++++++
+ .claude/settings.json                           |  25 ++++++
+ CLAUDE.md                                       |   4 +
+ docs/features/2026-09-08-minor-findings.md      |  63 +++++++++-----
+ docs/features/2026-09-27-feature-log-closing.md |  41 +++++++++
+ docs/features/README.md                         |  14 ++-
+ docs/features/template.md                       |   3 +-
+ 7 files changed, 233 insertions(+), 26 deletions(-)
+```
 
 ## Ссылки
 

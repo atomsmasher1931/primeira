@@ -45,7 +45,7 @@
 | 2026-09-08 | [claude-code-bootstrap](2026-09-08-claude-code-bootstrap.md) | ✅ Готово |
 | 2026-09-08 | [person-billing-critical-bugfixes](2026-09-08-person-billing-critical-bugfixes.md) | ✅ Готово |
 | 2026-09-08 | [logging](2026-09-08-logging.md) | ⏸️ Приостановлено |
-| 2026-09-08 | [minor-findings](2026-09-08-minor-findings.md) | 🟡 В работе (не начато) |
+| 2026-09-08 | [minor-findings](2026-09-08-minor-findings.md) | ✅ Готово |
 | 2026-09-09 | [person-billing-acl](2026-09-09-person-billing-acl.md) | ✅ Готово |
 | 2026-09-16 | [markdown-changelog](2026-09-16-markdown-changelog.md) | ✅ Готово |
 | 2026-09-17 | [batch-flush](2026-09-17-batch-flush.md) | 🟡 В работе (не начато) |
@@ -56,4 +56,4 @@
 | 2026-09-27 | [musician-update-response](2026-09-27-musician-update-response.md) | 🟡 В работе (не начато) |
 | 2026-09-27 | [invoice-receipt-retry](2026-09-27-invoice-receipt-retry.md) | 🟡 В работе (не начато) |
 | 2026-09-27 | [use-case-cleanup](2026-09-27-use-case-cleanup.md) | 🟡 В работе (не начато) |
-| 2026-09-27 | [feature-log-closing](2026-09-27-feature-log-closing.md) | 🟡 В работе |
+| 2026-09-27 | [feature-log-closing](2026-09-27-feature-log-closing.md) | ✅ Готово |
