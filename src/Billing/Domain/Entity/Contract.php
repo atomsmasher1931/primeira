@@ -133,7 +133,7 @@ class Contract
 		return $this->musician;
 	}
 
-	public static function generateNumber(int $year, int $serial, int $quantity)
+	public static function generateNumber(int $year, int $serial, int $quantity): string
 	{
 		$serialPrepared = preg_replace('/^(\d{1})$/', '0$1', (string)$serial);
 		$quantityPrepared = preg_replace('/^(\d{1})$/', '0$1', (string)$quantity);
@@ -141,16 +141,14 @@ class Contract
 		return "{$year}/{$serialPrepared}-{$quantityPrepared}";
 	}
 
-	public function activate()
+	public function activate(): void
 	{
 		$this->status = ContractStatusEnum::ACTIVE;
-		return $this;
 	}
 
-	public function changeTariff(Tariff $tariff)
+	public function changeTariff(Tariff $tariff): void
 	{
 		$this->tariff = $tariff;
-		return $this;
 	}
 
 	public function getTariffId(): string

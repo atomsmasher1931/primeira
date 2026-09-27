@@ -41,3 +41,4 @@ ADR — про **историю решений**: почему устроено 
 |---|---|---|
 | [0001](0001-claude-md-and-adr-process.md) | Вести `CLAUDE.md` и Architecture Decision Records в репозитории | ✅ Принято |
 | [0002](0002-person-billing-acl.md) | Изолировать `Person` и `Billing` через Anti-Corruption Layer вместо дублирования кода | ✅ Принято |
+| [0003](0003-bundle-integrations-via-core-client.md) | Внешние интеграции — отдельные бандлы, доступ из приложения только через клиент-обёртку в `Core\Client` | ✅ Принято |

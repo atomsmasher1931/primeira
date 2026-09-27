@@ -45,3 +45,9 @@
 | 2026-09-16 | [markdown-changelog](2026-09-16-markdown-changelog.md) | 🟡 В работе |
 | 2026-09-17 | [batch-flush](2026-09-17-batch-flush.md) | 🟡 В работе (не начато) |
 | 2026-09-17 | [pr-description-conventions](2026-09-17-pr-description-conventions.md) | ✅ Готово |
+| 2026-09-27 | [contract-delegate-getters](2026-09-27-contract-delegate-getters.md) | 🟡 В работе (не начато) |
+| 2026-09-27 | [person-billing-acl-level-3](2026-09-27-person-billing-acl-level-3.md) | 🟡 В работе (анализ) |
+| 2026-09-27 | [layer-violations](2026-09-27-layer-violations.md) | 🟡 В работе (не начато) |
+| 2026-09-27 | [musician-update-response](2026-09-27-musician-update-response.md) | 🟡 В работе (не начато) |
+| 2026-09-27 | [invoice-receipt-retry](2026-09-27-invoice-receipt-retry.md) | 🟡 В работе (не начато) |
+| 2026-09-27 | [use-case-cleanup](2026-09-27-use-case-cleanup.md) | 🟡 В работе (не начато) |
