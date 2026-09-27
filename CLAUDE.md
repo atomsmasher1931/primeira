@@ -27,12 +27,15 @@ php bin/console messenger:consume async     # запустить консьюм�
 
 ```bash
 vendor/bin/codecept run                         # все сьюты
-vendor/bin/codecept run unit                    # Unit
-vendor/bin/codecept run functional              # Functional (требует БД test)
-vendor/bin/codecept run acceptance              # Acceptance (требует поднятый nginx-контейнер)
-vendor/bin/codecept run unit tests/Unit/Person/Entity/EmployeeCest.php  # один файл
-vendor/bin/codecept run unit tests/Unit/Person/Entity/EmployeeCest.php:testSomething  # один тест
+vendor/bin/codecept run Unit                    # Unit
+vendor/bin/codecept run Functional              # Functional (требует БД test)
+vendor/bin/codecept run Acceptance              # Acceptance (требует поднятый nginx-контейнер)
+vendor/bin/codecept run Unit tests/Unit/Person/Entity/EmployeeCest.php  # один файл
+vendor/bin/codecept run Unit tests/Unit/Person/Entity/EmployeeCest.php:testSomething  # один тест
+php bin/console doctrine:migrations:migrate --env=test -n  # схема для БД test (перед первым запуском Functional)
 ```
+
+Имена сьютов регистрозависимы и совпадают с `tests/*.suite.yml` (`Unit`, `Functional`, `Acceptance`) — `codecept run unit` падает с «Suite 'unit' could not be found».
 
 - `Unit` — изолированные тесты (актор `UnitTester`, только модуль `Asserts`).
 - `Functional` — поднимают ядро Symfony через модуль `Symfony`, работают с БД через модуль `Doctrine` (`cleanup: true`) и фабрики данных `DataFactory`.
@@ -66,7 +69,7 @@ vendor/bin/codecept run unit tests/Unit/Person/Entity/EmployeeCest.php:testSomet
 - `FiscalDataOperatorBundle` — отправка отчётов в ОФД и получение чеков (заглушка).
 - `NotifierBundle` — отправка email-уведомлений (заглушка).
 
-Каждый бандл предоставляет `Facade` (например `AcquiringBundle\Facade\AcquiringFacade`) как единственную публичную точку входа. Приложение обращается к бандлу не напрямую, а через тонкий клиент-обёртку в `src/Core/Client/<Integration>/` (например `App\Core\Client\Acquiring\AcquiringClient`), который транслирует DTO ядра (`Core\Client\...\*Dto`) в DTO бандла и обратно. Юзкейсы в `Billing`/`Person` зависят только от `Core\Client\*`, никогда напрямую от классов бандлов.
+Синхронные интеграции (`AcquiringBundle`, `FiscalDataOperatorBundle`) предоставляют `Facade` (например `AcquiringBundle\Facade\AcquiringFacade`) как единственную публичную точку входа. Приложение обращается к бандлу не напрямую, а через тонкий клиент-обёртку в `src/Core/Client/<Integration>/` (например `App\Core\Client\Acquiring\AcquiringClient`), который транслирует DTO ядра (`Core\Client\...\*Dto`) в DTO бандла и обратно, а любое исключение из вызова фасада (`Throwable`, не только исключения бандла) — в своё `<Integration>ClientException` (исходное — в `previous`). Юзкейсы в `Billing`/`Person` зависят только от `Core\Client\*`, никогда напрямую от классов бандлов. `NotifierBundle` — асинхронный: фасада и клиента нет, приложение шлёт команду `Core\Ampq\Event\NotifyPersonCommand`, её обрабатывает консюмер внутри бандла. Правило и его обоснование — [ADR-0003](docs/adr/0003-bundle-integrations-via-core-client.md).
 
 `config/services.yaml` явно исключает `Domain/Entity` каждого контекста (это Doctrine-сущности, не сервисы), `Kernel.php` и папки трёх бандлов (они регистрируют себя сами через собственные `services.yaml`).
 
@@ -88,6 +91,12 @@ vendor/bin/codecept run unit tests/Unit/Person/Entity/EmployeeCest.php:testSomet
 ### Стиль кода
 
 Табы для отступов (не пробелы), `declare(strict_types=1)` в каждом файле, `final readonly class` для сервисов без наследования (юзкейсы, клиенты, фасады).
+
+### Рефакторинг и обоснования
+
+- **Ничего не выдумывать.** Никаких придуманных обоснований решений, фактов о коде или причин, которые не называл пользователь. В ADR, `docs/features/`, коммиты и PR попадает только то, что сказано пользователем или проверено в коде.
+- **Рефакторинг — только общепризнанными подходами:** Роберт Мартин (Clean Code, Clean Architecture, SOLID), «банда четырёх» (GoF), популярные паттерны проектирования. В рекомендации называть конкретный принцип или паттерн (SRP, DIP, закон Деметры, Facade, Adapter и т.п.), на который она опирается.
+- **Не хватает информации — спросить пользователя**, а не заполнять пробел своей версией.
 
 ### Коммиты
 
