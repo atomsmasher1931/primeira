@@ -6,6 +6,8 @@ namespace App\Core\Client\Acquiring;
 
 use AcquiringBundle\Dto\SendInvoiceDto;
 use AcquiringBundle\Facade\AcquiringFacade;
+use DateTimeImmutable;
+use Throwable;
 
 /**
  * Клиент взаимодействия с эквайрингом
@@ -16,22 +18,36 @@ final readonly class AcquiringClient
 	{
 	}
 
+	/**
+	 * @throws AcquiringClientException
+	 */
 	public function sendInvoice(InvoiceDto $invoice): string
 	{
-		return $this->acquiring->sendInvoice(
-			new SendInvoiceDto(
-				$invoice->issuedDate,
-				$invoice->expiredDate,
-				$invoice->payerPhone,
-				$invoice->payerEmail,
-				$invoice->paymentOrderMessage,
-				$invoice->value,
-			)
-		);
+		try {
+			return $this->acquiring->sendInvoice(
+				new SendInvoiceDto(
+					$invoice->issuedDate,
+					$invoice->expiredDate,
+					$invoice->payerPhone,
+					$invoice->payerEmail,
+					$invoice->paymentOrderMessage,
+					$invoice->value,
+				)
+			);
+		} catch (Throwable $exception) {
+			throw new AcquiringClientException($exception->getMessage(), $exception);
+		}
 	}
 
-	public function checkPayment(string $acquireInvoiceId)
+	/**
+	 * @throws AcquiringClientException
+	 */
+	public function checkPayment(string $acquireInvoiceId): DateTimeImmutable
 	{
-		return $this->acquiring->checkPayment($acquireInvoiceId);
+		try {
+			return $this->acquiring->checkPayment($acquireInvoiceId);
+		} catch (Throwable $exception) {
+			throw new AcquiringClientException($exception->getMessage(), $exception);
+		}
 	}
 }

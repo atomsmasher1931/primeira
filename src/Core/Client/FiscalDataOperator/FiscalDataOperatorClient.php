@@ -6,6 +6,7 @@ namespace App\Core\Client\FiscalDataOperator;
 
 use FiscalDataOperatorBundle\Dto\SendReceiptDto;
 use FiscalDataOperatorBundle\Facade\FiscalDataOperatorFacade;
+use Throwable;
 
 final readonly class FiscalDataOperatorClient
 {
@@ -13,15 +14,22 @@ final readonly class FiscalDataOperatorClient
 	{
 	}
 
+	/**
+	 * @throws FiscalDataOperatorClientException
+	 */
 	public function sendReceipt(ReceiptDto $receipt): string
 	{
-		return $this->facade->sendReceipt(
-			new SendReceiptDto(
-				$receipt->paymentDate,
-				$receipt->payerName,
-				$receipt->paymentOrderMessage,
-				$receipt->value
-			)
-		);
+		try {
+			return $this->facade->sendReceipt(
+				new SendReceiptDto(
+					$receipt->paymentDate,
+					$receipt->payerName,
+					$receipt->paymentOrderMessage,
+					$receipt->value
+				)
+			);
+		} catch (Throwable $exception) {
+			throw new FiscalDataOperatorClientException($exception->getMessage(), $exception);
+		}
 	}
 }
