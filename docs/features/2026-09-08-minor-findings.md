@@ -2,7 +2,7 @@
 
 **Статус:** 🟡 В работе (не начато) \
 **Начато:** 2026-09-08 \
-**Обновлено:** 2026-09-17
+**Обновлено:** 2026-09-27
 
 ## Цель
 
@@ -17,7 +17,9 @@
 
 1. `src/Core/Client/Acquiring/AcquiringClient.php` — дать `checkPayment()` явный возвращаемый тип (уточнить, что реально возвращает `AcquiringFacade`, не оставлять неявный `mixed`).
 2. `src/Billing/Domain/Entity/Contract.php` — добавить return type `generateNumber()`, `activate()`, `changeTariff()`.
-3. `Contract` — оценить, стоит ли выносить delegate-геттеры (`getTariffId/Value/TypeName/DegreeName/StatusName`, `getMusicianId/Email/Phone`) в отдельный value object/DTO для нотификаций, или это осознанный компромисс ради удобства вызывающего кода. Это вопрос дизайна, не автоматический рефакторинг — решить перед тем, как трогать.
+3. ~~`Contract` — оценить delegate-геттеры~~ — вынесено в отдельную задачу [`2026-09-27-contract-delegate-getters.md`](2026-09-27-contract-delegate-getters.md) (другая по смыслу правка, в ветку `feature/strict-return-types` не входит).
+
+Ветка: `feature/strict-return-types` — пункты 1–2.
 
 ## Сделано
 
@@ -34,3 +36,4 @@
 ## Ссылки
 
 - Находка «🟢 Мелкие замечания» исходного ревью `/src` — перенесена сюда.
+- [`2026-09-27-contract-delegate-getters.md`](2026-09-27-contract-delegate-getters.md) — вынесенный пункт 3.
